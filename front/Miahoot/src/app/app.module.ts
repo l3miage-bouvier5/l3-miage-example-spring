@@ -21,12 +21,14 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.development';
 import { ConnexionAnonymeComponent } from './connexion-anonyme/connexion-anonyme.component';
 import { AccueilComponent } from './accueil/accueil.component';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnexionAnonymeComponent,
     AccueilComponent,
+    ConnexionComponent,
   ],
   imports: [
     BrowserModule,

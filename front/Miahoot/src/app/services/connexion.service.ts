@@ -79,6 +79,7 @@ export abstract class ConnexionService {
       return connexion;
   }
 
+  
   // Fonction logout() sert à déconnecter un utilisateur (concepteur ou presentateur)
   // @Entries 
   // @Output : Promise<void>
