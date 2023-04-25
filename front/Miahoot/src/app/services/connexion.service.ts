@@ -1,7 +1,7 @@
 import { MiahootConcepteur, MiahootUser } from '../miahoot';
 import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
-import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
+import { collection, collectionData, docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 
@@ -65,8 +65,8 @@ export abstract class ConnexionService {
   // @Entries email: string, password: string
   // @Output : Promise<MiahootConcepteur | void>
   async login(email: string, password: string): Promise<MiahootUser | void> {
-    const auth = getAuth();
-    const connexion = signInWithEmailAndPassword(auth, email, password)
+    
+    const connexion = signInWithEmailAndPassword(this.auth, email, password)
       .then((uc) => {
         // Signed in 
         const user = uc.user;
@@ -84,8 +84,8 @@ export abstract class ConnexionService {
   // @Entries 
   // @Output : Promise<void>
   async logout(): Promise<void> {
-    const auth = getAuth();
-    const deconnexion = signOut(auth).then(() => {
+
+    const deconnexion = signOut(this.auth).then(() => {
       // Sign-out successful.
       console.log("Sign out success !");
     }).catch((error) => {
@@ -98,23 +98,21 @@ export abstract class ConnexionService {
 
 
   // Fonction register() sert à enregistrer un nouvel utilisateur (concepteur ou presentateur)
-  // @Entries email: string, password: string
+  // @Entries name: string, email: string, password: string
   // @Output : Promise<MiahootUser | void>
-  async register(email: string, password: string): Promise<MiahootUser | void> {
-    const auth = getAuth();
-    const register = createUserWithEmailAndPassword(auth, email, password)
-      .then((uc) => {
-        // Signed in 
-        const user = uc.user;
-        console.log("Register success !", user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("Register failed ! ", errorCode, " ", errorMessage);
-      });
+  async register(name: string, email: string, password: string): Promise<MiahootUser | void> {
 
-      return register;
+    const register = await createUserWithEmailAndPassword(this.auth, email, password)
+    const user = register.user
+    if(user){
+      await updateDoc(doc(this.fs, 'users', user.uid), {name:name})
+    }
+    const res = {
+      name:user.displayName,
+      email:user.email
+    } as MiahootUser
+    
+      return res;
   };
 
 }

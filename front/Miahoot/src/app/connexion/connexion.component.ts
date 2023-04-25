@@ -46,6 +46,6 @@ export class ConnexionComponent {
   }
 
   register(){
-    this.connexionServ.register(this.fg.controls.email.value, this.fg.controls.password.value)
+    this.connexionServ.register(this.fg.controls.name.value, this.fg.controls.email.value, this.fg.controls.password.value)
   }
 }
