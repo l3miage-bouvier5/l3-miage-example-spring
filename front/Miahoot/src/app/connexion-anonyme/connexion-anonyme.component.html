@@ -1,0 +1,13 @@
+<p>
+    <ng-container *ngIf="user|async as U ; else unlogged">
+        <label for="name">Voici votre nom</label>
+        <input type="text" name="name" placeholder="{{name}}" [(ngModel)] = "name"/>
+        <button (click)="logout()" *ngIf="this.bsIsLoggedIn.value">Log out</button>
+    </ng-container>
+    <ng-template #unlogged>
+        <button (click)="loginAnonymously()" *ngIf="!this.bsIsLoggedIn.value">Log in anonymously</button>
+    </ng-template>
+</p>
+
+
+
