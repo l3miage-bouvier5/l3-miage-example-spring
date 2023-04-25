@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+    <h1>Miahoo</h1>
+    <ng-container *ngIf="user | async as U; else unlogged">
+        <div class="toolbar">
+            {{U.name}}
+        </div>
+        <button id="ppButton" [matMenuTriggerFor]="menu">Compte</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item ><a routerLink="accountConfig">My Account</a></button>
+            </mat-menu>
+    </ng-container>
+
+    <ng-template #unlogged>
+        <button mat-raised-button color="accent" routerLink="signIn">Sign in</button>
+        <button mat-raised-button color="accent" routerLink="register">Sign up</button>
+    </ng-template>
+</mat-toolbar>
+<router-outlet></router-outlet>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "projet-inte": {
+      "hosting": {
+        "Miahoot": [
+          "projet-inte"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "projet-inte"
+  }
+}
