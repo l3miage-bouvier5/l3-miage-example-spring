@@ -12,21 +12,21 @@ import { ConnexionService } from './services/connexion.service';
 export class AppComponent {
   public readonly user: Observable<MiahootUser | undefined> = null!;
   public bsIsAuth = new BehaviorSubject<boolean>(false)
-  public obs: Observable<MiahootUser | undefined>
+  // public obs: Observable<MiahootUser | undefined>
   constructor(connexionService: ConnexionService) {
-    this.obs = connexionService.obsMiahootConcepteur$;
+    // this.obs = connexionService.obsMiahootConcepteur$;
     
   }
 
-  login(): void {
-    this.obs.subscribe( u => {
-      if(u){
-        this.bsIsAuth.next(true)
-      } else{
-        this.bsIsAuth.next(false)
-      }
-    })
-  }
+  // login(): void {
+  //   this.obs.subscribe( u => {
+  //     if(u){
+  //       this.bsIsAuth.next(true)
+  //     } else{
+  //       this.bsIsAuth.next(false)
+  //     }
+  //   })
+  // }
 
 }
 

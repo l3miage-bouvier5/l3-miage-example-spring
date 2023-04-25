@@ -1,9 +1,8 @@
 import { MiahootConcepteur, MiahootUser } from '../miahoot';
-import { Injectable, OnInit } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
+import { Auth, authState, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
-import { FormControl, FormGroup } from '@angular/forms';
-import { doc, getDoc, setDoc, updateDoc } from '@firebase/firestore';
+import { doc, getDoc, setDoc } from '@firebase/firestore';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 
 
@@ -35,17 +34,19 @@ export abstract class ConnexionService {
       filter( u => !!u ),
       map( u => u as User ),
       tap( async u => {
-        const docUser =  doc(this.fs, `users/${u.uid}`).withConverter(conv) ;
-        const snapUser = await getDoc( docUser );
-        if (!snapUser.exists()) {
-          setDoc(docUser, {
-            name: u.displayName ?? u.email ?? u.uid,
-            email: u.email ?? "",
-            miahoots: []
-          } satisfies MiahootConcepteur)
+        if(!u.isAnonymous){
+          const docUser =  doc(this.fs, `users/${u.uid}`).withConverter(conv) ;
+          const snapUser = await getDoc( docUser );
+          if (!snapUser.exists()) {
+            setDoc(docUser, {
+              name: u.displayName ?? u.email ?? u.uid,
+              email: u.email ?? "",
+              miahoots: []
+            } satisfies MiahootConcepteur)
+        }
         }
       })
-    ).subscribe()
+      ).subscribe()
     this.obsMiahootConcepteur$ = authState(this.auth).pipe(
       switchMap( (user) => {
         if(user){

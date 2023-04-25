@@ -33,8 +33,8 @@ export class ConnexionAnonymeComponent implements OnDestroy {
     }
   }
   async loginAnonymously() {
+    await signInAnonymously(this.auth);
     this.bsIsLoggedIn.next(true)
-    return await signInAnonymously(this.auth);
   }
 
   async logout() {
