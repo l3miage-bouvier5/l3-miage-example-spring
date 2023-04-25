@@ -6,9 +6,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { getDoc } from 'firebase/firestore';
 import { BehaviorSubject, EMPTY, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataService } from './services/data.service';
 import { MiahootUser } from './miahoot';
-import { AuthenticationService } from './services/authentification.service';
 import { Router } from '@angular/router';
 
 @Component({
