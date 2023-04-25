@@ -20,14 +20,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.development';
 import { ConnectionUtilisateurComponent } from './connection-utilisateur/connection-utilisateur.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ConnectionUtilisateurComponent,
-    SignInComponent,
-    SignUpComponent
+    ConnectionUtilisateurComponent
   ],
   imports: [
     BrowserModule,
