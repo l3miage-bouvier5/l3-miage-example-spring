@@ -14,20 +14,9 @@ export class AppComponent {
   public bsIsAuth = new BehaviorSubject<boolean>(false)
   constructor() {
   // public obs: Observable<MiahootUser | undefined>
-  constructor(connexionService: ConnexionService) {
     // this.obs = connexionService.obsMiahootConcepteur$;
     
   }
-
-  // login(): void {
-  //   this.obs.subscribe( u => {
-  //     if(u){
-  //       this.bsIsAuth.next(true)
-  //     } else{
-  //       this.bsIsAuth.next(false)
-  //     }
-  //   })
-  // }
 
 }
 
