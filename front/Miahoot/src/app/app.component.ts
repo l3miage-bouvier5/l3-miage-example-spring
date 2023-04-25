@@ -1,13 +1,7 @@
 import { ChangeDetectionStrategy, Component} from '@angular/core';
-import { firebaseApp$ } from '@angular/fire/app';
-import { Auth, authState, signOut, User, GoogleAuthProvider, signInWithPopup, UserCredential } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { getDoc } from 'firebase/firestore';
-import { BehaviorSubject, EMPTY, Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MiahootUser } from './miahoot';
-import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MiahootConcepteur, MiahootUser } from './miahoot';
+import { ConnexionService } from './services/connexion.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +12,21 @@ import { Router } from '@angular/router';
 export class AppComponent {
   public readonly user: Observable<MiahootUser | undefined> = null!;
   public bsIsAuth = new BehaviorSubject<boolean>(false)
-  constructor() {}
+  public obs: Observable<MiahootUser | undefined>
+  constructor(connexionService: ConnexionService) {
+    this.obs = connexionService.obsMiahootConcepteur$;
+    
+  }
 
-
+  login(): void {
+    this.obs.subscribe( u => {
+      if(u){
+        this.bsIsAuth.next(true)
+      } else{
+        this.bsIsAuth.next(false)
+      }
+    })
+  }
 
 }
 

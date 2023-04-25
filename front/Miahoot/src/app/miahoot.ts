@@ -16,10 +16,10 @@ export interface Miahoot {
 
 export interface MiahootUser {
     readonly name: string
-    readonly photo: string
 }
 
 export interface MiahootConcepteur extends MiahootUser {
+    readonly email: string
     readonly miahoots: Miahoot[]
 }
 
