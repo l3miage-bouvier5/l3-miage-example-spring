@@ -1,1 +1,14 @@
-<p>connexion works!</p>
+
+<div [formGroup] = "fg" class="account-form">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Username">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [formControl]="fg.controls.email"/>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="password" [formControl]="fg.controls.password"/>
+      </mat-form-field>
+    <button mat-raised-button color="primary" (click)="login()">Save</button>
+
+  </div>
