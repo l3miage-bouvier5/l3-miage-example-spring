@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <h1>Miahoot</h1>
+    <h1><a routerLink="">Miahoot</a></h1>
     <ng-container *ngIf="user | async as U; else unlogged">
         <div class="toolbar">
             {{U.name}}
@@ -11,8 +11,8 @@
     </ng-container>
 
     <ng-template #unlogged>
-        <button mat-raised-button color="accent" routerLink="signIn">Sign in</button>
-        <button mat-raised-button color="accent" routerLink="register">Sign up</button>
+        <button mat-raised-button color="accent" routerLink="connexionAnonyme">Connexion</button>
     </ng-template>
 </mat-toolbar>
+
 <router-outlet></router-outlet>

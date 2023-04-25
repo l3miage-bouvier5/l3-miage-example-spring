@@ -19,12 +19,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.development';
-import { ConnectionUtilisateurComponent } from './connection-utilisateur/connection-utilisateur.component';
+import { ConnexionAnonymeComponent } from './connexion-anonyme/connexion-anonyme.component';
+import { AccueilComponent } from './accueil/accueil.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnectionUtilisateurComponent
+    ConnexionAnonymeComponent,
+    AccueilComponent,
   ],
   imports: [
     BrowserModule,
