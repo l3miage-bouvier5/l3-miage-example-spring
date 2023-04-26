@@ -26,7 +26,6 @@ export class ConnexionAnonymeComponent implements OnDestroy {
         this.bsIsLoggedIn.next(isLoggedIn);
       });
     }
-
   ngOnDestroy(): void {
     if (this.userDisposable) {
       this.userDisposable.unsubscribe();

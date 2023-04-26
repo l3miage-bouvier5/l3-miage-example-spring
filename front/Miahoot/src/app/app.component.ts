@@ -12,10 +12,9 @@ import { ConnexionService } from './services/connexion.service';
 export class AppComponent {
   public readonly user: Observable<MiahootUser | undefined> = null!;
   public bsIsAuth = new BehaviorSubject<boolean>(false)
-  constructor() {
+  
   // public obs: Observable<MiahootUser | undefined>
     // this.obs = connexionService.obsMiahootConcepteur$;
-    
   }
 
 }
