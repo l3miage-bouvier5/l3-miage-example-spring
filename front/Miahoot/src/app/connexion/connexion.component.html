@@ -1,5 +1,9 @@
-
-<div [formGroup] = "fg" class="account-form">
+<ng-container *ngIf="user|async as U; else unlogged">
+  <p>ton id {{U.name}}</p>
+  <button (click)="logout()" *ngIf="this.bsIsLoggedIn.value">Log out</button>
+</ng-container>
+<ng-template #unlogged>
+  <div [formGroup] = "fg" class="account-form">
     <mat-form-field>
       <input matInput type="text" placeholder="Username" [formControl]="fg.controls.name">
     </mat-form-field>
@@ -14,12 +18,5 @@
     <button mat-raised-button color="primary" (click)="logout()">Log out</button>
 
   </div>
-  <p>
-    <ng-container *ngIf="user; else unlogged">
-        <p>ton id {{user.name}}</p>
-        <button (click)="logout()" *ngIf="this.bsIsLoggedIn.value">Log out</button>
-    </ng-container>
-    <ng-template #unlogged>
-        <button (click)="loginAnonymously()" *ngIf="!this.bsIsLoggedIn.value">Log in anonymously</button>
-    </ng-template>
-</p>
+  <button (click)="loginAnonymously()" *ngIf="!this.bsIsLoggedIn.value">Log in anonymously</button>
+</ng-template>

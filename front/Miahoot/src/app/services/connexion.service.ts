@@ -1,7 +1,7 @@
 import { MiahootConcepteur, MiahootUser } from '../miahoot';
 import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
-import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
+import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ConnexionService } from '../services/connexion.service';
-import { MiahootUser } from '../miahoot';
+import { MiahootConcepteur, MiahootUser } from '../miahoot';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Auth, signInAnonymously, signOut } from '@angular/fire/auth';
 
 @Component({
@@ -11,7 +11,7 @@ import { Auth, signInAnonymously, signOut } from '@angular/fire/auth';
   styleUrls: ['./connexion.component.scss']
 })
 export class ConnexionComponent {
-  user !: MiahootUser;
+  user !: Observable<MiahootConcepteur |undefined>;
 
   bsIsLoggedIn = new BehaviorSubject<boolean>(false);
 
@@ -26,13 +26,14 @@ export class ConnexionComponent {
   constructor(private connexionServ: ConnexionService,
               private fb: FormBuilder,
               private auth : Auth) {
-      this.connexionServ.obsMiahootConcepteur$.subscribe(
+      this.user = this.connexionServ.obsMiahootConcepteur$;
+      this.user.subscribe(
         u => {
           if( u === undefined){
           this.fg.controls.name.setValue("")
           this.fg.controls.email.setValue("")
           this.fg.controls.password.setValue("")
-        } else {
+        } else{
           this.fg.controls.name.setValue(u.name)
           this.fg.controls.email.setValue(u.email)
         }
