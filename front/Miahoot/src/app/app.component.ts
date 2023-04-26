@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MiahootConcepteur, MiahootUser } from './miahoot';
 import { ConnexionService } from './services/connexion.service';
+import { Auth, User, authState } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,15 @@ import { ConnexionService } from './services/connexion.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public readonly user: Observable<MiahootUser | undefined> = null!;
+  public readonly user: Observable<User | null>
   public bsIsAuth = new BehaviorSubject<boolean>(false)
-  
-  // public obs: Observable<MiahootUser | undefined>
-    // this.obs = connexionService.obsMiahootConcepteur$;
-  }
 
+  constructor(private connexionService: ConnexionService, private auth: Auth) {
+    this.user = authState(auth)
+    if(this.user){
+      console.log("user is auth");
+    }
+  }
 }
+
 

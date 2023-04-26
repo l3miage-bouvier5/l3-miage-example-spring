@@ -12,3 +12,12 @@
     <button mat-raised-button color="primary" (click)="login()">Save</button>
 
   </div>
+  <p>
+    <ng-container *ngIf="user; else unlogged">
+        <p>ton id {{user.name}}</p>
+        <button (click)="logout()" *ngIf="this.bsIsLoggedIn.value">Log out</button>
+    </ng-container>
+    <ng-template #unlogged>
+        <button (click)="loginAnonymously()" *ngIf="!this.bsIsLoggedIn.value">Log in anonymously</button>
+    </ng-template>
+</p>

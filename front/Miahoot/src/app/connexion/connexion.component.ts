@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ConnexionService } from '../services/connexion.service';
 import { MiahootUser } from '../miahoot';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { Auth, signInAnonymously, signOut } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-connexion',
@@ -11,6 +13,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class ConnexionComponent {
   user !: MiahootUser;
 
+  bsIsLoggedIn = new BehaviorSubject<boolean>(false);
+
+
 
   public fg: FormGroup<{
     name: FormControl<string>,
@@ -19,7 +24,8 @@ export class ConnexionComponent {
   }>;
 
   constructor(private connexionServ: ConnexionService,
-    private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private auth : Auth) {
       this.connexionServ.obsMiahootConcepteur$.subscribe(
         u => {
           if( u === undefined){
@@ -32,6 +38,8 @@ export class ConnexionComponent {
         }
       }
       )
+
+
 
     this.fg = fb.nonNullable.group({
       name: [""],
@@ -47,5 +55,15 @@ export class ConnexionComponent {
 
   register(){
     this.connexionServ.register(this.fg.controls.email.value, this.fg.controls.password.value)
+  }
+
+  async loginAnonymously() {
+    await this.connexionServ.loginAnonymously()
+    this.bsIsLoggedIn.next(true)
+  }
+
+  async logout() {
+    await this.connexionServ.logout()
+    this.bsIsLoggedIn.next(false)
   }
 }

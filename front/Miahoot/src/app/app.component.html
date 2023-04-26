@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
     <h1><a routerLink="">Miahoot</a></h1>
-    <button mat-raised-button color="accent" routerLink="connexionAnonyme">Connexion</button>
+    
+    <section *ngIf="user | async as U">
+        <div class="toolbar">{{U.displayName}}</div>
+    </section>
 </mat-toolbar>
 <router-outlet></router-outlet>

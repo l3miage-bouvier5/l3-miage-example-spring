@@ -1,6 +1,6 @@
 import { MiahootConcepteur, MiahootUser } from '../miahoot';
 import { Injectable } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
@@ -35,7 +35,7 @@ export abstract class ConnexionService {
       map( u => u as User ),
       tap( async u => {
         if(!u.isAnonymous){
-          const docUser =  doc(this.fs, `users/${u.uid}`).withConverter(conv) ;
+          const docUser =  doc(this.fs, `concepteurs/${u.uid}`).withConverter(conv) ;
           const snapUser = await getDoc( docUser );
           if (!snapUser.exists()) {
             setDoc(docUser, {
@@ -50,7 +50,7 @@ export abstract class ConnexionService {
     this.obsMiahootConcepteur$ = authState(this.auth).pipe(
       switchMap( (user) => {
         if(user){
-          const userRef = doc(this.fs , `users/${user.uid}`).withConverter(conv)
+          const userRef = doc(this.fs , `concepteurs/${user.uid}`).withConverter(conv)
           const userData$ = docData(userRef)
           return userData$
         } else{
@@ -65,8 +65,7 @@ export abstract class ConnexionService {
   // @Entries email: string, password: string
   // @Output : Promise<MiahootConcepteur | void>
   async login(email: string, password: string): Promise<MiahootUser | void> {
-    const auth = getAuth();
-    const connexion = signInWithEmailAndPassword(auth, email, password)
+    const connexion = signInWithEmailAndPassword(this.auth, email, password)
       .then((uc) => {
         // Signed in 
         const user = uc.user;
@@ -80,12 +79,24 @@ export abstract class ConnexionService {
   }
 
   
+  async loginAnonymously() {
+    signInAnonymously(this.auth)
+      .then((uc) => {
+        // Signed in
+        const user = uc.user;
+        console.log("Connexion success !", user);
+      })
+      .catch((error) => {
+        console.log("Conexion failed ! ", error.code, " ", error.message);
+      });
+      
+    }
+  
   // Fonction logout() sert à déconnecter un utilisateur (concepteur ou presentateur)
   // @Entries 
   // @Output : Promise<void>
   async logout(): Promise<void> {
-    const auth = getAuth();
-    const deconnexion = signOut(auth).then(() => {
+    const deconnexion = signOut(this.auth).then(() => {
       // Sign-out successful.
       console.log("Sign out success !");
     }).catch((error) => {
