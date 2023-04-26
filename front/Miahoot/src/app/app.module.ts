@@ -20,13 +20,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.development';
 import { AccueilComponent } from './accueil/accueil.component';
-import { ConnexionComponent } from './connexion/connexion.component';
+import { LoginWithAdresseMailComponent } from './login-with-adresse-mail/login-with-adresse-mail.component';
+import { LoggedComponent } from './logged/logged.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccueilComponent,
-    ConnexionComponent,
+    LoginWithAdresseMailComponent,
+    LoggedComponent,
   ],
   imports: [
     BrowserModule,

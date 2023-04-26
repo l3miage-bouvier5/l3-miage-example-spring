@@ -1,3 +1,5 @@
+import { FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions } from "@angular/fire/firestore"
+
 export interface Question {
     readonly label: string
     readonly reponses: Reponse[]
@@ -15,13 +17,21 @@ export interface Miahoot {
 
 
 export interface MiahootUser {
-    readonly name: string
+    name: string
+    email: string
+    miahootProjected: string
+    photoURL: string
 }
 
-export interface MiahootConcepteur extends MiahootUser {
-    readonly email: string
-    readonly miahoots: Miahoot[]
+export const conv : FirestoreDataConverter<MiahootUser> = {
+    toFirestore : val => val,
+    fromFirestore: snap => ({
+      name : snap.get("name"),
+      email : snap.get("email"),
+      miahootProjected : snap.get("miahootProjected"),
+      photoURL : snap.get("photoURL")})
 }
+  
 
 
 

@@ -1,8 +1,27 @@
 <mat-toolbar color="primary">
-    <h1><a routerLink="">Miahoot</a></h1>
+    <a routerLink=""><h1>Miahoot</h1></a>
     
-    <section *ngIf="user | async as U">
-        <div class="toolbar">{{U.displayName}}</div>
-    </section>
+    <ng-container *ngIf="this.user | async as U; else unlogged">
+        <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toAccountConfig()">My Account</button>
+            <button mat-menu-item (click)="logout()">Log out</button>
+          </mat-menu>
+    </ng-container>
+
+    <ng-template #unlogged>
+        <button id="ppButton" [matMenuTriggerFor]="menuLogin"><img id="pp" src="https://tse1.mm.bing.net/th?id=OIP.SAmV4SP8qRf60MUdZJtg-AHaHa&pid=Api" alt=""></button>
+        <mat-menu #menuLogin="matMenu">
+            <button mat-menu-item (click)="loginGoogle()">Google</button>
+            <button mat-menu-item (click)="loginWithAdresseMail()">Adresse Mail</button>
+        </mat-menu>
+    </ng-template>
 </mat-toolbar>
+
+<mat-progress-spinner *ngIf="bsIsAuth | async" mode="indeterminate">
+   En cours d'authentification...
+</mat-progress-spinner>
+
+
+
 <router-outlet></router-outlet>

@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Auth, authState, GoogleAuthProvider, signInWithPopup, signOut, User } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ConnexionService } from './services/connexion.service';
-import { Auth, User, authState } from '@angular/fire/auth';
+import { MiahootUser } from './miahoot';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +12,33 @@ import { Auth, User, authState } from '@angular/fire/auth';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public readonly user: Observable<User | null>
-  public bsIsAuth = new BehaviorSubject<boolean>(false)
+  public readonly user: Observable<MiahootUser | undefined>;
+  public bsIsAuth = new BehaviorSubject<boolean>( false );
 
-  constructor(private connexionService: ConnexionService, private auth: Auth) {
-    this.user = authState(auth)
-    if(this.user){
-      console.log("user is auth");
-    }
+  
+  constructor(private router :Router, private connexService : ConnexionService) {
+    this.user = this.connexService.obsMiahootConcepteur$;
+  }
+
+  async loginGoogle() {
+    this.bsIsAuth.next(true);
+    this.connexService.loginGoogle()
+    this.bsIsAuth.next(false);
+  }
+
+  async logout() {
+    this.connexService.logout()
+  }
+
+
+  loginWithAdresseMail() {
+    this.router.navigateByUrl("loginWithAdresseMail")
+  }
+
+  toAccountConfig(){
+    this.router.navigateByUrl("accountConfig")
   }
 }
+
 
 
