@@ -1,1 +1,39 @@
-<p>logged works!</p>
+<section>
+    <div *ngIf="obsProjectedQCM | async as QCM; else NoQCMProjected">
+        <div class="question">
+            Question du QCM : {{ QCM.question }}
+            <div class="container">
+                <ul class="liste">
+                    <li class="reponses" *ngFor="let answer of QCM.responses; index as index">
+                        {{index + 1}}     :    {{ answer }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+            <mat-tab *ngFor="let vote of QCM.votes ; index as index" label="Réponse à la question numéro {{index + 1}}">
+                <div class="votes">
+                    <div class="container" *ngFor="let key of vote | keyvalue">
+                        {{ key.key }}
+                    </div>
+                </div>
+            </mat-tab>
+          </mat-tab-group>
+        <!-- <div class="votes">
+            <div class = "container-vote" *ngFor="let vote of QCM.votes; index as index">
+                Participants ayant voté pour la réponse {{ index + 1 }} :
+                <div class="container" *ngFor="let key of vote | keyvalue">
+                    {{ key.key }}
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    
+    <ng-template #NoMiahootProjected>
+        <h1>No Miahoot projected</h1>
+    </ng-template>
+    <ng-template #NoQCMProjected>
+        <h1>No QCM projected</h1>
+    </ng-template>
+</section>

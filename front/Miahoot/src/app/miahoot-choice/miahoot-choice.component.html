@@ -1,0 +1,21 @@
+<section class="container">
+    <div class="miahoot"
+         *ngFor="let miahoot of miahoots">
+        {{miahoot.nom}}
+        <div class="questions">
+            <div class="question" *ngFor="let question of miahoot.questions">
+                {{question.label}}
+                <div class="reponses">
+                    <div class="reponse" *ngFor="let reponse of question.reponses">
+                        <img *ngIf = "reponse.estValide ; else nonValide" class="good-answer" src="https://fotomelia.com/wp-content/uploads/2017/02/clipart-images-gratuites-libres-de-droits-14-400x300.png" alt="">
+                        <ng-template #nonValide>
+                            <img class="wrong-answer" src="https://www.pngmart.com/files/3/Cancel-Button-PNG-Photos.png" alt="">
+                        </ng-template>
+                        
+                        {{reponse.label}} 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -48,12 +48,12 @@ export class LoginWithAdresseMailComponent {
 
   login() {
     this.connexionServ.loginWithAdresseMail(this.fg.controls.email.value, this.fg.controls.password.value)
-    this.router.navigateByUrl("")
+    this.router.navigateByUrl("miahootChoice")
   }
 
   register(){
     this.connexionServ.register(this.fg.controls.email.value, this.fg.controls.password.value)
-    this.router.navigateByUrl("")
+    this.router.navigateByUrl("miahootChoice")
   }
 
   async logout() {

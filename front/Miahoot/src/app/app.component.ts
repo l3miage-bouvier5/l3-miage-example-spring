@@ -38,6 +38,9 @@ export class AppComponent {
   toAccountConfig(){
     this.router.navigateByUrl("accountConfig")
   }
+  toMesMiahoots(){
+    this.router.navigateByUrl("miahootChoice")
+  }
 }
 
 
