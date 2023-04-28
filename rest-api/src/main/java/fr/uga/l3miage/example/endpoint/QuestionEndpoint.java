@@ -1,14 +1,17 @@
 package fr.uga.l3miage.example.endpoint;
 
 import fr.uga.l3miage.example.annotations.Error400Custom;
-import fr.uga.l3miage.example.error.DescriptionAlreadyUseErrorResponse;
-import fr.uga.l3miage.example.error.IsNotTestErrorResponse;
-import fr.uga.l3miage.example.error.TestIntIsZeroErrorResponse;
+import fr.uga.l3miage.example.error.*;
+import fr.uga.l3miage.example.response.Question;
+import fr.uga.l3miage.example.response.Test;
 import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -66,6 +69,8 @@ public interface QuestionEndpoint {
      * </ul>
      *
      */
+
+    //POST
     @Operation(description = "Création d'une entité question")
     @ApiResponse(responseCode = "201", description = "L'entité Test a bien été crée.")
     @Error400Custom
@@ -110,6 +115,17 @@ public interface QuestionEndpoint {
     @PostMapping
     void createEntityTest(@Valid @RequestBody CreateQuestionRequest request);
     /////////////////////// post {ipDuServeur}:{port}/api/v0/question ######################
+
+
+    //GET
+    @Operation(description = "Récupérer le DTO de l'entité test qui a pour id celui passé en paramètre")
+    @ApiResponse(responseCode = "200", description = "Renvoie le DTO de l'entité test demandée",
+            content = @Content(schema = @Schema(implementation = Question.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @ApiResponse(responseCode = "404", description = "Renvoie une erreur 404 si l'entité n'est pas trouvée",
+            content = @Content(schema = @Schema(implementation = QuestionNotFoundErrorResponse.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("{label}")
+    Question getEntityQuestion(@PathVariable String label);
 
 
 }

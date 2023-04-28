@@ -25,7 +25,8 @@ public class ReponseComponent {
         return reponseRepository.findByLabel(label)
                 .orElseThrow(() -> new ReponseEntityNotFoundException(String.format("Aucune entité n'a été trouvée pour le label [%s]", label), label));
     }
-public void createReponse(final ReponseEntity entity) throws LabelAlreadyExistException {
+
+    public void createReponse(final ReponseEntity entity) throws LabelAlreadyExistException {
         if (reponseRepository.findByLabel(entity.getLabel()).isPresent()) {
             throw new LabelAlreadyExistException(String.format("Le label %s existe déjà en BD.", entity.getLabel()), entity.getLabel());
         }
