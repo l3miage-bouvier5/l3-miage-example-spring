@@ -2,6 +2,8 @@ package fr.uga.l3miage.example.controller;
 
 import fr.uga.l3miage.example.endpoint.ExampleEndpoint;
 import fr.uga.l3miage.example.endpoint.QuestionEndpoint;
+import fr.uga.l3miage.example.models.QuestionEntity;
+import fr.uga.l3miage.example.response.Question;
 import fr.uga.l3miage.example.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +24,12 @@ public class QuestionController implements QuestionEndpoint {
 
     @Override
     public void createEntityQuestion(String label) {
-
         questionService.createQuestion(label);
+    }
+
+
+    @Override
+    public Question getEntityQuestion(String label){
+        return questionService.getQuestion(label);
     }
 }

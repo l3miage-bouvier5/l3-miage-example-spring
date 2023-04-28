@@ -24,21 +24,7 @@ import org.springframework.stereotype.Component;
 public class QuestionComponent {
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
-    /**
-     * Ici le String helloWord est directement injecté par contructeur (via le constructeur construit par l'annotation {@link RequiredArgsConstructor}) car un bean de type String est défini dans {@link HelloWordConfig}
-     */
-    private final String helloWord;
 
-
-    /**
-     * @param isInError si nous voulons une erreur ou non
-     * @return "Hello word"
-     * @throws IsInErrorException si isInError est égale à <b>true</b>
-     */
-    public String getHelloWord(boolean isInError) throws IsInErrorException {
-        if (!isInError) return helloWord;
-        throw new IsInErrorException("Le client a demandé d'être en erreur");
-    }
 
     /**
      * @param label de l'entité Test à récupérer
