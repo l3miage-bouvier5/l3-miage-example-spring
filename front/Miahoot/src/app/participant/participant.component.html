@@ -1,5 +1,9 @@
 <div *ngIf="obsCurrentQCM | async as QCM ; else NoQCMProjected"> 
     {{QCM.question}}
+    <div *ngFor="let answer of QCM.responses; index as i">
+        <label>{{answer}}</label>
+        <button (click)="vote(i)">Vote</button>
+    </div>
 </div>
 <ng-template #NoQCMProjected>
   <div class="alert alert-danger" role="alert">

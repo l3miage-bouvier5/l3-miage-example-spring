@@ -30,7 +30,6 @@ export type VOTES = {
 
 
 
-
 export interface QCMProjected {
   question: string;
   responses: string[]; // Les réponses possibles
@@ -70,8 +69,6 @@ export const FsQCMProjectedConverter: FirestoreDataConverter<QCMProjected> = {
       votes: snap.get("votes"),
   })
 }
-
-
 
 
 
