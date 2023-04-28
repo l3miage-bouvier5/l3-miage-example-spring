@@ -4,6 +4,7 @@ import fr.uga.l3miage.example.annotations.Error400Custom;
 import fr.uga.l3miage.example.error.DescriptionAlreadyUseErrorResponse;
 import fr.uga.l3miage.example.error.IsNotTestErrorResponse;
 import fr.uga.l3miage.example.error.TestIntIsZeroErrorResponse;
+import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -71,6 +72,44 @@ public interface QuestionEndpoint {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("{label}")
     void createEntityQuestion(@NotNull @PathVariable String label);
+
+
+
+    /**
+     * Ici on définit un endpoint en mode <b>POST</b> pour créer une entité Test<br>
+     *
+     * @param request correspond à la requête à effectuer avec les informations utiles pour la création d'une entité Test
+     * @return En cas <b color="red">d'erreur</b>:<br>
+     * <ul>
+     *     <li>{@link IsNotTestErrorResponse} si le champ isTest est égal  à false</li>
+     *     <li>{@link TestIntIsZeroErrorResponse} si la somme des 2 entiers de la requête est égale à 0</li>
+     *     <li>{@link DescriptionAlreadyUseErrorResponse} si la description existe déjà en BD</li>
+     * </ul>
+     *
+     * Les annotations :
+     * <ul>
+     *     <li>{@link Operation} permet de créer une description de l'opération de ce endpoint dans le swagger<br>
+     *     La <a href="https://docs.swagger.io/swagger-core/v2.0.0-RC3/apidocs/io/swagger/v3/oas/annotations/Operation.html">doc</a> !</li>
+     *     <li>{@link ApiResponse} permet de documenter les réponses prévues par l'API</li>
+     *     <li>{@link Error400Custom} Annotation custom créée afin de faire un raccourci d'annotations</li>
+     *     <li>{@link ResponseStatus} permet de renvoyer le statut http donné si l'appel s'est bien passé<br>Ici on renverra un statut 201 si tout s'est bien passé !<br>
+     *     La <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseStatus.html">doc</a> !
+     *     <li>{@link PostMapping} permet de spécifier dans quelle méthode http ce endpoint doit être utilisé<br>Ici ce endpoint est en mode <b>POST</b><br>
+     *     La <a href="">doc</a> !</li>
+     *     </li>
+     *     <li>{@link RequestBody} Permet de dire à spring de trouver le paramètre request dans les corps de la requête REST <br>
+     *     La <a href="">doc</a> !</li>
+     *     <li>{@link Valid} si vous rajoutez un validateur elle permet de vérifier que tous les champs sont conformes à vos attentes (NonNull, NotBlank, etc...)</li>
+     * </ul>
+     *
+     */
+    @Operation(description = "Création d'une entité Question comportant des réponses")
+    @ApiResponse(responseCode = "201", description = "L'entité Question a bien été crée ainsi que ses réponses.")
+    @Error400Custom
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    void createEntityTest(@Valid @RequestBody CreateQuestionRequest request);
+    /////////////////////// post {ipDuServeur}:{port}/api/v0/question ######################
 
 
 }

@@ -4,6 +4,8 @@ import fr.uga.l3miage.example.component.QuestionComponent;
 import fr.uga.l3miage.example.exception.rest.LabelAlreadyExistRestException;
 import fr.uga.l3miage.example.exception.technical.LabelAlreadyExistException;
 import fr.uga.l3miage.example.mapper.QuestionMapper;
+import fr.uga.l3miage.example.models.QuestionEntity;
+import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -38,4 +40,15 @@ public class QuestionService {
                 throw new LabelAlreadyExistRestException(ERROR_DETECTED,label,ex);
             }
     }
+
+    /**
+     * @param entity à créer en base de données
+     */
+    public void createQuestion(final CreateQuestionRequest questionRequest) { 
+        QuestionEntity newQuestionEntity = questionMapper.toEntity(questionRequest);
+
+        questionComponent.createQuestion(newQuestionEntity);
+    }
+
+
 }

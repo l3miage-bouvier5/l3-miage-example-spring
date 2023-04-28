@@ -63,5 +63,14 @@ public class QuestionComponent {
         questionRepository.save(newQuestion);
     }
 
+    /**
+     * @param entity à créer en base de données
+     */
+    public void createQuestion(final QuestionEntity entity) {
+        questionRepository.save(entity);
+    }
+
+
+
 
 }

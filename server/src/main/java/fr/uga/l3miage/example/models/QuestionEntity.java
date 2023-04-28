@@ -3,7 +3,9 @@ package fr.uga.l3miage.example.models;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class QuestionEntity {
 
     private String label;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ReponseEntity> reponses;
 
 
