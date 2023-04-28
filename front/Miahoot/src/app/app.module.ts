@@ -22,6 +22,12 @@ import { environment } from 'src/environments/environment.development';
 import { AccueilComponent } from './accueil/accueil.component';
 import { LoginWithAdresseMailComponent } from './login-with-adresse-mail/login-with-adresse-mail.component';
 import { LoggedComponent } from './logged/logged.component';
+import { ConceptionMiahootComponent } from './conception-miahoot/conception-miahoot.component';
+import {
+  HighlightModule,
+  HIGHLIGHT_OPTIONS,
+  HighlightOptions,
+} from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [
@@ -29,6 +35,7 @@ import { LoggedComponent } from './logged/logged.component';
     AccueilComponent,
     LoginWithAdresseMailComponent,
     LoggedComponent,
+    ConceptionMiahootComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,8 +56,23 @@ import { LoggedComponent } from './logged/logged.component';
     MatRadioModule,
     FormsModule, 
     ReactiveFormsModule,
+    HighlightModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: <HighlightOptions>{
+        lineNumbers: true,
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        // lineNumbersLoader: () => import('highlightjs-line-numbers.js'),
+        themePath: 'node_modules/highlight.js/styles/github.css',
+        languages: {
+          json: () => import('highlight.js/lib/languages/json'),
+
+        },
+      },
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

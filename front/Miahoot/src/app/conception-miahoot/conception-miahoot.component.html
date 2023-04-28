@@ -1,0 +1,9 @@
+<h3>Main working!</h3>
+
+<code [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
+
+
+<button>Change theme</button>
+
+<h4>Highlight response</h4>
+<pre>{{ response | json }}</pre>
