@@ -1,3 +1,8 @@
 <section>
-    accueil works!
+    <input [(ngModel)] = "miahootId" placeholder="L'id du miahoot"/>
+    <input [(ngModel)]="nom" placeholder="Votre pseudonyme"/>
+
+
+    <button (click) = "enregristrerInfo(miahootId,nom)">Participer au miahoot</button>
+    <pre>Id : {{recupererInfo()[0]}}, nom : {{recupererInfo()[1]}}</pre>
 </section>
