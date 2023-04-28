@@ -5,6 +5,7 @@ import { LoginWithAdresseMailComponent } from './login-with-adresse-mail/login-w
 import { ConceptionMiahootComponent } from './conception-miahoot/conception-miahoot.component';
 import { LoggedComponent } from './logged/logged.component';
 import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
+import { ParticipantComponent } from './participant/participant.component';
 
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: "miahootChoice", component: MiahootChoiceComponent},
   {path: "logged", component: LoggedComponent},
   {path:"conceptionMiahoot", component: ConceptionMiahootComponent},
+  {path : "participer", component: ParticipantComponent},
   {path:"**", component: AccueilComponent}
 ];
 

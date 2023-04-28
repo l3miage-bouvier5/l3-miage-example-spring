@@ -31,6 +31,7 @@ import {
   HighlightOptions,
 } from 'ngx-highlightjs';
 import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
+import { ParticipantComponent } from './participant/participant.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.componen
     LoginWithAdresseMailComponent,
     LoggedComponent,
     ConceptionMiahootComponent,
-    MiahootChoiceComponent
+    MiahootChoiceComponent,
+    ParticipantComponent
   ],
   imports: [
     BrowserModule,

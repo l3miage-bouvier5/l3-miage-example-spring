@@ -28,6 +28,7 @@ export class AppComponent {
 
   async logout() {
     this.connexService.logout()
+    this.router.navigateByUrl("accueil")
   }
 
 
