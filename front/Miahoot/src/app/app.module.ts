@@ -60,7 +60,8 @@ import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.componen
     MatRadioModule,
     FormsModule, 
     ReactiveFormsModule,
-    HighlightModule
+    HighlightModule,
+    MatTabsModule
   ],
   providers: [
     {
