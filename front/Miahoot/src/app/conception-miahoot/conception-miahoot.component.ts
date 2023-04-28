@@ -5,7 +5,7 @@ import { HighlightLoader, HighlightAutoResult } from 'ngx-highlightjs';
 const themeAndroidStudio: string = 'node_modules/highlight.js/styles/androidstudio.css';
 const themeGithub: string = 'node_modules/highlight.js/styles/github.css';
 
-// 
+
 @Component({
   selector: 'app-conception-miahoot',
   templateUrl: './conception-miahoot.component.html',
@@ -13,10 +13,11 @@ const themeGithub: string = 'node_modules/highlight.js/styles/github.css';
 })
 export class ConceptionMiahootComponent {
   response!: HighlightAutoResult;
+  isJSON: boolean = false;
 
   code = `{
-  "name": "ngx-highlightjs",
-  "version": "1.0.0",
+  "Question": "exemple ?",
+  "reponse": "oui",
 }`;
 
   currentTheme: string = themeGithub;
