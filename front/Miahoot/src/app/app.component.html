@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
     <a routerLink=""><h1>Miahoot</h1></a>
     
     <ng-container *ngIf="this.user | async as U; else unlogged">
@@ -16,7 +16,32 @@
             <button mat-menu-item (click)="loginWithAdresseMail()">Adresse Mail</button>
         </mat-menu>
     </ng-template>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<ul>
+    <li><a routerLink=""><h3>MIAHOOT</h3></a></li>
+
+    <ng-container *ngIf="this.user | async as U; else unlogged">
+        <li>
+            <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="toMesMiahoots()">Mes Miahoots</button>
+                <button mat-menu-item (click)="toAccountConfig()">My Account</button>
+                <button mat-menu-item (click)="logout()">Log out</button>
+            </mat-menu>
+        </li>
+    </ng-container>
+
+    <ng-template #unlogged>
+        <li>
+            <button id="ppButton" [matMenuTriggerFor]="menuLogin"><img id="pp" src="https://clipground.com/images/user-login-icon-png-1.png" alt=""></button>
+            <mat-menu #menuLogin="matMenu">
+                <button mat-menu-item (click)="loginGoogle()">Se connecter avec Google</button>
+                <button mat-menu-item (click)="loginWithAdresseMail()">Se connecter avec adresse mail</button>
+            </mat-menu>
+        </li>
+    </ng-template>
+</ul>
 
 <mat-progress-spinner *ngIf="bsIsAuth | async" mode="indeterminate">
    En cours d'authentification...

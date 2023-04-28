@@ -16,6 +16,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatTabsModule} from '@angular/material/tabs';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment.development';
@@ -28,6 +30,7 @@ import {
   HIGHLIGHT_OPTIONS,
   HighlightOptions,
 } from 'ngx-highlightjs';
+import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import {
     LoginWithAdresseMailComponent,
     LoggedComponent,
     ConceptionMiahootComponent,
+    MiahootChoiceComponent
   ],
   imports: [
     BrowserModule,
