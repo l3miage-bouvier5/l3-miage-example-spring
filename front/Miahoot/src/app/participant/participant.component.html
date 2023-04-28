@@ -1,0 +1,10 @@
+<div *ngIf="obsCurrentQCM | async as QCM ; else NoQCMProjected"> 
+    {{QCM.question}}
+</div>
+<ng-template #NoQCMProjected>
+  <div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">Aucun QCM n'est projeté</h4>
+    <p>Il n'y a aucun QCM projeté pour le moment, veuillez patienter.</p>
+    <hr>
+    <p class="mb-0">Si le problème persiste, veuillez contacter un administrateur.</p>
+  </div>

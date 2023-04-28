@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FsMiahootProjectedConverter, FsQCMProjectedConverter, MiahootProjected, QCMProjected } from '../miahoot';
-import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
-import { Firestore, doc, docData } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, collection, doc, docData, updateDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { CurrentMiahootService } from './current-miahoot.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,53 +13,30 @@ export class ParticipantService {
   miahootId :string = ""
   nom : string = ""
 
-  obsCurrentMiahoot : Observable<MiahootProjected | undefined>
-  obsCurrentQuestionId: Observable<string | undefined> 
-  obsCurrentQuestion : Observable<QCMProjected | undefined>
-
-  constructor(private fs : Firestore) {
-
-    this.obsCurrentMiahoot = of(this.miahootId).pipe(
-      switchMap( projectedMiahootID => {
-        if (projectedMiahootID === undefined) {
-          return of(undefined);
-        } else {
-          // Il faut aller observer un projected Miahoot dans FifreStore, à l'adresse miahoot/projectedMiahootID
-          const docProjectedMiahoot = doc(fs, `miahoot/${projectedMiahootID}`).withConverter(FsMiahootProjectedConverter);
-          return docData(docProjectedMiahoot);
-        }
-      }
-    ))
-
-    this.obsCurrentQuestionId = this.obsCurrentMiahoot.pipe(
-      switchMap(  projectedMiahootID => {
-        if(projectedMiahootID === undefined){
-          return of(undefined)
-        }else{
-          // Il faur renvoyer un observable du currentQCM du projected Miahoot M  dans la collection miahoot de Firestore
-          const docMiahoot = doc(fs, `miahoot/${projectedMiahootID.id}`).withConverter(FsMiahootProjectedConverter);
-          return docData(docMiahoot).pipe(
-            map( (miahoot: { currentQCM: string; }) => miahoot.currentQCM )
-          )
-        }
-      })
-    )
-    this.obsCurrentQuestion = combineLatest([of(this.miahootId), this.obsCurrentQuestionId]).pipe(
-      switchMap( ([projectedMiahootID, projectedQCMID]) => {
-        if(projectedMiahootID === undefined || projectedQCMID === undefined){
-          return of(undefined)
-        }else{
-          const docProjectedQCM = doc(fs,`/miahoot/${projectedMiahootID}/QCMs/${projectedQCMID}`).withConverter(FsQCMProjectedConverter);
-          return docData(docProjectedQCM);
-        }
-      }
-    )
-    )
+  obsMiahootId : Observable<string | undefined>
+  constructor(private fs : Firestore,
+              private ms : CurrentMiahootService) {
+    this.obsMiahootId = this.ms.obsProjectedMiahootID
     
   }
-  recupererInfo(){
-    return [this.miahootId,this.nom]
+
+  /**
+   * fonction qui permet d'ajouter un participant au miahoot
+   */
+  addParticipant(){
+    this.obsMiahootId.subscribe( miahootId => {
+      if(miahootId != undefined){
+        this.miahootId = miahootId
+        const docMiahoot = doc(this.fs, `miahoot/${miahootId}`) 
+        updateDoc(docMiahoot, {
+          participants : arrayUnion(this.nom)
+            
+          
+        })
+      }
+    })
   }
+
 
   /*
   *Fonction qui permet de voter pour une proposition

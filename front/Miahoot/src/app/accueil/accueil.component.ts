@@ -15,16 +15,14 @@ export class AccueilComponent {
               private ps : ParticipantService) { }
 
 
-  enregristrerInfo(miahootId : string,nom:string){
+  enregristrerInfo(miahootId : string, nom:string){
     this.ps.miahootId = miahootId
     this.ps.nom = nom
+    this.ps.addParticipant()
+    this.router.navigateByUrl("participer")
   }
   
   toParticiper(){
-    this.router.navigateByUrl("participer")
   }
 
-  recupererInfo(){
-    return this.ps.recupererInfo()
-  }
 }
