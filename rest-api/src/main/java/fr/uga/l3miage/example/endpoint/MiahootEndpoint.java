@@ -34,17 +34,11 @@ public interface MiahootEndpoint {
     @GetMapping("{userId}/{nom}")
     Miahoot getEntityMiahoot(@PathVariable long userId, @PathVariable String nom);
 
-    @Operation(description = "Récupérer le DTO de l'entité miahoot qui a pour id celui passé en paramètre")
-    @ApiResponse(responseCode = "200", description = "Renvoie le DTO de l'entité test demandée",
-            content = @Content(schema = @Schema(implementation = Miahoot.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
-    @ApiResponse(responseCode = "404", description = "Renvoie une erreur 404 si l'entité n'est pas trouvée",
-            content = @Content(schema = @Schema(implementation = MiahootNotFoundErrorResponse.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("{nom}")
     List<Miahoot> getEntityMiahoot(@PathVariable String nom);
-    
-    @GetMapping("{userId}")
-    List<Miahoot> getEntityMiahoot(@PathVariable long userId);
+
+    @GetMapping
+    List<Miahoot> getEntityMiahoot(@RequestParam Long userId);
 
 
     //POST

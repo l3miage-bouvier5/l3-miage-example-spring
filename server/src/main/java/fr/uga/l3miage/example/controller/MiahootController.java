@@ -21,7 +21,7 @@ public class MiahootController implements MiahootEndpoint {
     }
 
     @Override
-    public List<Miahoot> getEntityMiahoot(final long userId) {
+    public List<Miahoot> getEntityMiahoot(final Long userId) {
         return miahootService.getMiahoot(userId);
     }
 

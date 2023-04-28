@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,13 +33,19 @@ public class MiahootService{
     }
 
 
-    public List<Miahoot> getMiahoot(final long userId) {
-        List<Miahoot> l = new ArrayList<>();
+    public List<Miahoot> getMiahoot(final long userId){
+//        List<Miahoot> l = new ArrayList<>();
+//        try {
+//            for (MiahootEntity m : miahootComponent.getMiahoot(userId)) {
+//                l.add(miahootMapper.toDto(m));
+//            }
+//            return l;
+//        } catch (MiahootEntityNotFoundException ex) {
+//            throw new MiahootEntityNotFoundRestException(String.format("Impossible de charger l'entité. Raison : [%s]",ex.getMessage()));
+//
+//        }
         try {
-            for (MiahootEntity m : miahootComponent.getMiahoot(userId)) {
-                l.add(miahootMapper.toDto(m));
-            }
-            return l;
+            return miahootComponent.getMiahoot(userId).stream().map(miahootMapper::toDto).collect(Collectors.toList());
         } catch (MiahootEntityNotFoundException ex) {
             throw new MiahootEntityNotFoundRestException(String.format("Impossible de charger l'entité. Raison : [%s]",ex.getMessage()));
         }

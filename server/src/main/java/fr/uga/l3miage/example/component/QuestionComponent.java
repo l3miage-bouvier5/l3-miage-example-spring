@@ -5,9 +5,15 @@ import fr.uga.l3miage.example.models.QuestionEntity;
 import fr.uga.l3miage.example.models.ReponseEntity;
 import fr.uga.l3miage.example.models.TestEntity;
 import fr.uga.l3miage.example.repository.QuestionRepository;
+import fr.uga.l3miage.example.repository.ReponseRepository;
+import fr.uga.l3miage.example.response.Reponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Pour respecter l'architecture hexagonale, ici nous ne traitons que les données
@@ -23,6 +29,7 @@ import org.springframework.stereotype.Component;
 public class QuestionComponent {
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
+    private final ReponseRepository reponseRepository;
 
 
     /**
@@ -31,8 +38,12 @@ public class QuestionComponent {
      * @throws TestEntityNotFoundException si aucune entité Test n'est trouvée
      */
     public QuestionEntity getQuestion(final String label) throws QuestionEntityNotFoundException {
-        return questionRepository.findByLabel(label)
+        QuestionEntity q =  questionRepository.findByLabel(label)
                 .orElseThrow(() -> new QuestionEntityNotFoundException(String.format("Aucune entité n'a été trouvée pour le label [%s]", label), label));
+        Set<ReponseEntity> r = new HashSet<ReponseEntity>(reponseRepository.findAllByQuestionId(q.getId()));
+        q.setReponses(r);
+        return q;
+
     }
 
     /**

@@ -3,10 +3,8 @@ package fr.uga.l3miage.example.models;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 
@@ -26,6 +24,9 @@ public class ReponseEntity {
 
     private Boolean estValide;
 
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private QuestionEntity question;
 
     @Override
     public boolean equals(Object o) {

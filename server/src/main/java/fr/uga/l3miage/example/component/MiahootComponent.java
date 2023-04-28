@@ -54,7 +54,7 @@ public class MiahootComponent {
         // diff userId -> throw MiahootUserIdNotSameException
         // same userId diff nom -> check if new miahoot exists
 
-        if (userId == miahoot.getUserId()){
+        if (userId != miahoot.getUserId()){
             throw new MiahootUserIdNotSameException(String.format("Le userId [%d] est différent du userId [%d] de l'entité Miahoot", userId, miahoot.getUserId()));
         }
         if (!nom.equals(miahoot.getNom()) && !miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()) {

@@ -1,6 +1,7 @@
 package fr.uga.l3miage.example.repository;
 
 import fr.uga.l3miage.example.models.ReponseEntity;
+import org.apache.coyote.Response;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,7 @@ public interface ReponseRepository extends JpaRepository<ReponseEntity,Long> {
     Optional<ReponseEntity> findByLabel(final String label);
 
     int deleteByLabel(final String label);
+
+    List<ReponseEntity> findAllByQuestionId(final Long id);
+
 }

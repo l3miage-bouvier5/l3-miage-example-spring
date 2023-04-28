@@ -15,4 +15,7 @@ public class CreateReponseRequest {
 
     @Schema(description = "Correspond à un boolean quelconque",example = "true")
     Boolean estValide;
+
+    @Schema(description = "correspond à l'id de la question",example = "1")
+    Long questionId;
 }

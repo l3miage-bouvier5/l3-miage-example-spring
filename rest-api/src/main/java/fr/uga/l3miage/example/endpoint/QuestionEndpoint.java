@@ -38,7 +38,7 @@ import javax.validation.constraints.NotNull;
 @Tag(name = "EndPoints Question")
 @CrossOrigin
 @RestController
-@RequestMapping("api/v0/")
+@RequestMapping("question/")
 public interface QuestionEndpoint {
 
     /**
