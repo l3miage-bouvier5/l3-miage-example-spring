@@ -24,6 +24,12 @@ import { environment } from 'src/environments/environment.development';
 import { AccueilComponent } from './accueil/accueil.component';
 import { LoginWithAdresseMailComponent } from './login-with-adresse-mail/login-with-adresse-mail.component';
 import { LoggedComponent } from './logged/logged.component';
+import { ConceptionMiahootComponent } from './conception-miahoot/conception-miahoot.component';
+import {
+  HighlightModule,
+  HIGHLIGHT_OPTIONS,
+  HighlightOptions,
+} from 'ngx-highlightjs';
 import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
 
 @NgModule({
@@ -32,7 +38,8 @@ import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.componen
     AccueilComponent,
     LoginWithAdresseMailComponent,
     LoggedComponent,
-    MiahootChoiceComponent,
+    ConceptionMiahootComponent,
+    MiahootChoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +60,24 @@ import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.componen
     MatRadioModule,
     FormsModule, 
     ReactiveFormsModule,
-    MatTabsModule,
-    MatIconModule
+    HighlightModule,
+    MatTabsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: <HighlightOptions>{
+        lineNumbers: true,
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        // lineNumbersLoader: () => import('highlightjs-line-numbers.js'),
+        themePath: 'node_modules/highlight.js/styles/github.css',
+        languages: {
+          json: () => import('highlight.js/lib/languages/json'),
+
+        },
+      },
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
