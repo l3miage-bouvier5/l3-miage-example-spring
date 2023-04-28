@@ -5,7 +5,7 @@ import { HighlightLoader, HighlightAutoResult } from 'ngx-highlightjs';
 const themeAndroidStudio: string = 'node_modules/highlight.js/styles/androidstudio.css';
 const themeGithub: string = 'node_modules/highlight.js/styles/github.css';
 
-
+// 
 @Component({
   selector: 'app-conception-miahoot',
   templateUrl: './conception-miahoot.component.html',
