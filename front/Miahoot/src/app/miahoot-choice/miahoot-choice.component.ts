@@ -10,7 +10,45 @@ export class MiahootChoiceComponent {
   // Récupérer tous les miahoots de la base de données et les afficher
   miahoots : Miahoot[] = [
     {
-      nom: "La premier QCM",
+      nom: "Questions débiles",
+      questions: [
+        {
+          label: "Comment s'appelle le professeur de SI ?",
+          reponses: [
+            {
+              label: " JMF ",
+              estValide: true
+            },
+            {
+              label: " JMV ",
+              estValide: false
+            },
+            {
+              label: "JUL",
+              estValide: false
+            }
+          ]
+        },
+        {
+          label: "Quelle est la couleur du cheval blanc d'Henri IV ?",
+          reponses: [
+            {
+              label: "Blanc",
+              estValide: true
+            },
+            {
+              label: "Noir",
+              estValide: false
+            },
+            {
+              label: "Rouge",
+              estValide: false
+            }
+          ]
+        }
+      ]
+    },{
+      nom: "Questions un peu moins débiles mais en fait un peu débiles quand même",
       questions: [
         {
           label: "Comment s'appelle le professeur de SI ?",

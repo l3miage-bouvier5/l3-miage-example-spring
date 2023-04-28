@@ -1,21 +1,42 @@
-<section class="container">
-    <div class="miahoot"
-         *ngFor="let miahoot of miahoots">
-        {{miahoot.nom}}
-        <div class="questions">
-            <div class="question" *ngFor="let question of miahoot.questions">
-                {{question.label}}
-                <div class="reponses">
-                    <div class="reponse" *ngFor="let reponse of question.reponses">
-                        <img *ngIf = "reponse.estValide ; else nonValide" class="good-answer" src="https://fotomelia.com/wp-content/uploads/2017/02/clipart-images-gratuites-libres-de-droits-14-400x300.png" alt="">
-                        <ng-template #nonValide>
-                            <img class="wrong-answer" src="https://www.pngmart.com/files/3/Cancel-Button-PNG-Photos.png" alt="">
-                        </ng-template>
-                        
-                        {{reponse.label}} 
-                    </div>
-                </div>
-            </div>
+<section>
+    
+    <button type="button" class="button">
+        <span class="button__text">Miahoot</span>
+        <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+    </button>
+
+</section>
+
+<section class="container-master">
+    <h1>Choisissez votre miahoot à présenter</h1>
+        <div class="container" 
+            *ngFor="let miahoot of miahoots">
+            <h2>{{miahoot.nom}}</h2>
+            <div class="nb-question"> Nombre de questions : {{miahoot.questions.length}}</div>
+            <ul>
+                <li *ngFor="let question of miahoot.questions">
+                    {{question.label}}
+                </li>
+            </ul>
+            <section class="button-pres">
+                <button mat-raised-button color="primary">Présenter</button>
+                <button mat-raised-button color="primary">Aperçu</button>
+            </section>
+        </div>
+</section>
+
+<!-- Le code pourri qui affichait les questions et les réponses  -->
+
+<!-- <div class="question" *ngFor="let question of miahoot.questions">
+    {{question.label}}
+    <div class="reponses">
+        <div class="reponse" *ngFor="let reponse of question.reponses">
+            <img *ngIf = "reponse.estValide ; else nonValide" class="good-answer" src="https://fotomelia.com/wp-content/uploads/2017/02/clipart-images-gratuites-libres-de-droits-14-400x300.png" alt="">
+            <ng-template #nonValide>
+                <img class="wrong-answer" src="https://www.pngmart.com/files/3/Cancel-Button-PNG-Photos.png" alt="">
+            </ng-template>
+            
+            {{reponse.label}} 
         </div>
     </div>
-</section>
+</div> -->

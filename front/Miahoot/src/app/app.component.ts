@@ -41,6 +41,10 @@ export class AppComponent {
   toMesMiahoots(){
     this.router.navigateByUrl("miahootChoice")
   }
+
+  toMiahootEnCours(){
+    this.router.navigateByUrl("logged")
+  }
 }
 
 
