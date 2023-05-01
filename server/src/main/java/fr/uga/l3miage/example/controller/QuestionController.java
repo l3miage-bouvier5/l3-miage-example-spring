@@ -31,7 +31,6 @@ public class QuestionController implements QuestionEndpoint {
     @Override
     public void createEntityQuestion(CreateQuestionRequest request){
         questionService.createQuestion(request);
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
     }
  
 

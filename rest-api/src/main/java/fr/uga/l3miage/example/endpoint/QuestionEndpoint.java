@@ -110,9 +110,10 @@ public interface QuestionEndpoint {
      */
     @Operation(description = "Création d'une entité Question comportant des réponses")
     @ApiResponse(responseCode = "201", description = "L'entité Question a bien été crée ainsi que ses réponses.")
+    @ApiResponse(responseCode = "422", description = "L'entité Question n'apas une et une seul réponse vrai.")
     @Error400Custom
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("question")
     void createEntityQuestion(@Valid @RequestBody CreateQuestionRequest request);
     /////////////////////// post {ipDuServeur}:{port}/api/v0/question ######################
 
