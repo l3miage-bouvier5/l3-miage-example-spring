@@ -1,9 +1,8 @@
 package fr.uga.l3miage.example.component;
-
-import fr.uga.l3miage.example.config.HelloWordConfig;
 import fr.uga.l3miage.example.exception.technical.*;
 import fr.uga.l3miage.example.mapper.QuestionMapper;
 import fr.uga.l3miage.example.models.QuestionEntity;
+import fr.uga.l3miage.example.models.ReponseEntity;
 import fr.uga.l3miage.example.models.TestEntity;
 import fr.uga.l3miage.example.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,11 +51,28 @@ public class QuestionComponent {
     /**
      * @param entity à créer en base de données
      */
-    public void createQuestion(final QuestionEntity entity) {
-        questionRepository.save(entity);
+    public void createQuestion(final QuestionEntity entity) throws NbReponsesVraiInvalidException{
+        if ( nbReponsesVrai(entity) != 1){
+            throw new NbReponsesVraiInvalidException(String.format("la question (%s) a plusieur reponse vrai",entity.getLabel()), entity.getLabel());
+        }else{
+            questionRepository.save(entity);
+        }
     }
 
 
+    // compte le nombre de réponse valide dans le set de reponse d'une 
+    // question passé en argument
+    public int nbReponsesVrai(QuestionEntity entity){
+        int cmp=0; // compteur d'occurence de reponse vrai
+        
+        for(ReponseEntity r: entity.getReponses()){
+            if(r.getEstValide()==true){
+                cmp+=1;
+            }
+        }
+       // entity.getReponses()
+        return cmp;
+    }
 
 
 }

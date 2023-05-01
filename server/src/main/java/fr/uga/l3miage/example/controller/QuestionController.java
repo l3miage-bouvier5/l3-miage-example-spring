@@ -3,7 +3,6 @@ package fr.uga.l3miage.example.controller;
 import fr.uga.l3miage.example.endpoint.ExampleEndpoint;
 import fr.uga.l3miage.example.endpoint.QuestionEndpoint;
 import fr.uga.l3miage.example.request.CreateQuestionRequest;
-import fr.uga.l3miage.example.models.QuestionEntity;
 import fr.uga.l3miage.example.response.Question;
 import fr.uga.l3miage.example.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +27,13 @@ public class QuestionController implements QuestionEndpoint {
         questionService.createQuestion(label);
     }
 
+    
     @Override
-    public void createEntityTest(CreateQuestionRequest request){
+    public void createEntityQuestion(CreateQuestionRequest request){
         questionService.createQuestion(request);
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
     }
-
+ 
 
     @Override
     public Question getEntityQuestion(String label){

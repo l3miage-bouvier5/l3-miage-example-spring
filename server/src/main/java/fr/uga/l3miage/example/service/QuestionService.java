@@ -2,23 +2,19 @@ package fr.uga.l3miage.example.service;
 
 import fr.uga.l3miage.example.component.QuestionComponent;
 import fr.uga.l3miage.example.exception.rest.LabelAlreadyExistRestException;
-import fr.uga.l3miage.example.exception.rest.MiahootEntityNotFoundRestException;
+import fr.uga.l3miage.example.exception.rest.NbReponsesVraiInvalidRestException;
 import fr.uga.l3miage.example.exception.rest.QuestionEntityNotFoundRestException;
 import fr.uga.l3miage.example.exception.technical.LabelAlreadyExistException;
-import fr.uga.l3miage.example.exception.technical.MiahootEntityNotFoundException;
+import fr.uga.l3miage.example.exception.technical.NbReponsesVraiInvalidException;
 import fr.uga.l3miage.example.exception.technical.QuestionEntityNotFoundException;
 import fr.uga.l3miage.example.mapper.QuestionMapper;
 import fr.uga.l3miage.example.models.QuestionEntity;
 import fr.uga.l3miage.example.request.CreateQuestionRequest;
-import fr.uga.l3miage.example.models.MiahootEntity;
-import fr.uga.l3miage.example.response.Miahoot;
 import fr.uga.l3miage.example.response.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Dans un service, on va catcher toutes les exceptions techniques, vérifier les règles métiers et renvoyer des exceptions d'API<br>
@@ -54,8 +50,13 @@ public class QuestionService {
      */
     public void createQuestion(final CreateQuestionRequest questionRequest) { 
         QuestionEntity newQuestionEntity = questionMapper.toEntity(questionRequest);
-
-        questionComponent.createQuestion(newQuestionEntity);
+        try {
+            questionComponent.createQuestion(newQuestionEntity);
+        } catch (NbReponsesVraiInvalidException ex) {
+            throw new NbReponsesVraiInvalidRestException(ERROR_DETECTED, "sdfjksdjghkdlfjgfhkldsffjhggkdlsfjghjf", ex);
+        }
+        
+        
     }
 
 

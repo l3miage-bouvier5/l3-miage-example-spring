@@ -113,7 +113,7 @@ public interface QuestionEndpoint {
     @Error400Custom
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    void createEntityTest(@Valid @RequestBody CreateQuestionRequest request);
+    void createEntityQuestion(@Valid @RequestBody CreateQuestionRequest request);
     /////////////////////// post {ipDuServeur}:{port}/api/v0/question ######################
 
 
