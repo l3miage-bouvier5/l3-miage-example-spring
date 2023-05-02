@@ -16,7 +16,7 @@ export class ConverterService {
 
   getQuestion(label: string): Promise<JSON>{
   
-    const getJson = this.http.get<JSON>(`${this.apiUrl}/v0/question/`+label);
+    const getJson = this.http.get<JSON>(`/api/v0/question/`+label);
 
     return lastValueFrom(getJson)
   }
