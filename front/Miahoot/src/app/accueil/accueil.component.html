@@ -1,9 +1,13 @@
-<section>
-    <!-- <input [(ngModel)] = "miahootId" placeholder="L'id du miahoot"/> -->
-    <input [(ngModel)]="nom" placeholder="Votre pseudonyme"/>
-    <input [(ngModel)] = "miahootId" placeholder="L'id du miahoot" value="Skp4MtR0KtZeBw2EApQZ">
+<section class="accueil">
+    <h1>Accueil</h1>
+    <div class="participer-ano">
+        <input [(ngModel)]="nom" placeholder="Votre pseudonyme"/>
+        <input [(ngModel)] = "miahootId" placeholder="L'id du miahoot" value="Skp4MtR0KtZeBw2EApQZ">
+        <button (click) = "enregristrerInfo(miahootId,nom)">Participer au miahoot</button>
+    </div>
 
-
-    <button (click) = "enregristrerInfo(miahootId,nom)">Participer au miahoot</button>
+    <div class="connexion">
+        
+    </div>
 
 </section>
