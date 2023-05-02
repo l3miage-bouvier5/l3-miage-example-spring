@@ -30,6 +30,14 @@ export class AccueilComponent {
     this.ps.addParticipant()
     this.router.navigateByUrl("participer")
   }
+
+  async loginGoogle() {
+    this.connexion.loginGoogle()
+  }
+
+  loginWithAdresseMail() {
+    this.router.navigateByUrl("loginWithAdresseMail")
+  }
   
 
 }

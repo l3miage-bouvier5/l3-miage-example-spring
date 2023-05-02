@@ -1,13 +1,62 @@
-<section class="accueil">
+<!-- <section class="Accueil">
     <h1>Accueil</h1>
-    <div class="participer-ano">
-        <input [(ngModel)]="nom" placeholder="Votre pseudonyme"/>
-        <input [(ngModel)] = "miahootId" placeholder="L'id du miahoot" value="Skp4MtR0KtZeBw2EApQZ">
-        <button (click) = "enregristrerInfo(miahootId,nom)">Participer au miahoot</button>
-    </div>
+    <section class="card shadow">
+        <div class="login">
+            <div class="title_container">
+                <label>Log in</label>
+            </div>
+            
+            <mat-form-field>
+                <input matInput [(ngModel)]="nom" placeholder="Votre pseudonyme"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [(ngModel)] = "miahootId" placeholder="L'id du miahoot">
+            </mat-form-field>
+                
+            
+            
+            <button (click) = "enregristrerInfo(miahootId,nom)">Participer au miahoot</button> 
+        </div>
+    </section>
+</section> -->
 
-    <div class="connexion">
+<div class="Accueil">
+    
+    <div class="create form-container">
+        <p class="title">Create a MiaHoot</p>
+            <button class="form sign" (click)="loginWithAdresseMail()">Sign in</button>
         
+        <div class="social-message">
+            <div class="line"></div>
+            <p class="message">Log In or Sign In with Google</p>
+            <div class="line"></div>
+        </div>
+        <div class="social-icons">
+            <button aria-label="Log in with Google" class="icon" (click)="loginGoogle()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5 fill-current">
+                    <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z"></path>
+                </svg>
+            </button>
+        </div>
     </div>
+    
+    
+    
+    <div class="join form-container">
+        <p class="title">Join a MiaHoot</p>
+        <div class=" form input-group">
+            <label for="username">Username</label>
+            <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="">
+        </div>
+    
+        <div class=" form input-group">
+            <label for="username">MiaHoot Id</label>
+            <input [(ngModel)] = "miahootId" type="text" name="username" id="username" placeholder="">
+        </div>
+        <button class="form sign buttonJoin">Join</button>
+    </div>
+</div>
 
-</section>
+
+
+
