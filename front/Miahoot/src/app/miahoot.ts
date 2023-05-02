@@ -15,9 +15,7 @@ export interface Miahoot {
     readonly questions : Question[]
 }
 
-export interface MiahootUserAnonyme {
-  name: string
-}
+
 
 export interface MiahootUser {
     name: string
@@ -64,12 +62,6 @@ export const conv : FirestoreDataConverter<MiahootUser> = {
       photoURL : snap.get("photoURL")})
 }
 
-export const convAno : FirestoreDataConverter<MiahootUserAnonyme> = {
-  toFirestore : val => val,
-  fromFirestore: snap => ({
-    name : snap.get("name"),
-    })
-}
 
 export const FsQCMProjectedConverter: FirestoreDataConverter<QCMProjected> = {
   toFirestore: Q => Q,

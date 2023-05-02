@@ -3,6 +3,8 @@ import { ParticipantService } from '../services/participant.service';
 import { QCMProjected } from '../miahoot';
 import { Observable } from 'rxjs';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
+import { signOut } from '@angular/fire/auth';
+import { ConnexionService } from '../services/connexion.service';
 
 @Component({
   selector: 'app-participant',

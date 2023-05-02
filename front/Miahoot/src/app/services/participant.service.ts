@@ -13,6 +13,7 @@ export class ParticipantService {
 
   miahootId :string = ""
   nom : string = ""
+  id : string = ""
 
   obsProjectedMiahoot! : Observable<MiahootProjected | undefined>
   obsQCMId! : Observable<string | undefined>
@@ -28,7 +29,7 @@ export class ParticipantService {
   addParticipant(){
     const docMiahoot = doc(this.fs, `miahoot/${this.miahootId}`) 
         updateDoc(docMiahoot, {
-          participants : arrayUnion(this.nom)
+          participants : arrayUnion(this.id)
         })
   }
 
@@ -59,7 +60,6 @@ export class ParticipantService {
           return of(undefined)
         }else{
           const docProjectedQCM = doc(this.fs,`/miahoot/${this.miahootId}/QCMs/${projectedQCMID}`).withConverter(FsQCMProjectedConverter);
-          console.log(docProjectedQCM);
           
           return docData(docProjectedQCM);
         }
@@ -87,7 +87,7 @@ export class ParticipantService {
             const newVote = votes[proposition]
 
             const vote : VOTES = {
-              [this.nom] : true,
+              [this.id] : true,
               ...newVote
             }
             

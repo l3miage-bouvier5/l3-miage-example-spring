@@ -1,9 +1,9 @@
-import { conv, convAno, MiahootUser, MiahootUserAnonyme } from '../miahoot';
+import { conv, MiahootUser } from '../miahoot';
 import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, User } from '@angular/fire/auth';
 import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
-import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, of, switchMap, tap } from 'rxjs';
 
 
 
@@ -13,7 +13,8 @@ import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 })
 export abstract class ConnexionService {
 
-  obsMiahootConcepteur$ : Observable<MiahootUser|undefined>;
+  obsMiahootConcepteur$ : Observable<MiahootUser |undefined>;
+  bsIsAnonyme = new BehaviorSubject<boolean>( false );
 
   constructor(private auth: Auth, private fs : Firestore) {
     authState(this.auth).pipe(
@@ -31,20 +32,37 @@ export abstract class ConnexionService {
               photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
             } satisfies MiahootUser)
           }
-        } 
-      })
-      ).subscribe()
-    this.obsMiahootConcepteur$ = authState(this.auth).pipe(
-      switchMap( (user) => {
-        if(user){
-          const userRef = doc(this.fs , `users/${user.uid}`).withConverter(conv)
-          const userData$ = docData(userRef)
-          return userData$
-        } else{
-          return of(undefined)
+        }else{
+          const docUser =  doc(this.fs, `anonymes/${u.uid}`).withConverter(conv) ;
+          const snapUser = await getDoc( docUser );
+          this.bsIsAnonyme.next(true)
+          if (!snapUser.exists()) {
+            setDoc(docUser, {
+              name: u.displayName ?? u.email ?? u.uid,
+              email: u.email ?? "",
+              miahootProjected: "",
+              photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+            } satisfies MiahootUser)
+          }
         }
       })
-    )
+      ).subscribe()
+
+      this.obsMiahootConcepteur$ = authState(this.auth).pipe(
+        switchMap( (user) => {
+          if(user === null){
+            return of(undefined)
+          } else if (!user.isAnonymous){
+            const userRef = doc(this.fs , `users/${user.uid}`).withConverter(conv)
+            const userData$ = docData(userRef)
+            return userData$
+          }else{
+            const userRef = doc(this.fs , `anonymes/${user.uid}`).withConverter(conv)
+            const userData$ = docData(userRef)
+            return userData$
+          }
+        })
+      )
   }
 
 
@@ -79,25 +97,31 @@ export abstract class ConnexionService {
   }
 
   
-  async loginAnonymously(name: string) {
-         
+  async loginAnonymously(name: string): Promise<string> {
+    
+    let uid: string = "";
     signInAnonymously(this.auth)
       .then(async (uc) => {
         // Signed in
         const user = uc.user;
+        uid = user.uid;
         console.log("Connexion success !", user);
-        const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(convAno) ;
+        const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(conv) ;
         const snapUser = await getDoc( docUser );
         if (!snapUser.exists()) {
           setDoc(docUser, {
           name: name ?? "Anonyme",
-        } satisfies MiahootUserAnonyme)
+          email: "",
+          miahootProjected: "",
+          photoURL: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+        } satisfies MiahootUser)
     }
       })
       .catch((error) => {
         console.log("Conexion failed ! ", error.code, " ", error.message);
       });
       
+      return uid
   }
   
   // Fonction logout() sert à déconnecter un utilisateur (concepteur ou presentateur)

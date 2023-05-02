@@ -20,19 +20,13 @@ export class AccueilComponent {
               private connexion: ConnexionService) { }
 
 
-  enregristrerInfo(miahootId : string, nom:string){
+  async enregristrerInfo(miahootId : string, nom:string){
     this.ps.miahootId = miahootId
     this.ps.nom = nom
+    this.ps.id = await this.connexion.loginAnonymously(nom);
     this.ps.init()
     this.ps.addParticipant()
-    
     this.router.navigateByUrl("participer")
-  }
-
-  connexionAnonyme(name: string) {
-    this.connexion.loginAnonymously(name);
-    console.log("connexion ok");
-    
   }
   
 
