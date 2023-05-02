@@ -13,7 +13,4 @@ public class Reponse {
 
     @Schema(description = "Correspond à un boolean quelconque",example = "true")
     Boolean estValide;
-
-    @Schema(description = "Correspond à l'id de la question",example = "1")
-    Long idQuestion;
 }

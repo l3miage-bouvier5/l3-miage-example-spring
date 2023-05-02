@@ -17,7 +17,4 @@ public interface ReponseRepository extends JpaRepository<ReponseEntity,Long> {
     Optional<ReponseEntity> findByLabel(final String label);
 
     int deleteByLabel(final String label);
-
-    List<ReponseEntity> findAllByQuestionId(final Long id);
-
 }

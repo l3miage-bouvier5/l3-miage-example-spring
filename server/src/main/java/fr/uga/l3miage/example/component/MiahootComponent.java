@@ -3,6 +3,8 @@ package fr.uga.l3miage.example.component;
 import fr.uga.l3miage.example.exception.technical.*;
 import fr.uga.l3miage.example.mapper.MiahootMapper;
 import fr.uga.l3miage.example.models.MiahootEntity;
+import fr.uga.l3miage.example.models.QuestionEntity;
+import fr.uga.l3miage.example.models.ReponseEntity;
 import fr.uga.l3miage.example.repository.MiahootRepository;
 import fr.uga.l3miage.example.response.Miahoot;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,12 @@ public class MiahootComponent {
     private final MiahootRepository miahootRepository;
     private final MiahootMapper miahootMapper;
 
-    public MiahootEntity getMiahoot(final long userId, final String nom) throws MiahootEntityNotFoundException {
+    public MiahootEntity getMiahoot(final Long userId, final String nom) throws MiahootEntityNotFoundException {
         return miahootRepository.findByUserIdAndNom(userId, nom)
                 .orElseThrow(() -> new MiahootEntityNotFoundException(String.format("Aucune entité n'a été trouvée pour le userId [%d] et le nom [%s]", userId, nom)));
     }
 
-    public List<MiahootEntity> getMiahoot(final long userId) throws MiahootEntityNotFoundException {
+    public List<MiahootEntity> getMiahoot(final Long userId) throws MiahootEntityNotFoundException {
         List<MiahootEntity> l = miahootRepository.findAllByUserId(userId);
         if (l.size()>0)
             return l;
@@ -46,6 +48,17 @@ public class MiahootComponent {
         if (miahootRepository.findByUserIdAndNom(entity.getUserId(), entity.getNom()).isPresent()){
             throw new MiahootAlreadyExistException(String.format("L'entité Miahoot existe déjà pour le userId [%d] et le nom [%s]", entity.getUserId(), entity.getNom()));
         }
+
+        if (entity.getQuestions() == null || entity.getQuestions().isEmpty()){
+//            throw new MiahootEmptyException(String.format("Le miahoot ne contient aucune question"));
+        }
+
+        // verifier que chaque question contient au moins une reponse
+//        for (QuestionEntity q: entity.getQuestions()){
+//            if (q.getReponses().isEmpty()){
+//                throw new MiahootQuestionEmptyException(String.format("Une question ne contient aucune réponse");
+//            }
+//        }
         miahootRepository.save(entity);
     }
 

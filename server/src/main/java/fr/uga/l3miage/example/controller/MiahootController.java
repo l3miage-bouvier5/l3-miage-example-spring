@@ -16,7 +16,7 @@ public class MiahootController implements MiahootEndpoint {
     private final MiahootService miahootService;
 
     @Override
-    public Miahoot getEntityMiahoot(final long userId, final String nom) {
+    public Miahoot getEntityMiahoot(final Long userId, final String nom) {
         return miahootService.getMiahoot(userId, nom);
     }
 

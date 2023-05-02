@@ -24,7 +24,7 @@ public class MiahootService{
     private final MiahootMapper miahootMapper;
 
 
-    public Miahoot getMiahoot(final long userId, final String nom) {
+    public Miahoot getMiahoot(final Long userId, final String nom) {
         try {
             return miahootMapper.toDto(miahootComponent.getMiahoot(userId, nom));
         } catch (MiahootEntityNotFoundException ex) {
@@ -34,16 +34,6 @@ public class MiahootService{
 
 
     public List<Miahoot> getMiahoot(final long userId){
-//        List<Miahoot> l = new ArrayList<>();
-//        try {
-//            for (MiahootEntity m : miahootComponent.getMiahoot(userId)) {
-//                l.add(miahootMapper.toDto(m));
-//            }
-//            return l;
-//        } catch (MiahootEntityNotFoundException ex) {
-//            throw new MiahootEntityNotFoundRestException(String.format("Impossible de charger l'entité. Raison : [%s]",ex.getMessage()));
-//
-//        }
         try {
             return miahootComponent.getMiahoot(userId).stream().map(miahootMapper::toDto).collect(Collectors.toList());
         } catch (MiahootEntityNotFoundException ex) {

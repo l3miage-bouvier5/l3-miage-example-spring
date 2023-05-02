@@ -16,6 +16,6 @@ public class Miahoot {
     @Schema(description = "correspond au nom de l'objet",example = "qcm ihm")
     String nom;
 
-//    @Schema(description = "correspond au nom de l'objet",example = "qcm ihm")
-//    List<Question> questions;
+    @Schema(description = "correspond aux questions de l'objet")
+    List<Question> questions;
 }

@@ -21,23 +21,23 @@ import java.util.List;
 @Tag(name = "Miahoot tag")
 @CrossOrigin
 @RestController
-@RequestMapping("miahoot/")
+@RequestMapping("api/v0/miahoot")
 public interface MiahootEndpoint {
 
     //GET
     @Operation(description = "Récupérer le DTO de l'entité miahoot qui a pour id celui passé en paramètre")
-    @ApiResponse(responseCode = "200", description = "Renvoie le DTO de l'entité test demandée",
+    @ApiResponse(responseCode = "200", description = "Renvoie le DTO de l'entité miahoot demandée",
             content = @Content(schema = @Schema(implementation = Miahoot.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ApiResponse(responseCode = "404", description = "Renvoie une erreur 404 si l'entité n'est pas trouvée",
             content = @Content(schema = @Schema(implementation = MiahootNotFoundErrorResponse.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("{userId}/{nom}")
-    Miahoot getEntityMiahoot(@PathVariable long userId, @PathVariable String nom);
+    Miahoot getEntityMiahoot(@PathVariable Long userId, @PathVariable String nom);
 
     @GetMapping("{nom}")
     List<Miahoot> getEntityMiahoot(@PathVariable String nom);
 
-    @GetMapping
+    @GetMapping("{userId}")
     List<Miahoot> getEntityMiahoot(@RequestParam Long userId);
 
 

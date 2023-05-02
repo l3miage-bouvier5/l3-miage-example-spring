@@ -38,7 +38,7 @@ import javax.validation.constraints.NotNull;
 @Tag(name = "EndPoints Question")
 @CrossOrigin
 @RestController
-@RequestMapping("question/")
+@RequestMapping("api/v0/question")
 public interface QuestionEndpoint {
 
     /**
@@ -70,13 +70,13 @@ public interface QuestionEndpoint {
      *
      */
 
-    //POST
-    @Operation(description = "Création d'une entité question")
-    @ApiResponse(responseCode = "201", description = "L'entité Test a bien été crée.")
-    @Error400Custom
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("{label}")
-    void createEntityQuestion(@NotNull @PathVariable String label);
+//    //POST
+//    @Operation(description = "Création d'une entité question")
+//    @ApiResponse(responseCode = "201", description = "L'entité Test a bien été crée.")
+//    @Error400Custom
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping("{label}")
+//    void createEntityQuestion(@NotNull @PathVariable String label);
 
 
 
@@ -113,7 +113,7 @@ public interface QuestionEndpoint {
     @ApiResponse(responseCode = "422", description = "L'entité Question n'apas une et une seul réponse vrai.")
     @Error400Custom
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("question")
+    @PostMapping
     void createEntityQuestion(@Valid @RequestBody CreateQuestionRequest request);
     /////////////////////// post {ipDuServeur}:{port}/api/v0/question ######################
 

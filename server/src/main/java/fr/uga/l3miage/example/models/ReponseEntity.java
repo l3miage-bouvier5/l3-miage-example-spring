@@ -24,10 +24,6 @@ public class ReponseEntity {
 
     private Boolean estValide;
 
-    @ManyToOne
-    @JoinColumn(name = "question_id")
-    private QuestionEntity question;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

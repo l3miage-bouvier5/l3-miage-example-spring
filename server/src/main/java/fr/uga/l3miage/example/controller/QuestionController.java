@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController implements QuestionEndpoint {
     private final QuestionService questionService;
 
-    @Override
-    public void createEntityQuestion(String label) {
-        questionService.createQuestion(label);
-    }
+//    @Override
+//    public void createEntityQuestion(String label) {
+//        questionService.createQuestion(label);
+//    }
 
     
     @Override
