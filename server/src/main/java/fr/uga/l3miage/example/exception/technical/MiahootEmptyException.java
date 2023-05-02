@@ -6,5 +6,4 @@ public class MiahootEmptyException extends Exception  {
         super(message);
     }
 
-
 }

@@ -10,9 +10,9 @@ public class MiahootEmptyRestException extends RuntimeException{
     }
 
     public HttpStatus getHttpStatus() {
-        return HttpStatus.NOT_FOUND;
+        return HttpStatus.BAD_REQUEST;
     }
 
-    public ErrorCode getErrorCode(){return ErrorCode.NOT_FOUND;}
+    public ErrorCode getErrorCode(){return ErrorCode.MIAHOOTEMPTY;}
 
 }

@@ -24,7 +24,7 @@ public class MiahootService{
     private final MiahootMapper miahootMapper;
 
 
-    public Miahoot getMiahoot(final Long userId, final String nom) {
+    public Miahoot getMiahoot(final String userId, final String nom) {
         try {
             return miahootMapper.toDto(miahootComponent.getMiahoot(userId, nom));
         } catch (MiahootEntityNotFoundException ex) {
@@ -33,22 +33,9 @@ public class MiahootService{
     }
 
 
-    public List<Miahoot> getMiahoot(final long userId){
+    public List<Miahoot> getMiahoot(final String userId){
         try {
             return miahootComponent.getMiahoot(userId).stream().map(miahootMapper::toDto).collect(Collectors.toList());
-        } catch (MiahootEntityNotFoundException ex) {
-            throw new MiahootEntityNotFoundRestException(String.format("Impossible de charger l'entité. Raison : [%s]",ex.getMessage()));
-        }
-    }
-
-
-    public List<Miahoot> getMiahoot(final String nom) {
-        List<Miahoot> l = new ArrayList<>();
-        try {
-            for (MiahootEntity m : miahootComponent.getMiahoot(nom)) {
-                l.add(miahootMapper.toDto(m));
-            }
-            return l;
         } catch (MiahootEntityNotFoundException ex) {
             throw new MiahootEntityNotFoundRestException(String.format("Impossible de charger l'entité. Raison : [%s]",ex.getMessage()));
         }
@@ -61,13 +48,13 @@ public class MiahootService{
             } catch (MiahootAlreadyExistException ex) {
                throw new MiahootAlreadyExistRestException(ERROR_DETECTED, ex);
             } catch(MiahootQuestionEmptyException ex){
-                throw new MiahootQuestionEmptyRestException("Le miahoot ne possède pas de question",ex);
+                throw new MiahootQuestionEmptyRestException("Une question no possède pas de réponse",ex);
             } catch(MiahootEmptyException ex){
-                throw new MiahootEmptyRestException("", ex);
+                throw new MiahootEmptyRestException("Le miahoot ne possède pas de question", ex);
             }
     }
 
-    public void updateMiahoot(final long userId, final String nom, final Miahoot miahoot){
+    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot){
             try {
                 miahootComponent.updateMiahoot(userId, nom, miahoot);
             } catch (MiahootEntityNotFoundException ex) {
@@ -81,7 +68,7 @@ public class MiahootService{
 
 
     @Transactional
-    public void deleteMiahoot(final long userId, final String nom) {
+    public void deleteMiahoot(final String userId, final String nom) {
         try {
             miahootComponent.deleteMiahoot(userId, nom);
         } catch (MiahootEntityNotFoundException ex) {
@@ -90,18 +77,9 @@ public class MiahootService{
     }
 
     @Transactional
-    public void deleteMiahoot(final long userId) {
+    public void deleteMiahoot(final String userId) {
         try {
             miahootComponent.deleteMiahoot(userId);
-        } catch (MiahootEntityNotFoundException ex) {
-            throw new MiahootEntityNotFoundRestException(ex.getMessage());
-        }
-    }
-
-    @Transactional
-    public void deleteMiahoot(final String nom) {
-        try {
-            miahootComponent.deleteMiahoot(nom);
         } catch (MiahootEntityNotFoundException ex) {
             throw new MiahootEntityNotFoundRestException(ex.getMessage());
         }

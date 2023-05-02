@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 //kTest
-@Mapper(uses = TestMapperUtils.class)
+@Mapper(uses = TestMapperUtils.class, componentModel = "spring")
 public interface MiahootMapper {
 
     Miahoot toDto(MiahootEntity miahootEntity);

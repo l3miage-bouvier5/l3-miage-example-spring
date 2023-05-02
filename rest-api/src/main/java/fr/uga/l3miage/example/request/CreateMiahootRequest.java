@@ -13,11 +13,11 @@ import java.util.List;
 public class CreateMiahootRequest {
 
     @Schema(description = "correspond à l'Id de l'utilisateur de l'objet",example = "23")
-    private Long userId;
+    private String userId;
 
     @Schema(description = "correspond au nom de l'objet",example = "qcm ihm")
     private String nom;
 
-    @Schema(description = "correspond aux questions de l'objet")
+    @Schema(description = "correspond aux questions de l'objet", example = "lknn")
     private List<Question> questions;
 }
