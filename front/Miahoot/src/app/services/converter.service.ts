@@ -8,7 +8,6 @@ import { Question } from '../miahoot';
   providedIn: 'root'
 })
 export class ConverterService {
-  private apiUrl = 'http://129.88.210.27:8080/api';
 
   constructor(private http: HttpClient) { }
 
