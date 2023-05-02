@@ -1,4 +1,4 @@
-import { conv, MiahootUser } from '../miahoot';
+import { conv, convAno, MiahootUser, MiahootUserAnonyme } from '../miahoot';
 import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, User } from '@angular/fire/auth';
 import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from '@angular/fire/firestore';
@@ -30,8 +30,8 @@ export abstract class ConnexionService {
               miahootProjected: "",
               photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
             } satisfies MiahootUser)
-        }
-        }
+          }
+        } 
       })
       ).subscribe()
     this.obsMiahootConcepteur$ = authState(this.auth).pipe(
@@ -79,18 +79,26 @@ export abstract class ConnexionService {
   }
 
   
-  async loginAnonymously() {
+  async loginAnonymously(name: string) {
+         
     signInAnonymously(this.auth)
-      .then((uc) => {
+      .then(async (uc) => {
         // Signed in
         const user = uc.user;
         console.log("Connexion success !", user);
+        const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(convAno) ;
+        const snapUser = await getDoc( docUser );
+        if (!snapUser.exists()) {
+          setDoc(docUser, {
+          name: name ?? "Anonyme",
+        } satisfies MiahootUserAnonyme)
+    }
       })
       .catch((error) => {
         console.log("Conexion failed ! ", error.code, " ", error.message);
       });
       
-    }
+  }
   
   // Fonction logout() sert à déconnecter un utilisateur (concepteur ou presentateur)
   // @Entries 
