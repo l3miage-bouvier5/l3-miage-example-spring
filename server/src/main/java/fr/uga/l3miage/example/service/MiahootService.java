@@ -60,6 +60,10 @@ public class MiahootService{
                 miahootComponent.createMiahoot(newMiahootEntity);
             } catch (MiahootAlreadyExistException ex) {
                throw new MiahootAlreadyExistRestException(ERROR_DETECTED, ex);
+            } catch(MiahootQuestionEmptyException ex){
+                throw new MiahootQuestionEmptyRestException("Le miahoot ne possède pas de question",ex);
+            } catch(MiahootEmptyException ex){
+                throw new MiahootEmptyRestException("", ex);
             }
     }
 

@@ -41,7 +41,7 @@ public class MiahootComponent {
     }
 
 
-    public void createMiahoot(final MiahootEntity entity) throws MiahootAlreadyExistException {
+    public void createMiahoot(final MiahootEntity entity) throws MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException {
 //        userId is present and nom is present -> throw MiahootAlreadyExistException
 //        userId is not present -> all good
 //        userId present and nom isnt -> all good
@@ -50,15 +50,15 @@ public class MiahootComponent {
         }
 
         if (entity.getQuestions() == null || entity.getQuestions().isEmpty()){
-//            throw new MiahootEmptyException(String.format("Le miahoot ne contient aucune question"));
+            throw new MiahootEmptyException(String.format("Le miahoot ne contient aucune question"));
         }
 
         // verifier que chaque question contient au moins une reponse
-//        for (QuestionEntity q: entity.getQuestions()){
-//            if (q.getReponses().isEmpty()){
-//                throw new MiahootQuestionEmptyException(String.format("Une question ne contient aucune réponse");
-//            }
-//        }
+        for (QuestionEntity q: entity.getQuestions()){
+            if (q.getReponses() == null || q.getReponses().isEmpty()){
+                throw new MiahootQuestionEmptyException(String.format("Une question ne contient aucune réponse"));
+            }
+        }
         miahootRepository.save(entity);
     }
 

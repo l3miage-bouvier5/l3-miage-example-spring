@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-public class QuestionController implements QuestionEndpoint {
+public
+class QuestionController implements QuestionEndpoint {
     private final QuestionService questionService;
 
 //    @Override
