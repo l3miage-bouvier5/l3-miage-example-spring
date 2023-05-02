@@ -15,6 +15,7 @@ export abstract class ConnexionService {
 
   obsMiahootConcepteur$ : Observable<MiahootUser |undefined>;
   bsIsAnonyme = new BehaviorSubject<boolean>( false );
+  bsIdConnexion = new BehaviorSubject<string>( "" );
 
   constructor(private auth: Auth, private fs : Firestore) {
     authState(this.auth).pipe(
@@ -33,6 +34,7 @@ export abstract class ConnexionService {
             } satisfies MiahootUser)
           }
         }else{
+          this.bsIdConnexion.next(u.uid)
           const docUser =  doc(this.fs, `anonymes/${u.uid}`).withConverter(conv) ;
           const snapUser = await getDoc( docUser );
           this.bsIsAnonyme.next(true)
@@ -97,31 +99,37 @@ export abstract class ConnexionService {
   }
 
   
-  async loginAnonymously(name: string): Promise<string> {
+  async loginAnonymously(name: string) {
     
-    let uid: string = "";
     signInAnonymously(this.auth)
       .then(async (uc) => {
         // Signed in
         const user = uc.user;
-        uid = user.uid;
         console.log("Connexion success !", user);
         const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(conv) ;
         const snapUser = await getDoc( docUser );
         if (!snapUser.exists()) {
+          console.log("Allo je suis dans le if : ", this.bsIdConnexion.value);
+          
           setDoc(docUser, {
           name: name ?? "Anonyme",
           email: "",
           miahootProjected: "",
           photoURL: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
         } satisfies MiahootUser)
+    } else {
+          updateDoc(docUser, {
+            name: name ?? "Anonyme",
+            email: "",
+            miahootProjected: "",
+            photoURL: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+          } satisfies MiahootUser)
     }
       })
       .catch((error) => {
         console.log("Conexion failed ! ", error.code, " ", error.message);
       });
       
-      return uid
   }
   
   // Fonction logout() sert à déconnecter un utilisateur (concepteur ou presentateur)

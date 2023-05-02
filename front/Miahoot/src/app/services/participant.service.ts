@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Firestore, arrayUnion, collection, doc, docData, getDoc, updateDoc } from '@angular/fire/firestore';
-import { Observable, combineLatest, map, of, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, take, tap } from 'rxjs';
 import { CurrentMiahootService } from './current-miahoot.service';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, VOTES } from '../miahoot';
+import { ConnexionService } from './connexion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,19 @@ export class ParticipantService {
 
 
   miahootId :string = ""
-  nom : string = ""
   id : string = ""
 
   obsProjectedMiahoot! : Observable<MiahootProjected | undefined>
   obsQCMId! : Observable<string | undefined>
   obsQCM! : Observable<QCMProjected | undefined>
 
+  bsIdConnexion = new BehaviorSubject<string>("")
+
+
   constructor(private fs : Firestore,
-              private ms : CurrentMiahootService) {
+              private ms : CurrentMiahootService,
+              private cs : ConnexionService) {
+              this.bsIdConnexion = this.cs.bsIdConnexion
   }
 
   /**
@@ -29,7 +34,7 @@ export class ParticipantService {
   addParticipant(){
     const docMiahoot = doc(this.fs, `miahoot/${this.miahootId}`) 
         updateDoc(docMiahoot, {
-          participants : arrayUnion(this.id)
+          participants : arrayUnion(this.bsIdConnexion.value)
         })
   }
 

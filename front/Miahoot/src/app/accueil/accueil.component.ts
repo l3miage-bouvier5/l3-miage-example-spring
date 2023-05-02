@@ -22,8 +22,10 @@ export class AccueilComponent {
 
   async enregristrerInfo(miahootId : string, nom:string){
     this.ps.miahootId = miahootId
-    this.ps.nom = nom
-    this.ps.id = await this.connexion.loginAnonymously(nom);
+    // this.ps.nom = nom
+    await this.connexion.loginAnonymously(nom);
+    console.log("Allo pourquoi je suis null : ",this.ps.id);
+    
     this.ps.init()
     this.ps.addParticipant()
     this.router.navigateByUrl("participer")

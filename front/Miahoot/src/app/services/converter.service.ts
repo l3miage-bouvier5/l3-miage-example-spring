@@ -29,8 +29,6 @@ export class ConverterService {
 
     const question  :Question = JSON.parse(questionString)
 
-    console.log(question);
-
     return question
   }
 }
