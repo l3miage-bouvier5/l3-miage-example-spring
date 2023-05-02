@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, User } from '@angular/fire/auth';
 import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from '@angular/fire/firestore';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
-import { BehaviorSubject, filter, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, filter, lastValueFrom, map, Observable, of, switchMap, tap } from 'rxjs';
+import { ParticipantService } from './participant.service';
 
 
 
@@ -13,44 +14,37 @@ import { BehaviorSubject, filter, map, Observable, of, switchMap, tap } from 'rx
 })
 export abstract class ConnexionService {
 
-  obsMiahootConcepteur$ : Observable<MiahootUser |undefined>;
+  obsMiahootUser$ : Observable<MiahootUser |undefined>;
   bsIsAnonyme = new BehaviorSubject<boolean>( false );
-  bsIdConnexion = new BehaviorSubject<string>( "" );
 
-  constructor(private auth: Auth, private fs : Firestore) {
+  constructor(private auth: Auth, private fs : Firestore, private ps : ParticipantService) {
     authState(this.auth).pipe(
       filter( u => !!u ),
       map( u => u as User ),
       tap( async u => {
-        if(!u.isAnonymous){
-          const docUser =  doc(this.fs, `users/${u.uid}`).withConverter(conv) ;
-          const snapUser = await getDoc( docUser );
-          if (!snapUser.exists()) {
-            setDoc(docUser, {
-              name: u.displayName ?? u.email ?? u.uid,
-              email: u.email ?? "",
-              miahootProjected: "",
-              photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
-            } satisfies MiahootUser)
+        if(u){
+          let path = `users/${u.uid}`
+          if(u.isAnonymous){
+            this.bsIsAnonyme.next(true)
+            path = `ànonymes/${u.uid}`
           }
-        }else{
-          this.bsIdConnexion.next(u.uid)
-          const docUser =  doc(this.fs, `anonymes/${u.uid}`).withConverter(conv) ;
-          const snapUser = await getDoc( docUser );
-          this.bsIsAnonyme.next(true)
-          if (!snapUser.exists()) {
-            setDoc(docUser, {
-              name: u.displayName ?? u.email ?? u.uid,
-              email: u.email ?? "",
-              miahootProjected: "",
-              photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
-            } satisfies MiahootUser)
-          }
+
+            const docUser =  doc(this.fs, path).withConverter(conv) ;
+            const snapUser = await getDoc( docUser );
+            if (!snapUser.exists()) {
+              setDoc(docUser, {
+                name: u.displayName ?? u.email ?? u.uid,
+                email: u.email ?? "",
+                miahootProjected: "",
+                photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+              } satisfies MiahootUser)
+            
         }
-      })
+      }
+    })
       ).subscribe()
 
-      this.obsMiahootConcepteur$ = authState(this.auth).pipe(
+      this.obsMiahootUser$ = authState(this.auth).pipe(
         switchMap( (user) => {
           if(user === null){
             return of(undefined)
@@ -109,8 +103,6 @@ export abstract class ConnexionService {
         const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(conv) ;
         const snapUser = await getDoc( docUser );
         if (!snapUser.exists()) {
-          console.log("Allo je suis dans le if : ", this.bsIdConnexion.value);
-          
           setDoc(docUser, {
           name: name ?? "Anonyme",
           email: "",
@@ -125,12 +117,13 @@ export abstract class ConnexionService {
             photoURL: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
           } satisfies MiahootUser)
     }
+    this.ps.addParticipant(user.uid)
       })
       .catch((error) => {
         console.log("Conexion failed ! ", error.code, " ", error.message);
       });
-      
-  }
+    }
+  
   
   // Fonction logout() sert à déconnecter un utilisateur (concepteur ou presentateur)
   // @Entries 

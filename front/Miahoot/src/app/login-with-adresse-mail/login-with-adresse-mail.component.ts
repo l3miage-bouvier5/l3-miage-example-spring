@@ -26,7 +26,7 @@ export class LoginWithAdresseMailComponent {
   constructor(private connexionServ: ConnexionService,
               private fb: FormBuilder,
               private router : Router) {
-      this.connexionServ.obsMiahootConcepteur$.subscribe(
+      this.connexionServ.obsMiahootUser$.subscribe(
         u => {
           if( u === undefined){
           this.fg.controls.email.setValue("")

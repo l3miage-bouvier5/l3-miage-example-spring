@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ParticipantService } from '../services/participant.service';
-import { HttpClient } from '@angular/common/http';
-import { ConnectConfig } from 'rxjs';
 import { ConnexionService } from '../services/connexion.service';
 
 @Component({
@@ -16,18 +14,13 @@ export class AccueilComponent {
 
   constructor(private router : Router,
               private ps : ParticipantService,
-              private http: HttpClient,
               private connexion: ConnexionService) { }
 
 
   async enregristrerInfo(miahootId : string, nom:string){
     this.ps.miahootId = miahootId
-    // this.ps.nom = nom
-    await this.connexion.loginAnonymously(nom);
-    console.log("Allo pourquoi je suis null : ",this.ps.id);
-    
     this.ps.init()
-    this.ps.addParticipant()
+    await this.connexion.loginAnonymously(nom)
     this.router.navigateByUrl("participer")
   }
 
