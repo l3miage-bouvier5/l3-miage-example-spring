@@ -28,7 +28,7 @@
         
         <div class="social-message">
             <div class="line"></div>
-            <p class="message">Log In or Sign In with Google</p>
+            <p class="message">Log In or Sign Up with Google / Mail</p>
             <div class="line"></div>
         </div>
         <div class="social-icons">
@@ -40,23 +40,21 @@
         </div>
     </div>
     
-    
-    
     <div class="join form-container">
         <p class="title">Join a MiaHoot</p>
-        <div class=" form input-group">
-            <label for="username">Username</label>
-            <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="">
+        <div class="form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="">
+            </div>
+
+            <div class="input-group">
+			    <label for="username">MiaHoot Id</label>
+			    <input [(ngModel)]="miahootId" type="text" name="username" id="username" placeholder="">
+		    </div>
+
+            <button class="form sign buttonJoin" (click)="enregristrerInfo(miahootId,nom)">Join</button>
         </div>
-    
-        <div class=" form input-group">
-            <label for="username">MiaHoot Id</label>
-            <input [(ngModel)] = "miahootId" type="text" name="username" id="username" placeholder="">
-        </div>
-        <button class="form sign buttonJoin">Join</button>
+        
     </div>
 </div>
-
-
-
-
