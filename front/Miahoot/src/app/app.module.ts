@@ -32,6 +32,7 @@ import {
 } from 'ngx-highlightjs';
 import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
 import { ParticipantComponent } from './participant/participant.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ParticipantComponent } from './participant/participant.component';
     FormsModule, 
     ReactiveFormsModule,
     HighlightModule,
-    MatTabsModule
+    MatTabsModule,
+    HttpClientModule
   ],
   providers: [
     {

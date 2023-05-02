@@ -12,9 +12,10 @@ import { CurrentMiahootService } from '../services/current-miahoot.service';
 export class ParticipantComponent {
 
   obsCurrentQCM : Observable<QCMProjected | undefined>
-  constructor(private ms : CurrentMiahootService,
-              private ps : ParticipantService) { 
-    this.obsCurrentQCM = this.ms.obsProjectedQCM
+  constructor(private ps : ParticipantService) { 
+    this.obsCurrentQCM = this.ps.obsQCM
+    
+    this.ps.obsQCM.subscribe((value => console.log(value)))
     
   }
 

@@ -1,5 +1,5 @@
 {
-    "/api/v0": {
+    "/api/*": {
       "target": "http://129.88.210.27:8080",
       "secure": false
     }

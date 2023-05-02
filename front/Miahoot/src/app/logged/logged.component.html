@@ -29,6 +29,20 @@
         </div> -->
     </div>
 
+    <section>
+        <button (click) = "getQuestion('quel')">un truxczljtghz</button>
+        <div *ngIf="this.bsQuestion|async as Q">
+            <pre>{{this.Q.label}}</pre>
+            <pre>Les réponses : 
+                <ul>
+                    <li *ngFor="let answer of this.Q.reponses">
+                        {{answer.label}}
+                    </li>
+                </ul>
+            </pre>
+        </div>
+    </section>
+
     
     <ng-template #NoMiahootProjected>
         <h1>No Miahoot projected</h1>

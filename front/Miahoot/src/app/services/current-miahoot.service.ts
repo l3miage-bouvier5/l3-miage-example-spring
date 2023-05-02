@@ -61,6 +61,8 @@ export class CurrentMiahootService {
           return of(undefined)
         }else{
           const docProjectedQCM = doc(fs,`/miahoot/${projectedMiahootID}/QCMs/${projectedQCMID}`).withConverter(FsQCMProjectedConverter);
+          console.log(docProjectedQCM);
+          
           return docData(docProjectedQCM);
         }
       }
