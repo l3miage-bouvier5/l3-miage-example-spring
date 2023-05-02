@@ -20,7 +20,7 @@ export class AppComponent {
   constructor(private router :Router, private connexService : ConnexionService) {
     this.bsIsAnonyme = this.connexService.bsIsAnonyme;
 
-    this.user = this.connexService.obsMiahootConcepteur$;
+    this.user = this.connexService.obsMiahootUser$;
   }
 
   async loginGoogle() {
