@@ -125,7 +125,7 @@ public interface QuestionEndpoint {
     @ApiResponse(responseCode = "404", description = "Renvoie une erreur 404 si l'entité n'est pas trouvée",
             content = @Content(schema = @Schema(implementation = QuestionNotFoundErrorResponse.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("question/{label}")
+    @GetMapping("{label}")
     Question getEntityQuestion(@PathVariable String label);
 
 
