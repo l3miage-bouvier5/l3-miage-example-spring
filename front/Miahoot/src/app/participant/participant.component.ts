@@ -22,7 +22,4 @@ export class ParticipantComponent {
   vote(proposition : number){
     this.ps.vote(proposition)
   }
-
-
-  
 }

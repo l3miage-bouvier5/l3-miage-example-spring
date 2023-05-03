@@ -34,7 +34,7 @@ import {
   providedIn: 'root',
 })
 export class ParticipantService {
-  miahootId: string = 'Skp4MtR0KtZeBw2EApQZ';
+  miahootId: string = '';
   id: string = '';
 
   obsProjectedMiahoot!: Observable<MiahootProjected | undefined>;
@@ -118,9 +118,9 @@ export class ParticipantService {
    *Fonction qui permet de voter pour une proposition
    */
   vote(proposition: number) {
+
     this.obsQCMId.subscribe((qcmId) => {
       if (qcmId != undefined) {
-        console.log("qcmId",qcmId);
         
         const docQCM = doc(this.fs,`miahoot/${this.miahootId}/QCMs/${qcmId}`).withConverter(FsQCMProjectedConverter);
         const qcm = docData(docQCM);
@@ -145,8 +145,9 @@ export class ParticipantService {
           )
           .subscribe();
       }
-      console.log("L'erreur de merde la");
       
     });
+
+    
   }
 }

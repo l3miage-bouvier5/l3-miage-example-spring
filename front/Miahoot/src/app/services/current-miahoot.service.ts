@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest, lastValueFrom, map, of, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, lastValueFrom, map, of, switchMap, take, tap } from 'rxjs';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
-import { Firestore, addDoc, collection, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
 
 @Injectable({
@@ -9,12 +9,18 @@ import { Auth, authState } from '@angular/fire/auth';
 })
 export class CurrentMiahootService {
 
+
+
   readonly obsProjectedMiahootID: Observable<string | undefined>;
   readonly obsProjectedMiahoot: Observable<undefined | MiahootProjected>
 
   readonly obsProjectedQCMID : Observable<string | undefined>
   readonly obsProjectedQCM : Observable<undefined | QCMProjected>
-  
+
+  readonly obsNbVote : Observable<number>
+
+  readonly obsAnonymes : Observable<string[][]>
+
   constructor(private auth: Auth, private fs: Firestore) {
     this.obsProjectedMiahootID = authState(auth).pipe(
       switchMap( U => {
@@ -67,7 +73,49 @@ export class CurrentMiahootService {
       }
     )
     )
+
+    this.obsNbVote = this.obsProjectedQCM.pipe(
+      map( QCM => {
+        if(QCM === undefined){
+          return -1
+        }else {
+          let sum = 0
+          if(QCM.votes.length === 0){
+            return -1
+          }
+          QCM.votes.forEach( votes => sum += Object.keys(votes).length)
+          return sum
+        }
+
+      })
+    )
+
+    this.obsAnonymes = this.obsProjectedQCM.pipe(
+      map( QCM => {
+        if(QCM === undefined){
+          return []
+        }else{
+          const tableau = QCM.votes.map( votes => {
+              const res : string[] = []
+              const tableauDeClefs = Object.keys(votes)
+              tableauDeClefs.map(  clef => {
+                const docName = doc(this.fs, `anonymes/${clef}`).withConverter(conv)
+                 docData(docName).pipe(
+                    take(1),
+                    tap( (anonyme => res.push(anonyme.name) ))).subscribe()
+                }
+              )
+              return res
+            }
+              )
+              console.log(tableau)
+              return tableau
+            }
+          }
+      )
+    )
   }
+  
 
   async ajouterQuestion(question : Question){
     console.log("je suis la");
@@ -91,11 +139,8 @@ export class CurrentMiahootService {
         }
         )
     ).subscribe()
-
-
-
-
-
   }
+
+
 
 }

@@ -1,37 +1,41 @@
 <section>
-    <div *ngIf="obsProjectedQCM | async as QCM; else NoQCMProjected">
-        <div class="question">
-            Question du QCM : {{ QCM.question }}
-            <div class="container">
-                <ul class="liste">
-                    <li class="reponses" *ngFor="let answer of QCM.responses; index as index">
-                        {{index + 1}}     :    {{ answer }}
-                    </li>
-                </ul>
+    <div *ngIf="obsProjectedQCM | async as QCM ; else NoQCMProjected">
+        
+        <div *ngIf="obsNbVote | async as nbVote">
+
+            <div class="question">
+                Question du QCM : {{ QCM.question }}
+                <div class="container">
+                    <ul class="liste">
+                    
+                        <li class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === bsBonneReponse.value" *ngFor="let answer of QCM.responses; index as index">
+                            {{index + 1}}     :    {{ answer }}
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-            <mat-tab *ngFor="let vote of QCM.votes ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
-                <div class="votes">
-                    <div class="container" *ngFor="let key of vote | keyvalue">
-                        {{ key.key }}
+            <div *ngIf="obsNames | async as tabNames">
+                <mat-tab *ngFor="let names of tabNames ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
+                    <div class="votes">
+                        <div class="nbVote">{{proportionVote(names,nbVote)}}%</div>
+                        <div class="container" *ngFor="let name of names ">
+                            {{ name }}
+                        </div>
                     </div>
-                </div>
-            </mat-tab>
-        </mat-tab-group>
-        <!-- <div class="votes">
-            <div class = "container-vote" *ngFor="let vote of QCM.votes; index as index">
-                Participants ayant voté pour la réponse {{ index + 1 }} :
-                <div class="container" *ngFor="let key of vote | keyvalue">
-                    {{ key.key }}
-                </div>
+                </mat-tab>
             </div>
-        </div> -->
+        </mat-tab-group>
     </div>
+</div>
+    
+    
+
+    
 
     <section>
         <button (click) = "getQuestion('quel')">Afficher la question qu'on veut</button>
-        
+        <button (click) = "afficherReponse()">Macron Explosion</button>
     </section>
 
     
