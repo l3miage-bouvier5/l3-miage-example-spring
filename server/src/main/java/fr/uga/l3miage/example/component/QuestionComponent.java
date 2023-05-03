@@ -6,6 +6,10 @@ import fr.uga.l3miage.example.models.ReponseEntity;
 import fr.uga.l3miage.example.models.TestEntity;
 import fr.uga.l3miage.example.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -48,16 +52,50 @@ public class QuestionComponent {
         questionRepository.save(newQuestion);
     }
 
-    /**
+    
+
+
+
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+/**
      * @param entity à créer en base de données
      */
-    public void createQuestion(final QuestionEntity entity) throws NbReponsesVraiInvalidException{
-        if ( nbReponsesVrai(entity) != 1){
-            throw new NbReponsesVraiInvalidException(String.format("la question (%s) a plusieur reponse vrai",entity.getLabel()), entity.getLabel());
-        }else{
-            questionRepository.save(entity);
-        }
+public void createQuestion(final QuestionEntity entity) throws NbReponsesVraiInvalidException, DuplicationLabelReponsePourUneQuestionException {
+
+    /* 
+     * if (entity.getReponses().isEmpty()) {
+     * throw new NbReponsesVraiInvalidException(
+     * String.format("La question (%s) doit avoir au moins une réponse.",
+     * entity.getLabel()),
+     * entity.getLabel());
+     * }
+     * // Il faut penser au cas où deux Question avec le même label
+     */
+
+     //si plusieurs réponses vrai throw
+    if (nbReponsesVrai(entity) != 1) {
+        throw new NbReponsesVraiInvalidException(
+                String.format("la question (%s) a plusieur reponse vrai", entity.getLabel()), entity.getLabel());
     }
+    // si repetition du label de réponse dans une question throw
+    else if (existeRepetitionLabelReponses(entity.getReponses()) == true) {
+        throw new DuplicationLabelReponsePourUneQuestionException(
+                String.format("la question (%s) a des réponses avec le même label", entity.getLabel()),
+                entity.getLabel());
+
+    }
+    else{
+        questionRepository.save(entity);
+    }
+
+    
+}
+
+
+
+
+
 
 
     // compte le nombre de réponse valide dans le set de reponse d'une 
@@ -74,5 +112,18 @@ public class QuestionComponent {
         return cmp;
     }
 
+    // fonction qui vérifie s'il y a une duplication de labels des réponses dans un
+    // ensemble de réponses
+    public boolean existeRepetitionLabelReponses(Set<ReponseEntity> reponses) {
 
+        boolean existeRepet = false;
+        Set<String> labels = new HashSet<String>();
+        for (ReponseEntity r : reponses) {
+            labels.add(r.getLabel());
+        }
+        if (labels.size() != reponses.size()) {
+            existeRepet = true;
+        }
+        return existeRepet;
+    }
 }

@@ -1,20 +1,22 @@
 package fr.uga.l3miage.example.config.handler;
 
-import javax.servlet.http.HttpServletRequest;
-
+import fr.uga.l3miage.example.error.DuplicationLabelReponsePourUneQuestionErrorResponse;
+import fr.uga.l3miage.example.error.ErrorResponse;
+import fr.uga.l3miage.example.error.IsNotTestErrorResponse;
+import fr.uga.l3miage.example.exception.rest.DuplicationLabelReponsePourUneQuestionRestException;
+import fr.uga.l3miage.example.exception.rest.IsNotTestRestException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import fr.uga.l3miage.example.error.ErrorResponse;
-import fr.uga.l3miage.example.error.NbReponsesVraiInvalidErrorResponse;
-import fr.uga.l3miage.example.exception.rest.NbReponsesVraiInvalidRestException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
- * Cette classe correspond au handler d'exception rest. Ici, on catch l'exception {@link DescriptionAlreadyUseRestException}<br>
+ * Cette classe correspond au handler d'exception rest. Ici, on catch l'exception {@link IsNotTestRestException}<br>
  * Les annotations :
  * <ul>
  *     <li>{@link ConditionalOnWebApplication} permet de dire que cette classe est utilisée si nous sommes sur une application web</li>
@@ -27,29 +29,29 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @ControllerAdvice
 @Slf4j
-public class NbReponsesVraiInvalidRestExceptionHandler {
+public class DuplicationLabelReponsePourUneQuestionExceptionHandler {
     /**
-     * Cette classe correspond au handler de l'exception {@link TestIntIsZeroRestException}.<br>
-     * Ici lorsque le code va lever l'exception {@link TestIntIsZeroRestException} alors la fonction <b color="blue">handle()</b> sera appelée.<br>
+     * Cette classe correspond au handler de l'exception {@link IsNotTestRestException}.<br>
+     * Ici lorsque le code va lever l'exception {@link IsNotTestRestException} alors la fonction <b color="blue">handle()</b> sera appelée.<br>
      * Les annotations :
      * <ul>
      *     <li>{@link ExceptionHandler} permet de donner tous les types d'exceptions qui vont être catch par ce handler</li>
      * </ul>
      * @param httpServletRequest correspond à la requête effectuée par le client
      * @param exception L'exception qui a été levée dans le code server, et qui a été catch par ce handler
-     * @return {@link ResponseEntity}<{@link TestIntIsZeroErrorResponse}></li>
+     * @return {@link ResponseEntity}<{@link IsNotTestErrorResponse}></li>
      */
-    @ExceptionHandler(NbReponsesVraiInvalidRestException.class)
+    @ExceptionHandler(DuplicationLabelReponsePourUneQuestionRestException.class)
     public ResponseEntity<ErrorResponse> handle(HttpServletRequest httpServletRequest, Exception exception){
-        NbReponsesVraiInvalidRestException ex = (NbReponsesVraiInvalidRestException) exception;
-        final NbReponsesVraiInvalidErrorResponse response = NbReponsesVraiInvalidErrorResponse.builder()
-                .uri(httpServletRequest.getRequestURI())
-                .httpStatus(ex.getHttpStatus())
-                .errorMessage(ex.getMessage())
-                .errorCode(ex.getErrorCode())
-                .request(ex.getRequest())
-                .build();
-        log.warn(ex.getMessage());
-        return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        DuplicationLabelReponsePourUneQuestionRestException ex = (DuplicationLabelReponsePourUneQuestionRestException) exception;
+        final DuplicationLabelReponsePourUneQuestionErrorResponse response = DuplicationLabelReponsePourUneQuestionErrorResponse.builder()
+        .uri(httpServletRequest.getRequestURI())
+        .httpStatus(ex.getHttpStatus())
+        .errorMessage(ex.getMessage())
+        .errorCode(ex.getErrorCode())
+        .request(ex.getRequest())
+        .build();
+    log.warn(ex.getMessage());
+    return ResponseEntity.status(ex.getHttpStatus()).body(response);
     }
 }

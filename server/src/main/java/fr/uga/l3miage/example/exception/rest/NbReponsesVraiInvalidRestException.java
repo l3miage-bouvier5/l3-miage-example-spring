@@ -3,20 +3,21 @@ package fr.uga.l3miage.example.exception.rest;
 import org.springframework.http.HttpStatus;
 
 import fr.uga.l3miage.example.error.ErrorCode;
+import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import lombok.Getter;
 
 @Getter
 public class NbReponsesVraiInvalidRestException extends RuntimeException{
-    private final String description;
+    private final CreateQuestionRequest request;
 
-    public NbReponsesVraiInvalidRestException(String message, String description) {
+    public NbReponsesVraiInvalidRestException(String message, CreateQuestionRequest request) {
         super(message);
-        this.description = description;
+        this.request = request;
     }
 
-    public NbReponsesVraiInvalidRestException(String message, String description, Throwable cause) {
+    public NbReponsesVraiInvalidRestException(String message, CreateQuestionRequest request, Throwable cause) {
         super(message, cause);
-        this.description = description;
+        this.request = request;
     }
 
     public HttpStatus getHttpStatus() {
