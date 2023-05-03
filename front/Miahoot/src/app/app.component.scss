@@ -2,10 +2,10 @@
   //faire un css pour coller ça en haut à droite de la page
   margin-left: auto;
   margin-right: 0;
-  margin-top: 0;
+  margin-top: 15%;
   margin-bottom: 0;
   width: 50px;
-  height: 50px;
+  //height: 50px;
   border-radius: 50%;
   border: 2px solid #fff;
   background-color: #fff;
@@ -37,13 +37,14 @@
   }
   
 
-  ul {
+  
+ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #23828b;
-    height: 60px;
+    height: 80px;
 }
 
 li {
@@ -54,13 +55,14 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 20px 50px;
     text-decoration: none;
     margin: 0;
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: rgb(229, 227, 231);
+    width:50%;
 }
 
