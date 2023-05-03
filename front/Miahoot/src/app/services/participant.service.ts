@@ -24,12 +24,11 @@ import { CurrentMiahootService } from './current-miahoot.service';
 import {
   FsMiahootProjectedConverter,
   FsQCMProjectedConverter,
-  Miahoot,
+  
   MiahootProjected,
   QCMProjected,
   VOTES,
 } from '../miahoot';
-import { ConnexionService } from './connexion.service';
 
 @Injectable({
   providedIn: 'root',
@@ -57,9 +56,7 @@ export class ParticipantService {
   init() {
     this.obsProjectedMiahoot = docData(
       doc(this.fs, `miahoot/${this.miahootId}`).withConverter(FsMiahootProjectedConverter)
-    ).pipe(
-      tap(value => console.log("value",value))
-    );
+    )
 
     this.obsQCMId = this.obsProjectedMiahoot.pipe(
       switchMap((projectedMiahootID) => {
@@ -102,13 +99,16 @@ export class ParticipantService {
   /**
    * fonction qui permet d'ajouter un participant au miahoot
    */
-  async addParticipant(id: string) {
-    console.log("id",id);
-    
+  async addParticipant(id: string) {    
+    this.id = id;
     const docMiahoot = doc(this.fs, `miahoot/${this.miahootId}`);
+    
     updateDoc(docMiahoot, {
       participants: arrayUnion(id),
     });
+
+    
+
   }
 
   /***
@@ -120,12 +120,9 @@ export class ParticipantService {
   vote(proposition: number) {
     this.obsQCMId.subscribe((qcmId) => {
       if (qcmId != undefined) {
-        // const vote: VOTES = {[this.nom]: true};
-
-        const docQCM = doc(
-          this.fs,
-          `miahoot/${this.miahootId}/QCMs/${qcmId}`
-        ).withConverter(FsQCMProjectedConverter);
+        console.log("qcmId",qcmId);
+        
+        const docQCM = doc(this.fs,`miahoot/${this.miahootId}/QCMs/${qcmId}`).withConverter(FsQCMProjectedConverter);
         const qcm = docData(docQCM);
 
         qcm
@@ -134,12 +131,12 @@ export class ParticipantService {
             switchMap((qcm) => {
               const votes = qcm.votes;
               const newVote = votes[proposition];
-
+              
               const vote: VOTES = {
                 [this.id]: true,
                 ...newVote,
               };
-
+              
               votes[proposition] = vote;
               return updateDoc(docQCM, {
                 votes: votes,
@@ -148,6 +145,8 @@ export class ParticipantService {
           )
           .subscribe();
       }
+      console.log("L'erreur de merde la");
+      
     });
   }
 }

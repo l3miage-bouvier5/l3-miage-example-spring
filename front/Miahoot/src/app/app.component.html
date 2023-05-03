@@ -22,23 +22,23 @@
     <li><a routerLink=""><h3>MIAHOOT</h3></a></li>
 
     <ng-container *ngIf="this.user | async as U; else unlogged">
-        <div *ngIf="!this.bsIsAnonyme.value">
-            <li>
-            <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click) = "toMiahootEnCours()"> Miahoot en cours</button>
-                <button mat-menu-item (click)="toMesMiahoots()">Mes Miahoots</button>
-                <button mat-menu-item (click)="toAccountConfig()">My Account</button>
-                <button mat-menu-item (click)="logout()">Log out</button>
-            </mat-menu>
-            </li>
-        </div>
-        <div *ngIf="this.bsIsAnonyme.value">
-            <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="logout()">Log out</button>
-            </mat-menu>
-        </div>
+            <div *ngIf="!bsIsAnonyme.value">
+                <li>
+                    <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click) = "toMiahootEnCours()"> Miahoot en cours</button>
+                        <button mat-menu-item (click)="toMesMiahoots()">Mes Miahoots</button>
+                        <button mat-menu-item (click)="toAccountConfig()">My Account</button>
+                        <button mat-menu-item (click)="logout()">Log out</button>
+                    </mat-menu>
+                </li>
+            </div>
+            <div *ngIf="bsIsAnonyme.value">
+                <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="logout()">Log out</button>
+                </mat-menu>
+            </div>
     </ng-container>
 
     <ng-template #unlogged>

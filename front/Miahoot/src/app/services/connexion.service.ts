@@ -18,6 +18,7 @@ export abstract class ConnexionService {
   bsIsAnonyme = new BehaviorSubject<boolean>( false );
 
   constructor(private auth: Auth, private fs : Firestore, private ps : ParticipantService) {
+    this.bsIsAnonyme.next(false)
     authState(this.auth).pipe(
       filter( u => !!u ),
       map( u => u as User ),
@@ -26,7 +27,7 @@ export abstract class ConnexionService {
           let path = `users/${u.uid}`
           if(u.isAnonymous){
             this.bsIsAnonyme.next(true)
-            path = `ànonymes/${u.uid}`
+            path = `anonymes/${u.uid}`
           }
 
             const docUser =  doc(this.fs, path).withConverter(conv) ;
@@ -110,12 +111,14 @@ export abstract class ConnexionService {
           photoURL: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
         } satisfies MiahootUser)
     } else {
+          
           updateDoc(docUser, {
             name: name ?? "Anonyme",
             email: "",
             miahootProjected: "",
             photoURL: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
           } satisfies MiahootUser)
+          
     }
     this.ps.addParticipant(user.uid)
       })

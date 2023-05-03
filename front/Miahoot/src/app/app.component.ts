@@ -15,7 +15,6 @@ export class AppComponent {
   public readonly user: Observable<MiahootUser | undefined>;
   public bsIsAuth = new BehaviorSubject<boolean>( false );
   public bsIsAnonyme = new BehaviorSubject<boolean>( false );
-
   
   constructor(private router :Router, private connexService : ConnexionService) {
     this.bsIsAnonyme = this.connexService.bsIsAnonyme;
