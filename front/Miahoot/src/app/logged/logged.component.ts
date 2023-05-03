@@ -32,5 +32,10 @@ export class LoggedComponent {
   }
   async getQuestion(label :string){
     this.bsQuestion.next(await this.converter.getQuestionByLabel(label))
+    await this.ajouterQuestion()
+  }
+
+  async ajouterQuestion(){
+    await this.ms.ajouterQuestion(this.bsQuestion.value)
   }
 }

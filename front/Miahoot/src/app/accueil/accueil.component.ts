@@ -11,6 +11,7 @@ import { ConnexionService } from '../services/connexion.service';
 export class AccueilComponent {
   miahootId :string = ""
   nom : string = ""
+  outputError : string = "";
 
   constructor(private router : Router,
               private ps : ParticipantService,
@@ -18,10 +19,15 @@ export class AccueilComponent {
 
 
   async enregristrerInfo(miahootId : string, nom:string){
-    this.ps.miahootId = miahootId
-    this.ps.init()
-    await this.connexion.loginAnonymously(nom)
-    this.router.navigateByUrl("participer")
+    try {
+      this.ps.miahootId = miahootId
+      this.ps.init()
+      await this.connexion.loginAnonymously(nom)
+      this.router.navigateByUrl("participer")
+    } catch(e) {
+      this.outputError = "La session que vous essayez de rejoindre n'est plus disponible."
+    }
+    
   }
 
   async loginGoogle() {

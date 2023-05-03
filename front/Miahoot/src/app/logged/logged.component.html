@@ -11,7 +11,7 @@
             </div>
         </div>
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-            <mat-tab *ngFor="let vote of QCM.votes ; index as index" label="Réponse à la question numéro {{index + 1}}">
+            <mat-tab *ngFor="let vote of QCM.votes ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
                 <div class="votes">
                     <div class="container" *ngFor="let key of vote | keyvalue">
                         {{ key.key }}
@@ -30,17 +30,8 @@
     </div>
 
     <section>
-        <button (click) = "getQuestion('quel')">un truxczljtghz</button>
-        <div *ngIf="this.bsQuestion|async as Q">
-            <pre>{{this.Q.label}}</pre>
-            <pre>Les réponses : 
-                <ul>
-                    <li *ngFor="let answer of this.Q.reponses">
-                        {{answer.label}}
-                    </li>
-                </ul>
-            </pre>
-        </div>
+        <button (click) = "getQuestion('quel')">Afficher la question qu'on veut</button>
+        
     </section>
 
     

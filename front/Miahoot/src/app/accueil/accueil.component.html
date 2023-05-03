@@ -52,9 +52,14 @@
 			    <label for="username">MiaHoot Id</label>
 			    <input [(ngModel)]="miahootId" type="text" name="username" id="username" placeholder="">
 		    </div>
-
             <button class="form sign buttonJoin" (click)="enregristrerInfo(miahootId,nom)">Join</button>
         </div>
+        <div class="input-error">
+            <label class="err">{{outputError}}</label>
+        </div>
+            
+            
+        
         
     </div>
 </div>
