@@ -1,6 +1,5 @@
 package fr.uga.l3miage.example.error;
 
-
 /**
  * Représente les codes d'erreur possibles pour une errorResponse
  * Va permettre d'être le discriminant lors de la deserialization des erreurs
