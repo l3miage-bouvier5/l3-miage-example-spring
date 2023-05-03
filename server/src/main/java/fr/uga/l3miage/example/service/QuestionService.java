@@ -1,9 +1,11 @@
 package fr.uga.l3miage.example.service;
 
 import fr.uga.l3miage.example.component.QuestionComponent;
+import fr.uga.l3miage.example.exception.rest.DuplicationLabelReponsePourUneQuestionRestException;
 import fr.uga.l3miage.example.exception.rest.LabelAlreadyExistRestException;
 import fr.uga.l3miage.example.exception.rest.NbReponsesVraiInvalidRestException;
 import fr.uga.l3miage.example.exception.rest.QuestionEntityNotFoundRestException;
+import fr.uga.l3miage.example.exception.technical.DuplicationLabelReponsePourUneQuestionException;
 import fr.uga.l3miage.example.exception.technical.LabelAlreadyExistException;
 import fr.uga.l3miage.example.exception.technical.NbReponsesVraiInvalidException;
 import fr.uga.l3miage.example.exception.technical.QuestionEntityNotFoundException;
@@ -28,7 +30,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
-    private static final String ERROR_DETECTED = "Une erreur lors de la création de l'entité QuestionConfigWithProperties à été détecté.";
+    private static final String ERROR_DETECTED0 = "Une erreur lors de la création de l'entité Question à été détecté: le nombre de réponses vrai est différent de 1 pour une même question.";
+    private static final String ERROR_DETECTED1 = "Une erreur lors de la création de l'entité Question à été détecté: deux réponses avec le même Label détéctées pour une même question";
     private final QuestionComponent questionComponent;
     private final QuestionMapper questionMapper;
 
@@ -41,7 +44,7 @@ public class QuestionService {
             try {
                 questionComponent.createQuestion(label);
             } catch (LabelAlreadyExistException ex) {
-                throw new LabelAlreadyExistRestException(ERROR_DETECTED,label,ex);
+                throw new LabelAlreadyExistRestException(ERROR_DETECTED0,label,ex);
             }
     }
 
@@ -53,7 +56,9 @@ public class QuestionService {
         try {
             questionComponent.createQuestion(newQuestionEntity);
         } catch (NbReponsesVraiInvalidException ex) {
-            throw new NbReponsesVraiInvalidRestException(ERROR_DETECTED, "sdfjksdjghkdlfjgfhkldsffjhggkdlsfjghjf", ex);
+            throw new NbReponsesVraiInvalidRestException(ERROR_DETECTED0, questionRequest, ex);
+        } catch ( DuplicationLabelReponsePourUneQuestionException ex) {
+            throw new DuplicationLabelReponsePourUneQuestionRestException(ERROR_DETECTED1, questionRequest, ex);
         }
         
         
