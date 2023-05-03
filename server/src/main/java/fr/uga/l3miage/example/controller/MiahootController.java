@@ -16,18 +16,13 @@ public class MiahootController implements MiahootEndpoint {
     private final MiahootService miahootService;
 
     @Override
-    public Miahoot getEntityMiahoot(final long userId, final String nom) {
+    public Miahoot getEntityMiahoot(final String userId, final String nom) {
         return miahootService.getMiahoot(userId, nom);
     }
 
     @Override
-    public List<Miahoot> getEntityMiahoot(final long userId) {
+    public List<Miahoot> getEntityMiahoot(final String userId) {
         return miahootService.getMiahoot(userId);
-    }
-
-    @Override
-    public List<Miahoot> getEntityMiahoot(final String nom) {
-        return miahootService.getMiahoot(nom);
     }
 
     @Override
@@ -36,23 +31,18 @@ public class MiahootController implements MiahootEndpoint {
     }
 
 
-    public void updateMiahootEntity(final long userId, final String nom, final Miahoot miahoot) {
+    public void updateMiahootEntity(final String userId, final String nom, final Miahoot miahoot) {
         miahootService.updateMiahoot(userId,nom,miahoot);
     }
 
     @Override
-    public void deleteMiahootEntity(final long userId, final String nom) {
+    public void deleteMiahootEntity(final String userId, final String nom) {
         miahootService.deleteMiahoot(userId, nom);
     }
 
     @Override
-    public void deleteMiahootEntity(final long userId) {
+    public void deleteMiahootEntity(final String userId) {
         miahootService.deleteMiahoot(userId);
-    }
-
-    @Override
-    public void deleteMiahootEntity(final String nom) {
-        miahootService.deleteMiahoot(nom);
     }
 
 

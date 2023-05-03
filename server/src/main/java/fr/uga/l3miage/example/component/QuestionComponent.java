@@ -28,7 +28,6 @@ public class QuestionComponent {
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
 
-
     /**
      * @param label de l'entité Test à récupérer
      * @return une {@link TestEntity} correspondant à description donnée
@@ -37,6 +36,7 @@ public class QuestionComponent {
     public QuestionEntity getQuestion(final String label) throws QuestionEntityNotFoundException {
         return questionRepository.findByLabel(label)
                 .orElseThrow(() -> new QuestionEntityNotFoundException(String.format("Aucune entité n'a été trouvée pour le label [%s]", label), label));
+
     }
 
     /**

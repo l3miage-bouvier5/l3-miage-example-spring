@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @Tag(name = "Reponse tag")
 @CrossOrigin
 @RestController
-@RequestMapping("reponse/")
+@RequestMapping("api/v0/reponse/")
 public interface ReponseEndpoint {
     // GET
 
