@@ -31,7 +31,6 @@ public class QuestionEntity {
     private Set<ReponseEntity> reponses;
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

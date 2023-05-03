@@ -15,4 +15,5 @@ public class CreateReponseRequest {
 
     @Schema(description = "Correspond à un boolean quelconque",example = "true")
     Boolean estValide;
+
 }

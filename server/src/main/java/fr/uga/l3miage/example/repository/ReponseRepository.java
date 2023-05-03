@@ -1,6 +1,8 @@
 package fr.uga.l3miage.example.repository;
 
+import fr.uga.l3miage.example.models.QuestionEntity;
 import fr.uga.l3miage.example.models.ReponseEntity;
+import org.apache.coyote.Response;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
