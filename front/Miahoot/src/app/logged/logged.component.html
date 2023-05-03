@@ -30,17 +30,8 @@
     </div>
 
     <section>
-        <button (click) = "getQuestion('quel')">un truxczljtghz</button>
-        <div *ngIf="this.bsQuestion|async as Q">
-            <pre>{{this.Q.label}}</pre>
-            <pre>Les réponses : 
-                <ul>
-                    <li *ngFor="let answer of this.Q.reponses">
-                        {{answer.label}}
-                    </li>
-                </ul>
-            </pre>
-        </div>
+        <button (click) = "getQuestion('quel')">Afficher la question qu'on veut</button>
+        
     </section>
 
     
