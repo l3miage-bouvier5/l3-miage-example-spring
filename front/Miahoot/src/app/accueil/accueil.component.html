@@ -24,7 +24,7 @@
     
     <div class="create form-container">
         <p class="title">Create a MiaHoot</p>
-            <button class="form sign" (click)="loginWithAdresseMail()">Sign in</button>
+            <button class="button-62" (click)="loginWithAdresseMail()">Sign in</button>
         
         <div class="social-message">
             <div class="line"></div>
@@ -44,7 +44,7 @@
         <p class="title">Join a MiaHoot</p>
         <div class="form">
             <div class="input-group">
-                <label for="username">Username</label>
+                <label for=":">Username</label>
                 <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="">
             </div>
 
@@ -52,7 +52,7 @@
 			    <label for="username">MiaHoot Id</label>
 			    <input [(ngModel)]="miahootId" type="text" name="username" id="username" placeholder="">
 		    </div>
-            <button class="form sign buttonJoin" (click)="enregristrerInfo(miahootId,nom)">Join</button>
+            <button class="button-62" (click)="enregristrerInfo(miahootId,nom)">Join</button>
         </div>
         <div class="input-error">
             <label class="err">{{outputError}}</label>

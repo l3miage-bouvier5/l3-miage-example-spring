@@ -15,6 +15,15 @@
   right: 0;
   }
   
+
+#logo{
+  width : 75px;
+  height : 75px;
+  margin-top: -28px;
+  margin-left: -28px;
+
+}
+
   .toolbar{
     margin-left: auto;
     margin-right: 5px;
@@ -43,7 +52,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #23828b;
+    background-color: #1982C4;
     height: 80px;
 }
 
@@ -55,14 +64,15 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 20px 50px;
+    padding: 30px 40px;
     text-decoration: none;
-    margin: 0;
+    margin: 50px;
+    margin-top: 0px;
 }
 
-/* Change the link color to #111 (black) on hover */
+/* Change the link color to #111 (black) on hover 
 li a:hover {
     background-color: rgb(229, 227, 231);
-    width:50%;
-}
+    width:10px;
+}*/
 

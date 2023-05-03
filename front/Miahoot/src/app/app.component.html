@@ -19,8 +19,8 @@
 </mat-toolbar> -->
 
 <ul>
-    <li><a routerLink=""><h3>MIAHOOT</h3></a></li>
-
+    <li><a><img id="logo" src="../../assets/miahoot_logo.png" routerLink=""/></a></li>
+    
     <ng-container *ngIf="this.user | async as U; else unlogged">
             <div *ngIf="!bsIsAnonyme.value">
                 <li>
