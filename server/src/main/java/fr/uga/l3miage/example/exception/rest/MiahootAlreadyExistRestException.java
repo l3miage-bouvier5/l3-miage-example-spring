@@ -9,14 +9,15 @@ public class MiahootAlreadyExistRestException extends RuntimeException {
 
     public MiahootAlreadyExistRestException(String message){
         super(message);
-    };
+    }
 
     public MiahootAlreadyExistRestException(String message, Throwable cause) {
         super(message, cause);
     }
 
     public HttpStatus getHttpStatus() {
-        return HttpStatus.NOT_FOUND;
+        return HttpStatus.BAD_REQUEST;
     }
 
+    public ErrorCode getErrorCode(){return ErrorCode.MIAHOOTALREADYEXISTS;}
 }
