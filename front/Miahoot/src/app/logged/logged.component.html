@@ -11,7 +11,7 @@
             </div>
         </div>
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-            <mat-tab *ngFor="let vote of QCM.votes ; index as index" label="Réponse à la question numéro {{index + 1}}">
+            <mat-tab *ngFor="let vote of QCM.votes ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
                 <div class="votes">
                     <div class="container" *ngFor="let key of vote | keyvalue">
                         {{ key.key }}
