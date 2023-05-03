@@ -1,6 +1,9 @@
 .Accueil {
   display: flex;
-  width: 100%;
+  // width: 100vw;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 
@@ -9,8 +12,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  margin-left: 15%;
+  width: auto;
+  margin-left: 8%;
   margin-right: 5%;
   margin-top: 10%;
 }
@@ -21,20 +24,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  margin-left: 15%;
-  margin-right: 5%;
+  width: auto;
+  margin-left: 5%;
+  margin-right: 8%;
   margin-top: 10%;
 }
 
 .form-container {
-    width: 320px;
+    width: 380px;
     border-radius: 0.75rem;
-    background-color: rgba(17, 24, 39, 1);
+    background-color: rgba(35, 130, 139, 1);
     padding: 2rem;
     color: rgba(243, 244, 246, 1);
     align-items: center;
     justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
   
   .title {
@@ -52,20 +56,21 @@
     margin-top: 0.25rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
+    width: 100%;
   }
   
   .input-group label {
     display: block;
-    color: rgba(156, 163, 175, 1);
+    color: rgb(255, 255, 255);
     margin-bottom: 4px;
   }
   
   .input-group input {
-    width: 100%;
+    // width: 100%;
     border-radius: 0.375rem;
-    border: 1px solid rgba(55, 65, 81, 1);
+    border: 1px solid rgb(255, 255, 255);
     outline: 0;
-    background-color: rgba(17, 24, 39, 1);
+    background-color: rgba(35, 130, 139, 1);
     padding: 0.75rem 1rem;
     color: rgba(243, 244, 246, 1);
   }
@@ -90,13 +95,13 @@
   }
   
   .forgot a:hover, .signup a:hover {
-    text-decoration: underline rgba(167, 139, 250, 1);
+    text-decoration: underline rgb(255, 255, 255);
   }
   
   .sign {
     display: block;
     width: 100%;
-    background-color: rgba(167, 139, 250, 1);
+    background-color: rgb(255, 255, 255);
     padding: 0.75rem;
     text-align: center;
     color: rgba(17, 24, 39, 1);
@@ -122,7 +127,7 @@
     padding-right: 0.75rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
-    color: rgba(156, 163, 175, 1);
+    color: rgb(255, 255, 255);
   }
   
   .social-icons {
