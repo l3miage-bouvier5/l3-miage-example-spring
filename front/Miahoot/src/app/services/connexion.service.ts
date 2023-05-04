@@ -66,8 +66,8 @@ export abstract class ConnexionService {
   // Fonction login() sert à connecter un utilisateur (concepteur ou presentateur)
   // @Entries email: string, password: string
   // @Output : Promise<MiahootConcepteur | void>
-  async loginWithAdresseMail(email: string, password: string): Promise<MiahootUser | void> {
-    const connexion = signInWithEmailAndPassword(this.auth, email, password)
+  async loginWithAdresseMail(email: string, password: string): Promise<void> {
+    return signInWithEmailAndPassword(this.auth, email, password)
       .then((uc) => {
         // Signed in 
         const user = uc.user;
@@ -76,9 +76,8 @@ export abstract class ConnexionService {
       .catch((error) => {
         console.log("Conexion failed ! ", error.code, " ", error.message);
       });
-
-      return connexion;
   }
+
   
 
   async loginGoogle(){
