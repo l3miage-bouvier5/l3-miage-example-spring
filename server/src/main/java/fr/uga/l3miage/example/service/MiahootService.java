@@ -58,7 +58,9 @@ public class MiahootService {
                     String.format("le miahoot [%s] du user [%s] a une ou plusieurs question(s) vide(s) ou null",
                     newMiahootEntity.getNom(), newMiahootEntity.getUserId()), createMiahootRequest, ex);
         } catch (MiahootEmptyException ex) {
-            throw new MiahootEmptyRestException("Le miahoot ne possède pas de question", ex);
+            throw new MiahootEmptyRestException(String.format(
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s)  ne contient pas de réponse",
+                    newMiahootEntity.getUserId(), newMiahootEntity.getNom()), createMiahootRequest, ex);
         }
     }
 
