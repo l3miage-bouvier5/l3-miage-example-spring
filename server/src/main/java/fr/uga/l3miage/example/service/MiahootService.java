@@ -48,9 +48,9 @@ public class MiahootService {
         try {
             miahootComponent.createMiahoot(newMiahootEntity);
         } catch (MiahootAlreadyExistException ex) {
-            throw new MiahootAlreadyExistRestException(
-                    ERROR_DETECTED, newMiahootEntity.getUserId(),
-                    newMiahootEntity.getNom(), ex);
+            throw new MiahootAlreadyExistRestException(String.format(
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: miahoot avec le même userId = (%s) et nom = (%s)  déjà existant en base de donné",
+                    newMiahootEntity.getUserId(), newMiahootEntity.getNom()), createMiahootRequest, ex);
         } catch (MiahootQuestionEmptyException ex) {
             throw new MiahootQuestionEmptyRestException("Une question no possède pas de réponse", ex);
         } catch (MiahootEmptyException ex) {
@@ -58,19 +58,17 @@ public class MiahootService {
         }
     }
 
-    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot) {
-        try {
-            miahootComponent.updateMiahoot(userId, nom, miahoot);
-        } catch (MiahootEntityNotFoundException ex) {
-            throw new MiahootEntityNotFoundRestException("Impossible de charger l'entité. Raison : [%s]",
-                    ex.getMessage(), userId, ex);
-        } catch (MiahootAlreadyExistException ex) {
-            throw new MiahootAlreadyExistRestException(
-                    ERROR_DETECTED, userId, nom, ex);
-        } catch (MiahootUserIdNotSameException ex) {
-            throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.", ex);
-        }
-    }
+    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot){
+            try {
+                miahootComponent.updateMiahoot(userId, nom, miahoot);
+            } catch (MiahootEntityNotFoundException ex) {
+                throw new MiahootEntityNotFoundRestException("Impossible de charger l'entité. Raison : [%s]",ex.getMessage(), userId, ex);
+            } catch (MiahootAlreadyExistException ex) {
+            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+           //     throw new MiahootAlreadyExistRestException(ERROR_DETECTED0, ex);
+            } catch (MiahootUserIdNotSameException ex) {
+                throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.",ex);
+            }
 
     @Transactional
     public void deleteMiahoot(final String userId, final String nom) {

@@ -48,6 +48,7 @@ public interface MiahootEndpoint {
         @ApiResponse(responseCode = "404", description = "Renvoie une erreur 404 si l'entité n'est pas trouvée", content = @Content(schema = @Schema(implementation = MiahootNotFoundErrorResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
         @Error400Custom
         @ResponseStatus(HttpStatus.ACCEPTED)
+
         @PatchMapping("{userId}/{nom}")
         void updateMiahootEntity(@PathVariable final String userId, @PathVariable final String nom,
                         @RequestBody final Miahoot miahoot);
