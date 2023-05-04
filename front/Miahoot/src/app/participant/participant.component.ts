@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ParticipantService } from '../services/participant.service';
 import { QCMProjected } from '../miahoot';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
 import { signOut } from '@angular/fire/auth';
 import { ConnexionService } from '../services/connexion.service';
@@ -13,6 +13,7 @@ import { ConnexionService } from '../services/connexion.service';
 })
 export class ParticipantComponent {
 
+  bsVoted = new BehaviorSubject<boolean>(false);
   obsCurrentQCM : Observable<QCMProjected | undefined>
   constructor(private ps : ParticipantService) { 
     this.obsCurrentQCM = this.ps.obsQCM
@@ -21,5 +22,6 @@ export class ParticipantComponent {
 
   vote(proposition : number){
     this.ps.vote(proposition)
+    this.bsVoted.next(!this.bsVoted.value);
   }
 }

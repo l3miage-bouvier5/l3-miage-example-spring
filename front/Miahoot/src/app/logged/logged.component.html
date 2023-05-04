@@ -18,11 +18,11 @@
                 </div>
             </div>
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-            <div *ngIf="obsNames | async as tabNames">
+            <div *ngIf="obsNames | async as tabNames"> {{tabNames}}
                 <mat-tab *ngFor="let names of tabNames ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
                     <div class="votes">
                         <div class="nbVote">{{proportionVote(names,nbVote)}}%</div>
-                        <div class="container" *ngFor="let name of names ">
+                        <div class="liste-pseudo" *ngFor="let name of names">
                             {{ name }}
                         </div>
                     </div>
