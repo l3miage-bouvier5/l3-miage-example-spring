@@ -43,9 +43,10 @@ public class MiahootComponent {
             throw new MiahootAlreadyExistException(
                     String.format("la question (%s) a plusieur reponse vrai", entity.getUserId()), entity.getUserId());
         }
-        
+
         if (entity.getQuestions() == null || entity.getQuestions().isEmpty()) {
-            throw new MiahootEmptyException(String.format("Le miahoot ne contient aucune question"));
+            throw new MiahootEmptyException(String.format("Le miahoot ne contient aucune question", entity.getUserId()),
+                    entity.getUserId());
         }
 
         // verifier que chaque question contient au moins une reponse

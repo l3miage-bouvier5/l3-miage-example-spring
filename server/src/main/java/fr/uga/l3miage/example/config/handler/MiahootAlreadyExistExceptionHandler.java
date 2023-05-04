@@ -1,8 +1,11 @@
 package fr.uga.l3miage.example.config.handler;
 
 import fr.uga.l3miage.example.error.MiahootAlreadyExistErrorResponse;
+import fr.uga.l3miage.example.error.MiahootEmptyErrorResponse;
 import fr.uga.l3miage.example.error.ErrorResponse;
 import fr.uga.l3miage.example.exception.rest.MiahootAlreadyExistRestException;
+import fr.uga.l3miage.example.exception.rest.MiahootEmptyRestException;
+import fr.uga.l3miage.example.exception.technical.MiahootEmptyException;
 import fr.uga.l3miage.example.exception.rest.LabelAlreadyExistRestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,11 +43,22 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class MiahootAlreadyExistExceptionHandler {
 
-    @ExceptionHandler({ MiahootAlreadyExistRestException.class })
+    @ExceptionHandler({ MiahootAlreadyExistRestException.class, MiahootEmptyRestException.class })
     public ResponseEntity<ErrorResponse> handle(HttpServletRequest httpServletRequest, Exception exception) {
         if (exception instanceof MiahootAlreadyExistRestException) {
             MiahootAlreadyExistRestException ex = (MiahootAlreadyExistRestException) exception;
             final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
+                    .uri(httpServletRequest.getRequestURI())
+                    .httpStatus(ex.getHttpStatus())
+                    .errorCode(ex.getErrorCode())
+                    .errorMessage(ex.getMessage())
+                    .request(ex.getRequest())
+                    .build();
+            log.warn(ex.getMessage());
+            return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        } else if (exception instanceof MiahootEmptyRestException) {
+            MiahootEmptyRestException ex = (MiahootEmptyRestException) exception;
+            final MiahootEmptyErrorResponse response = MiahootEmptyErrorResponse.builder()
                     .uri(httpServletRequest.getRequestURI())
                     .httpStatus(ex.getHttpStatus())
                     .errorCode(ex.getErrorCode())
