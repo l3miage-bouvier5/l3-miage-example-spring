@@ -15,7 +15,7 @@
 }
 
 .left-sparks{animation: left-sparks   4s  alternate  infinite;
-      transform-origin: 150px 156px;
+      transform-origin: 250px 156px;
 }
 
 .right-sparks{animation: left-sparks   4s  alternate  infinite;
@@ -54,7 +54,7 @@
 }
 
 svg {
-    padding-top: 10%;
+  padding-top: 10%;
   display: block;
   margin: 0 auto;
 }
