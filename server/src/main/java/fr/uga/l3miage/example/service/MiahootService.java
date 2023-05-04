@@ -58,17 +58,19 @@ public class MiahootService {
         }
     }
 
-    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot){
-            try {
-                miahootComponent.updateMiahoot(userId, nom, miahoot);
-            } catch (MiahootEntityNotFoundException ex) {
-                throw new MiahootEntityNotFoundRestException("Impossible de charger l'entité. Raison : [%s]",ex.getMessage(), userId, ex);
-            } catch (MiahootAlreadyExistException ex) {
+    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot) {
+        try {
+            miahootComponent.updateMiahoot(userId, nom, miahoot);
+        } catch (MiahootEntityNotFoundException ex) {
+            throw new MiahootEntityNotFoundRestException("Impossible de charger l'entité. Raison : [%s]",
+                    ex.getMessage(), userId, ex);
+        } catch (MiahootAlreadyExistException ex) {
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-           //     throw new MiahootAlreadyExistRestException(ERROR_DETECTED0, ex);
-            } catch (MiahootUserIdNotSameException ex) {
-                throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.",ex);
-            }
+            // throw new MiahootAlreadyExistRestException(ERROR_DETECTED0, ex);
+        } catch (MiahootUserIdNotSameException ex) {
+            throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.", ex);
+        }
+    }
 
     @Transactional
     public void deleteMiahoot(final String userId, final String nom) {
