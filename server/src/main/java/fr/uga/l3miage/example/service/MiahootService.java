@@ -55,7 +55,7 @@ public class MiahootService {
             throw new MiahootQuestionEmptyRestException("Une question no possède pas de questions", ex);
         } catch (MiahootEmptyException ex) {
             throw new MiahootEmptyRestException(String.format(
-                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s)  ne contient pas de réponse",
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s)  ne contient pas de questions",
                     newMiahootEntity.getUserId(), newMiahootEntity.getNom()), createMiahootRequest, ex);
         }
     }
