@@ -2,10 +2,10 @@
   //faire un css pour coller ça en haut à droite de la page
   margin-left: auto;
   margin-right: 0;
-  margin-top: 0;
+  margin-top: 15%;
   margin-bottom: 0;
   width: 50px;
-  height: 50px;
+  //height: 50px;
   border-radius: 50%;
   border: 2px solid #fff;
   background-color: #fff;
@@ -15,6 +15,15 @@
   right: 0;
   }
   
+
+#logo{
+  width : 75px;
+  height : 75px;
+  margin-top: -28px;
+  margin-left: -28px;
+
+}
+
   .toolbar{
     margin-left: auto;
     margin-right: 5px;
@@ -37,13 +46,14 @@
   }
   
 
-  ul {
+  
+ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #23828b;
-    height: 60px;
+    background-color: #1982C4;
+    height: 80px;
 }
 
 li {
@@ -54,13 +64,15 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 30px 40px;
     text-decoration: none;
-    margin: 0;
+    margin: 50px;
+    margin-top: 0px;
 }
 
-/* Change the link color to #111 (black) on hover */
+/* Change the link color to #111 (black) on hover 
 li a:hover {
-    background-color: #111;
-}
+    background-color: rgb(229, 227, 231);
+    width:10px;
+}*/
 

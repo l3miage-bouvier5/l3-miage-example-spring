@@ -30,8 +30,8 @@ export type VOTES = {
 }
 
 
-
 export interface QCMProjected {
+  correctanwser: number;
   question: string;
   responses: string[]; // Les réponses possibles
   votes: VOTES[]; // Autant d'entrée dans le tableau que de réponses possibles
@@ -66,11 +66,14 @@ export const conv : FirestoreDataConverter<MiahootUser> = {
 export const FsQCMProjectedConverter: FirestoreDataConverter<QCMProjected> = {
   toFirestore: Q => Q,
   fromFirestore: snap => ({
+      correctanwser: snap.get("correctanwser"),
       question: snap.get("question"),
       responses: snap.get("responses"),
       votes: snap.get("votes"),
   })
 }
+
+
 
 
 

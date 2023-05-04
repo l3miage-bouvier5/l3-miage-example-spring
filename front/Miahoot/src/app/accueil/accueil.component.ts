@@ -21,8 +21,8 @@ export class AccueilComponent {
   async enregristrerInfo(miahootId : string, nom:string){
     try {
       this.ps.miahootId = miahootId
-      this.ps.init()
       await this.connexion.loginAnonymously(nom)
+      this.ps.init()
       this.router.navigateByUrl("participer")
     } catch(e) {
       this.outputError = "La session que vous essayez de rejoindre n'est plus disponible."

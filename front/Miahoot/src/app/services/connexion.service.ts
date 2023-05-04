@@ -27,11 +27,11 @@ export abstract class ConnexionService {
           let path = `users/${u.uid}`
           if(u.isAnonymous){
             this.bsIsAnonyme.next(true)
-            path = `anonymes/${u.uid}`
-          }
-
+          }else{
             const docUser =  doc(this.fs, path).withConverter(conv) ;
             const snapUser = await getDoc( docUser );
+            console.log(u.displayName);
+            
             if (!snapUser.exists()) {
               setDoc(docUser, {
                 name: u.displayName ?? u.email ?? u.uid,
@@ -39,6 +39,7 @@ export abstract class ConnexionService {
                 miahootProjected: "",
                 photoURL: u.photoURL ?? "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
               } satisfies MiahootUser)
+          }
             
         }
       }
