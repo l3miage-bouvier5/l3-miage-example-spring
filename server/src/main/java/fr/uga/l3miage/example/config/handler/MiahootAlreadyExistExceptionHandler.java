@@ -48,6 +48,7 @@ public class MiahootAlreadyExistExceptionHandler {
                 .httpStatus(ex.getHttpStatus())
                 .errorCode(ex.getErrorCode())
                 .errorMessage(ex.getMessage())
+                .request(ex.getRequest())
                 .build();
         log.warn(ex.getMessage());
         return ResponseEntity.status(ex.getHttpStatus()).body(response);
