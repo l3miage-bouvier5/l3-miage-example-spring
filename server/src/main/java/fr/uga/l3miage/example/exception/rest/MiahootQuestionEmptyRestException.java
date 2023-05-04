@@ -1,17 +1,23 @@
 package fr.uga.l3miage.example.exception.rest;
 
 import fr.uga.l3miage.example.error.ErrorCode;
+import fr.uga.l3miage.example.request.CreateMiahootRequest;
+import lombok.Getter;
+
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class MiahootQuestionEmptyRestException extends RuntimeException{
-
-    public MiahootQuestionEmptyRestException(String message, Throwable cause) {
+    // entity.getNom(), entity.getUserId(), q.getLabel()
+    private final CreateMiahootRequest request;
+    public MiahootQuestionEmptyRestException(String message,CreateMiahootRequest request, Throwable cause) {
         super(message, cause);
+        this.request = request;
     }
 
     public HttpStatus getHttpStatus() {
-        return HttpStatus.NOT_FOUND;
+        return HttpStatus.UNPROCESSABLE_ENTITY;
     }
 
-    public ErrorCode getErrorCode(){return ErrorCode.QUESTION_ERROR;}
+    public ErrorCode getErrorCode(){return ErrorCode.MIAHOOT_QUESTION_EMPTY;}
 }

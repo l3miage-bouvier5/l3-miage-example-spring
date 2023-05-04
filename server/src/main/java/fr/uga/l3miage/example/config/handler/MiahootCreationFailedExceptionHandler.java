@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import fr.uga.l3miage.example.error.ErrorResponse;
 import fr.uga.l3miage.example.error.MiahootAlreadyExistErrorResponse;
 import fr.uga.l3miage.example.exception.rest.MiahootAlreadyExistRestException;
+import fr.uga.l3miage.example.exception.rest.MiahootQuestionEmptyRestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,17 +40,34 @@ public class MiahootCreationFailedExceptionHandler {
      * @param exception L'exception qui a été levée dans le code server, et qui a été catch par ce handler
      * @return {@link ResponseEntity}<{@link MiahootAlreadyExistErrorResponse}></li>
      */
-    @ExceptionHandler(MiahootAlreadyExistRestException.class)
+    @ExceptionHandler({MiahootAlreadyExistRestException.class, MiahootQuestionEmptyRestException.class})
     public ResponseEntity<ErrorResponse> handle(HttpServletRequest httpServletRequest, Exception exception){
-        MiahootAlreadyExistRestException ex = (MiahootAlreadyExistRestException) exception;
-        final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
-                .uri(httpServletRequest.getRequestURI())
-                .httpStatus(ex.getHttpStatus())
-                .errorMessage(ex.getMessage())
-                .errorCode(ex.getErrorCode())
-                .request(ex.getRequest())
-                .build();
-        log.warn(ex.getMessage());
-        return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        if(exception instanceof MiahootAlreadyExistRestException){
+            MiahootAlreadyExistRestException ex = (MiahootAlreadyExistRestException) exception;
+            final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
+                    .uri(httpServletRequest.getRequestURI())
+                    .httpStatus(ex.getHttpStatus())
+                    .errorMessage(ex.getMessage())
+                    .errorCode(ex.getErrorCode())
+                    .request(ex.getRequest())
+                    .build();
+            log.warn(ex.getMessage());
+            return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        }
+        else if(exception instanceof MiahootQuestionEmptyRestException){
+            MiahootQuestionEmptyRestException ex = (MiahootQuestionEmptyRestException) exception;
+            final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
+                    .uri(httpServletRequest.getRequestURI())
+                    .httpStatus(ex.getHttpStatus())
+                    .errorMessage(ex.getMessage())
+                    .errorCode(ex.getErrorCode())
+                    .request(ex.getRequest())
+                    .build();
+            log.warn(ex.getMessage());
+            return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        }
+        else{
+            return null;
+        }
     }
 }
