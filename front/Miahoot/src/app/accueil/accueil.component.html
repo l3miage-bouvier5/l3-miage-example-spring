@@ -40,9 +40,9 @@
                 </svg>
             </button>
         </div> -->
-        <button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
+        <!--<button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
             Sign up
-        </button>
+        </button>-->
     </div>
     
     <div class="join form-container">
@@ -57,8 +57,9 @@
 			    <label for="username">MiaHoot Id</label>
 			    <input [(ngModel)]="miahootId" type="text" name="username" id="username" placeholder="">
 		    </div>
-            <button class="button-62" (click)="enregristrerInfo(miahootId,nom)">Join</button>
+            
         </div>
+        <button class="button-62" (click)="enregristrerInfo(miahootId,nom)">Join</button>
         <div class="input-error">
             <label class="err">{{outputError}}</label>
         </div>

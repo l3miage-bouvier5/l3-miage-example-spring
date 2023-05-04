@@ -24,18 +24,8 @@
 
 }
 
-  .toolbar{
-    margin-left: auto;
-    margin-right: 5px;
-  }
-  
-  .toolbar button{
-    margin-bottom: 50%;
-    margin-top: 50%;
-    margin-right: 5px;
-  }
 
-  
+ 
   #ppButton {
     background-color: transparent;
     width: auto;
@@ -46,14 +36,17 @@
   }
   
 
-  
+   
 ul {
     list-style-type: none;
-    margin: 0;
+    margin: -5;
     padding: 0;
     overflow: hidden;
     background-color: #1982C4;
     height: 80px;
+    position : fixed;
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
 }
 
 li {
