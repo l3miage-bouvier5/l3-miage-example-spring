@@ -4,7 +4,6 @@ import fr.uga.l3miage.example.exception.technical.*;
 import fr.uga.l3miage.example.mapper.MiahootMapper;
 import fr.uga.l3miage.example.models.MiahootEntity;
 import fr.uga.l3miage.example.models.QuestionEntity;
-import fr.uga.l3miage.example.models.ReponseEntity;
 import fr.uga.l3miage.example.repository.MiahootRepository;
 import fr.uga.l3miage.example.response.Miahoot;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,9 @@ public class MiahootComponent {
         // verifier que chaque question contient au moins une reponse
         for (QuestionEntity q : entity.getQuestions()) {
             if (q.getReponses() == null || q.getReponses().isEmpty()) {
-                throw new MiahootQuestionEmptyException(String.format("Une question ne contient aucune réponse"));
+                throw new MiahootQuestionEmptyException(
+                    String.format("le miahoot [%s] du user [%s] a la question [%s] vide ou null",
+                    entity.getNom(), entity.getUserId(), q.getLabel() ), entity.getNom(), entity.getUserId(), q.getLabel());
             }
         }
         miahootRepository.save(entity);
