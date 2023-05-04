@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, lastValueFrom, map, of, switchMap, take, tap } from 'rxjs';
-import { FsMiahootProjectedConverter, FsQCMProjectedConverter, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
+import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
 import { Firestore, addDoc, collection, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
-import { Auth, authState } from '@angular/fire/auth';
+import { Auth, authState, user } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,10 @@ export class CurrentMiahootService {
 
   readonly obsAnonymes : Observable<string[][]>
 
-  constructor(private auth: Auth, private fs: Firestore) {
+  private questions : Question[] = []
+  private bsIndex  = new BehaviorSubject<number>(0)
+
+  constructor(private auth: Auth, private fs: Firestore,private router : Router) {
     this.obsProjectedMiahootID = authState(auth).pipe(
       switchMap( U => {
         if (U == null) {
@@ -116,6 +120,16 @@ export class CurrentMiahootService {
   }
   
 
+  async nextQuestion(){
+    if(this.bsIndex.value < this.questions.length){
+      const question = this.questions[this.bsIndex.value]
+      await this.ajouterQuestion(question)
+    }else{
+      this.router.navigateByUrl("resultats")
+    }
+    
+  }
+
   async ajouterQuestion(question : Question){
     
     this.obsProjectedMiahootID.pipe(
@@ -136,6 +150,44 @@ export class CurrentMiahootService {
           }
         }
         )
+    ).subscribe()
+    this.bsIndex.next(this.bsIndex.value + 1)
+    console.log(this.bsIndex.value);
+    
+  }
+
+/**
+ * Cette fonction permet de créer un nouveau miahoot dans la collection miahoot de firebase et de l'assigner au 
+ * miahoot projeté du User actuel afin de le présenter. 
+ * Ici on ajoute uniquement la premiere question du miahoot pour pouvoir gérer le changement de question plus facilement
+ * 
+ * @param miahoot Le miahoot qu'on veut projeter
+ */
+  async projeterMiahoot(miahoot: Miahoot){
+    this.bsIndex.next(0)
+    // ajouter un miahoot à firebase
+   
+    this.questions = miahoot.questions
+    console.log(this.questions);
+      
+    authState(this.auth).pipe(
+      take(1),
+      map(async  U => {
+        if(U){
+          const MhCollection = collection(this.fs, `/miahoot`)
+          const jstp = await addDoc(MhCollection, {
+            creator: U.uid,
+            presentator : U.uid
+          })
+          const userActuel = doc(this.fs,`users/${U.uid}`)
+          await updateDoc(userActuel,{
+            miahootProjected : jstp.id
+          })
+
+          await this.ajouterQuestion(miahoot.questions[0])
+        }
+        
+      })
     ).subscribe()
   }
 

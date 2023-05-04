@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
-import { FsMiahootProjectedConverter, FsQCMProjectedConverter, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
+import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
@@ -18,15 +18,20 @@ export class LoggedComponent {
   readonly obsProjectedQCMID : Observable<string | undefined>
   readonly obsProjectedQCM : Observable<undefined | QCMProjected>
 
-  bsQuestion = new BehaviorSubject<Question>({label : "", reponses: []})
   readonly obsNbVote : Observable<number>
+
+  bsMiahoot = new BehaviorSubject<Miahoot>({
+     nom : "",
+     questions : []
+  })
 
   readonly obsNames : Observable<string[][]>
   readonly bsBonneReponse = new BehaviorSubject<number>(0)
   readonly bsAfficherBonneReponse = new BehaviorSubject<boolean>(false)
 
   constructor(private ms: CurrentMiahootService,
-              private converter : ConverterService) {
+              private converter : ConverterService,
+              private conv : ConverterService) {
     this.obsProjectedMiahootID = this.ms.obsProjectedMiahootID
     this.obsProjectedMiahoot = this.ms.obsProjectedMiahoot
     this.obsProjectedQCMID = this.ms.obsProjectedQCMID
@@ -44,13 +49,12 @@ export class LoggedComponent {
       })
     )
   }
-  async getQuestion(label :string){
-    this.bsQuestion.next(await this.converter.getQuestionByLabel(label))
-    await this.ajouterQuestion()
-  }
 
-  async ajouterQuestion(){
-    await this.ms.ajouterQuestion(this.bsQuestion.value)
+/**
+ * Appelle le service pour passer à la question suivante
+ */
+  async nextQuestion(){
+    await this.ms.nextQuestion()
   }
 
 
@@ -62,5 +66,12 @@ export class LoggedComponent {
   afficherReponse() {
     this.bsAfficherBonneReponse.next(!this.bsAfficherBonneReponse.value)
   }
+
+  async getMiahoot(uid : string , nom : string){
+    this.bsMiahoot.next(await this.converter.getMiahoot(uid,nom))
+    await this.ms.projeterMiahoot(this.bsMiahoot.value)
+  }
+
+
 
 }

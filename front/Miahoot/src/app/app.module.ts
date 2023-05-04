@@ -33,6 +33,7 @@ import {
 import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ResultatsComponent } from './resultats/resultats.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoggedComponent,
     ConceptionMiahootComponent,
     MiahootChoiceComponent,
-    ParticipantComponent
+    ParticipantComponent,
+    ResultatsComponent
   ],
   imports: [
     BrowserModule,

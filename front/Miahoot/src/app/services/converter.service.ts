@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { Question } from '../miahoot';
+import { Miahoot, Question } from '../miahoot';
 
 
 @Injectable({
@@ -31,4 +31,23 @@ export class ConverterService {
 
     return question
   }
+
+
+  getMiahootByNom(uid : string, nom : string) : Promise<JSON>{
+    const getJson = this.http.get<JSON>(`/api/v0/miahoot/${uid}/${nom}`)
+
+    return lastValueFrom(getJson)  
+  }
+
+  async getMiahoot(uid:string , nom:string) : Promise<Miahoot>{
+    const jsonMiahoot = await this.getMiahootByNom(uid,nom)
+
+    const miahootString = JSON.stringify(jsonMiahoot)
+
+    const miahoot : Miahoot = JSON.parse(miahootString)
+
+    return miahoot
+  }
+
+
 }

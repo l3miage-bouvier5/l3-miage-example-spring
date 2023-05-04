@@ -2,7 +2,8 @@
     <div *ngIf="obsProjectedQCM | async as QCM ; else NoQCMProjected">
         <div class="boutons">
             <button class="button-62 Aff" (click) = "afficherReponse()">Afficher Bonne Réponse</button>
-            <button class="button-62 Suiv" (click) = "getQuestion('quel')">Question suivante</button>
+            <button class="button-62 Suiv" (click) = "nextQuestion()">Question suivante</button>
+            
         </div>
         <div *ngIf="obsNbVote | async as nbVote">
             
@@ -31,7 +32,11 @@
         </mat-tab-group>
     </div>
 </div>
-    
+
+<button class="button-62" (click) = "getMiahoot('qP4AphBixAUlRUQwSLbZeL2F0Hd2','cultureG')">LE nouveau miahoot la</button>
+<div> nom : {{bsMiahoot.value.nom}}
+s
+</div>
 
     
     <ng-template #NoMiahootProjected>

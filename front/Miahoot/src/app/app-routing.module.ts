@@ -6,6 +6,7 @@ import { ConceptionMiahootComponent } from './conception-miahoot/conception-miah
 import { LoggedComponent } from './logged/logged.component';
 import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.component';
 import { ParticipantComponent } from './participant/participant.component';
+import { ResultatsComponent } from './resultats/resultats.component';
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: "logged", component: LoggedComponent},
   {path:"conceptionMiahoot", component: ConceptionMiahootComponent},
   {path : "participer", component: ParticipantComponent},
+  {path : "resultats", component : ResultatsComponent},
   {path:"**", component: AccueilComponent}
 ];
 

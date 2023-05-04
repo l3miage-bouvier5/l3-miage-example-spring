@@ -45,13 +45,13 @@ export class LoginWithAdresseMailComponent {
 
 
     this.fgLogin = fb.nonNullable.group({
-      email: ["", Validators.required, Validators.email],
+      email: [""],
       password: [""]
     })
     this.fgRegister= fb.nonNullable.group({
-      email: ["", Validators.required, Validators.email],
-      password: ["", Validators.required, Validators.minLength(6)],
-      passwordCheck : ["", Validators.required, Validators.minLength(6)]
+      email: [""],
+      password: [""],
+      passwordCheck : [""]
     })
   }
 
