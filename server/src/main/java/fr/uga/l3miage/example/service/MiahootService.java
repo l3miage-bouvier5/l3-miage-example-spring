@@ -46,7 +46,7 @@ public class MiahootService{
             try {
                 miahootComponent.createMiahoot(newMiahootEntity);
             } catch (MiahootAlreadyExistException ex) {
-               throw new MiahootAlreadyExistRestException(ERROR_DETECTED, ex);
+               throw new MiahootAlreadyExistRestException(String.format("Une erreur lors de la création de l'entité Miahoot à été détecté: miahoot avec le même userId = (%s) et nom = (%s)  déjà existant en base de donné", newMiahootEntity.getUserId(), newMiahootEntity.getNom()), createMiahootRequest, ex);
             } catch(MiahootQuestionEmptyException ex){
                 throw new MiahootQuestionEmptyRestException("Une question no possède pas de réponse",ex);
             } catch(MiahootEmptyException ex){
@@ -60,7 +60,8 @@ public class MiahootService{
             } catch (MiahootEntityNotFoundException ex) {
                 throw new MiahootEntityNotFoundRestException(String.format("Impossible de charger l'entité. Raison : [%s]",ex.getMessage()));
             } catch (MiahootAlreadyExistException ex) {
-                throw new MiahootAlreadyExistRestException(ERROR_DETECTED);
+            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+           //     throw new MiahootAlreadyExistRestException(ERROR_DETECTED0, ex);
             } catch (MiahootUserIdNotSameException ex) {
                 throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.",ex);
             }
