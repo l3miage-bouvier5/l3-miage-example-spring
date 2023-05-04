@@ -40,17 +40,21 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class MiahootAlreadyExistExceptionHandler {
 
-    @ExceptionHandler(MiahootAlreadyExistRestException.class)
+    @ExceptionHandler({ MiahootAlreadyExistRestException.class })
     public ResponseEntity<ErrorResponse> handle(HttpServletRequest httpServletRequest, Exception exception) {
-        MiahootAlreadyExistRestException ex = (MiahootAlreadyExistRestException) exception;
-        final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
-                .uri(httpServletRequest.getRequestURI())
-                .httpStatus(ex.getHttpStatus())
-                .errorCode(ex.getErrorCode())
-                .errorMessage(ex.getMessage())
-                .request(ex.getRequest())
-                .build();
-        log.warn(ex.getMessage());
-        return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        if (exception instanceof MiahootAlreadyExistRestException) {
+            MiahootAlreadyExistRestException ex = (MiahootAlreadyExistRestException) exception;
+            final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
+                    .uri(httpServletRequest.getRequestURI())
+                    .httpStatus(ex.getHttpStatus())
+                    .errorCode(ex.getErrorCode())
+                    .errorMessage(ex.getMessage())
+                    .request(ex.getRequest())
+                    .build();
+            log.warn(ex.getMessage());
+            return ResponseEntity.status(ex.getHttpStatus()).body(response);
+        } else {
+            return null;
+        }
     }
 }

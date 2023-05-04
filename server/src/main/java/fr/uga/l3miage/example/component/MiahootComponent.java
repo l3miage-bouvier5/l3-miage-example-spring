@@ -40,13 +40,10 @@ public class MiahootComponent {
         // userId is not present -> all good
         // userId present and nom isnt -> all good
         if (miahootRepository.findByUserIdAndNom(entity.getUserId(), entity.getNom()).isPresent()) {
-            // throw new MiahootAlreadyExistException(String.format("L'entité Miahoot existe
-            // déjà pour le userId [%d] et le nom [%s]", entity.getUserId(),
-            // entity.getNom()));
             throw new MiahootAlreadyExistException(
                     String.format("la question (%s) a plusieur reponse vrai", entity.getUserId()), entity.getUserId());
         }
-
+        
         if (entity.getQuestions() == null || entity.getQuestions().isEmpty()) {
             throw new MiahootEmptyException(String.format("Le miahoot ne contient aucune question"));
         }
