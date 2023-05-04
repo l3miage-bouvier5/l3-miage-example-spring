@@ -35,7 +35,7 @@ public interface MiahootEndpoint {
     Miahoot getEntityMiahoot(@PathVariable String userId, @PathVariable String nom);
 
     @GetMapping("{userId}")
-    List<Miahoot> getEntityMiahoot(@RequestParam String userId);
+    List<Miahoot> getEntityMiahoot(@PathVariable String userId);
 
 
     //POST
@@ -53,6 +53,7 @@ public interface MiahootEndpoint {
             content = @Content(schema = @Schema(implementation = MiahootNotFoundErrorResponse.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
     @Error400Custom
     @ResponseStatus(HttpStatus.ACCEPTED)
+    
     @PatchMapping("{userId}/{nom}")
     void updateMiahootEntity(@PathVariable final String userId, @PathVariable final String nom, @RequestBody final Miahoot miahoot);
 
