@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Miahoot } from '../miahoot';
+import { Miahoot, MiahootUser } from '../miahoot';
+import { ConnexionService } from '../services/connexion.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-miahoot-choice',
@@ -8,83 +11,19 @@ import { Miahoot } from '../miahoot';
 })
 export class MiahootChoiceComponent {
   // Récupérer tous les miahoots de la base de données et les afficher
-  miahoots : Miahoot[] = [
-    {
-      nom: "Questions débiles",
-      questions: [
-        {
-          label: "Comment s'appelle le professeur de SI ?",
-          reponses: [
-            {
-              label: " JMF ",
-              estValide: true
-            },
-            {
-              label: " JMV ",
-              estValide: false
-            },
-            {
-              label: "JUL",
-              estValide: false
-            }
-          ]
-        },
-        {
-          label: "Quelle est la couleur du cheval blanc d'Henri IV ?",
-          reponses: [
-            {
-              label: "Blanc",
-              estValide: true
-            },
-            {
-              label: "Noir",
-              estValide: false
-            },
-            {
-              label: "Rouge",
-              estValide: false
-            }
-          ]
-        }
-      ]
-    },{
-      nom: "Questions un peu moins débiles mais en fait un peu débiles quand même",
-      questions: [
-        {
-          label: "Comment s'appelle le professeur de SI ?",
-          reponses: [
-            {
-              label: " JMF ",
-              estValide: true
-            },
-            {
-              label: " JMV ",
-              estValide: false
-            },
-            {
-              label: "JUL",
-              estValide: false
-            }
-          ]
-        },
-        {
-          label: "Quelle est la couleur du cheval blanc d'Henri IV ?",
-          reponses: [
-            {
-              label: "Blanc",
-              estValide: true
-            },
-            {
-              label: "Noir",
-              estValide: false
-            },
-            {
-              label: "Rouge",
-              estValide: false
-            }
-          ]
-        }
-      ]
-    }
-  ]
+
+  miahoots : Miahoot[] = []
+  readonly user : Observable< MiahootUser | undefined >
+  constructor(private cs : ConnexionService,
+              private router : Router) {
+    this.user = this.cs.obsMiahootUser$
+  }
+
+  toConceptionMiahoot() {
+    this.router.navigateByUrl("conceptionMiahoot")
+  }
+  
+  toAccueil() {
+    this.router.navigateByUrl("accueil")
+  }
 }
