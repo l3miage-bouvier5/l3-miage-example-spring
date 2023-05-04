@@ -18,7 +18,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 @Getter
 @ToString(callSuper = true, exclude = "errorCodeSwaggerDocumentation")
 @EqualsAndHashCode(callSuper = true)
-public class MiahootNotFoundErrorResponse extends ErrorResponse {
+public class MiahootListNotFoundErrorResponse extends ErrorResponse {
 
     protected static final String TYPE_NAME = "MIAHOOT_IS_NOT_FOUND";
 
@@ -27,18 +27,10 @@ public class MiahootNotFoundErrorResponse extends ErrorResponse {
     @JsonProperty(access = WRITE_ONLY)
     private final String errorCodeSwaggerDocumentation = "Field used only to generate documentation, don't use it";
 
-    /*
-     * @Schema(description = "le userId utilisé pour la recherche", example = "2")
-     * private final CreateMiahootRequest request;
-     * 
-     * @Schema(description = "le nom utilisé pour la recherche", example =
-     * "mon qcm")
-     * private final String nom;
-     */
-
     @Builder
     @Jacksonized
-    public MiahootNotFoundErrorResponse(String uri, HttpStatus httpStatus, ErrorCode errorCode, String errorMessage) {
+    public MiahootListNotFoundErrorResponse(String uri, HttpStatus httpStatus, ErrorCode errorCode,
+            String errorMessage) {
         super(uri, httpStatus, errorCode, errorMessage);
     }
 }

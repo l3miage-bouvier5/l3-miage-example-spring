@@ -5,20 +5,17 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class MiahootEntityNotFoundRestException extends RuntimeException {
+public class MiahootListEntityNotFoundRestException extends RuntimeException {
     private final String userId;
-    private final String nom;
 
-    public MiahootEntityNotFoundRestException(String message, String userId, String nom) {
+    public MiahootListEntityNotFoundRestException(String message, String userId) {
         super(message);
         this.userId = userId;
-        this.nom = nom;
     }
 
-    public MiahootEntityNotFoundRestException(String message, String userId, String nom, Throwable cause) {
+    public MiahootListEntityNotFoundRestException(String message, String userId, Throwable cause) {
         super(message, cause);
         this.userId = userId;
-        this.nom = nom;
     }
 
     public HttpStatus getHttpStatus() {
@@ -26,6 +23,6 @@ public class MiahootEntityNotFoundRestException extends RuntimeException {
     }
 
     public ErrorCode getErrorCode() {
-        return ErrorCode.MIAHOOT_IS_NOT_FOUND;
+        return ErrorCode.MIAHOOT_LIST_IS_NOT_FOUND;
     }
 }
