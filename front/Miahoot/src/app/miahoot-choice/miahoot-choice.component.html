@@ -1,6 +1,8 @@
-<section>
-    
-    <button type="button" class="button">
+<section *ngIf="user|async as U ; else noUser">
+
+    <section>
+        
+        <button type="button" class="button" (click)="toConceptionMiahoot()">
         <span class="button__text">Miahoot</span>
         <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
     </button>
@@ -8,7 +10,9 @@
 </section>
 
 <section class="container-master">
-    <h1>Choisissez votre miahoot à présenter</h1>
+    <h1 *ngIf = "miahoots.length !== 0  ; else noMiahoot">Choisissez votre miahoot à présenter</h1>
+    <ng-template #noMiahoot><h1>Créez votre premier Miahoot !</h1>
+    </ng-template>
         <div class="container" 
             *ngFor="let miahoot of miahoots">
             <h2>{{miahoot.nom}}</h2>
@@ -23,8 +27,14 @@
                 <button mat-raised-button color="primary">Aperçu</button>
             </section>
         </div>
+    </section>
 </section>
 
+
+<ng-template #noUser class="no-user">
+    <h2>Vous devez être connecté pour accéder à cette page</h2>
+    <button mat-raised-button (click)="toAccueil()"> Retourner à l'écran d'accueil</button>
+</ng-template>
 <!-- Le code pourri qui affichait les questions et les réponses  -->
 
 <!-- <div class="question" *ngFor="let question of miahoot.questions">

@@ -1,3 +1,29 @@
+.no-user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+.no-user h1{
+    font-size: 50px;
+    font-weight: bold;
+    color: #23828b;
+}
+.no-user button{
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #23828b;
+    background-color: #23828b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+
 img{
     width: 10px;
     height: 10px;

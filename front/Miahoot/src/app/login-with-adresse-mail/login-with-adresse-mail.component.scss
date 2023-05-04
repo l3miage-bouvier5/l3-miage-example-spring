@@ -16,9 +16,9 @@
     align-items: center;
     box-shadow: 5px 5px 15px -1px rgba(0,0,0,0.75);
     margin: 10%;
-  }
+}
   
-  .signup {
+.signup {
     color: rgb(77, 75, 75);
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -26,9 +26,9 @@
     font-weight: bold;
     font-size: x-large;
     margin-bottom: 0.5em;
-  }
+}
   
-  .form--input {
+.form--input {
     width: 100%;
     margin-bottom: 1.25em;
     height: 40px;
@@ -42,7 +42,7 @@
   .form--input:focus {
     border: 1px solid #639;
     outline: none;
-  }
+}
   .form--marketing > label {
     color: grey;
   }
@@ -61,10 +61,10 @@
     cursor: pointer;
   }
   
-  .form--submit:hover {
+.form--submit:hover {
     color: #639;
     background-color: white;
     border: 1px dashed #639;
     cursor: pointer;
     transition: 0.5s;
-  }
+}

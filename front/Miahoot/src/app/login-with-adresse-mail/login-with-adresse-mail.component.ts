@@ -57,12 +57,13 @@ export class LoginWithAdresseMailComponent {
 
   login() {
     this.connexionServ.loginWithAdresseMail(this.fgLogin.controls.email.value, this.fgLogin.controls.password.value)
+    this.bsIsLoggedIn.next(true)
     this.router.navigateByUrl("miahootChoice")
   }
 
-  register(){
-    this.connexionServ.register(this.fgRegister.controls.email.value, this.fgRegister.controls.password.value)
-    this.router.navigateByUrl("miahootChoice")
+  async register(){
+    await this.connexionServ.register(this.fgRegister.controls.email.value, this.fgRegister.controls.password.value)
+    this.router.navigateByUrl("conceptionMiahoot")
   }
 
   async logout() {
