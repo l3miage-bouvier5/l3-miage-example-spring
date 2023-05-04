@@ -55,7 +55,8 @@
   
   .input-group {
     margin-top: 0.25rem;
-    font-size: 0.875rem;
+    // font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.25rem;
     width: 100%;
   }
@@ -126,7 +127,8 @@
   .social-message .message {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
-    font-size: 0.875rem;
+    // font-size: 0.875rem;
+    font-size: 1.075rem;
     line-height: 1.25rem;
     color: rgb(255, 255, 255);
     font-weight: bold;
@@ -189,35 +191,34 @@
 
 
 
-/* BUTTON*/
+
+
+// BUTTON JOIN
 .button-62 {
-  // background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
-  background-attachment: white;
+  --width: 150px;
+  --timing: 2s;
   border: 0;
-  border-radius: 12px;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  margin: 1%;
+  width: var(--width);
+  padding-block: 1em;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  background: rgba(149, 46, 163, 0.973);
+  transition: all 0.2s;
+  border-radius: 3px;
+  margin-top: 5%;
 }
 
-.button-62:not([disabled]):focus {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+.button-62:hover {
+  background-image: linear-gradient(to right, rgb(250, 82, 82), rgb(250, 82, 82) 16.65%, rgb(190, 75, 219) 16.65%, rgb(190, 75, 219) 33.3%, rgb(76, 110, 245) 33.3%, rgb(76, 110, 245) 49.95%, rgb(64, 192, 87) 49.95%, rgb(64, 192, 87) 66.6%, rgb(250, 176, 5) 66.6%, rgb(250, 176, 5) 83.25%, rgb(253, 126, 20) 83.25%, rgb(253, 126, 20) 100%, rgb(250, 82, 82) 100%);
+  animation: var(--timing) linear dance6123 infinite;
+  transform: scale(1.1) translateY(-1px);
 }
 
-.button-62:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+@keyframes dance6123 {
+  to {
+    background-position: var(--width);
+  }
 }
+
+
