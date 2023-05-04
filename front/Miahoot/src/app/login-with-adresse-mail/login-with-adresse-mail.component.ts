@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MiahootUser } from '../miahoot';
 import { BehaviorSubject } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ConnexionService } from '../services/connexion.service';
 import { Router } from '@angular/router';
 
@@ -18,9 +18,14 @@ export class LoginWithAdresseMailComponent {
 
 
 
-  public fg: FormGroup<{
+  public fgLogin: FormGroup<{
     email: FormControl<string>
     password: FormControl<string>
+  }>;
+  public fgRegister: FormGroup<{
+    email: FormControl<string>
+    password: FormControl<string>
+    passwordCheck : FormControl<string>
   }>;
 
   constructor(private connexionServ: ConnexionService,
@@ -29,30 +34,34 @@ export class LoginWithAdresseMailComponent {
       this.connexionServ.obsMiahootUser$.subscribe(
         u => {
           if( u === undefined){
-          this.fg.controls.email.setValue("")
-          this.fg.controls.password.setValue("")
+          this.fgLogin.controls.email.setValue("")
+          this.fgLogin.controls.password.setValue("")
         } else {
-          this.fg.controls.email.setValue(u.email)
+          this.fgLogin.controls.email.setValue(u.email)
         }
       }
       )
 
 
 
-    this.fg = fb.nonNullable.group({
-      email: [""],
+    this.fgLogin = fb.nonNullable.group({
+      email: ["", Validators.required, Validators.email],
       password: [""]
     })
-
+    this.fgRegister= fb.nonNullable.group({
+      email: ["", Validators.required, Validators.email],
+      password: ["", Validators.required, Validators.minLength(6)],
+      passwordCheck : ["", Validators.required, Validators.minLength(6)]
+    })
   }
 
   login() {
-    this.connexionServ.loginWithAdresseMail(this.fg.controls.email.value, this.fg.controls.password.value)
+    this.connexionServ.loginWithAdresseMail(this.fgLogin.controls.email.value, this.fgLogin.controls.password.value)
     this.router.navigateByUrl("miahootChoice")
   }
 
   register(){
-    this.connexionServ.register(this.fg.controls.email.value, this.fg.controls.password.value)
+    this.connexionServ.register(this.fgRegister.controls.email.value, this.fgRegister.controls.password.value)
     this.router.navigateByUrl("miahootChoice")
   }
 
