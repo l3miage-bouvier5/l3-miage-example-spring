@@ -5,7 +5,7 @@
             <button class="button-62 Suiv" (click) = "nextQuestion()">Question suivante</button>
             
         </div>
-        <div *ngIf="obsNbVote | async as nbVote">
+        
             
             <div class="question">
                 <h3>{{ QCM.question }}</h3>
@@ -18,18 +18,19 @@
                     </div>
                 </div>
             </div>
-        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+            <div *ngIf="obsNbVote | async as nbVote">
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
             <div *ngIf="obsNames | async as tabNames"> {{tabNames}}
-                <mat-tab *ngFor="let names of tabNames ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
-                    <div class="votes">
-                        <div class="nbVote">{{proportionVote(names,nbVote)}}%</div>
-                        <div class="liste-pseudo" *ngFor="let name of names">
-                            {{ name }}
+                    <mat-tab *ngFor="let names of tabNames ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
+                        <div class="votes">
+                            <div class="nbVote">{{proportionVote(names,nbVote)}}%</div>
+                            <div class="liste-pseudo" *ngFor="let name of names">
+                                {{ name }}
+                            </div>
                         </div>
-                    </div>
-                </mat-tab>
-            </div>
-        </mat-tab-group>
+                    </mat-tab>
+                </div>
+            </mat-tab-group>
     </div>
 </div>
 

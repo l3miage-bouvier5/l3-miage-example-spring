@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, lastValueFrom, map, of, switchMap, take, tap } from 'rxjs';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
-import { Firestore, addDoc, collection, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Auth, authState, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class CurrentMiahootService {
-
 
 
   readonly obsProjectedMiahootID: Observable<string | undefined>;
@@ -21,6 +20,7 @@ export class CurrentMiahootService {
   readonly obsNbVote : Observable<number>
 
   readonly obsAnonymes : Observable<string[][]>
+
 
   private questions : Question[] = []
   private bsIndex  = new BehaviorSubject<number>(0)
@@ -117,6 +117,8 @@ export class CurrentMiahootService {
           }
       )
     )
+
+   
   }
   
 
@@ -141,7 +143,7 @@ export class CurrentMiahootService {
               question : question.label,
               responses : question.reponses.map( value => value.label),
               correctAnswer: question.reponses.findIndex(value => value.estValide === true),
-              votes:[] as VOTES[]
+              votes:question.reponses.map(_ => { return {} as VOTES })
             })
             const miahootActuel = doc(this.fs,`miahoot/${MiahootId}`)
             await updateDoc(miahootActuel,{
