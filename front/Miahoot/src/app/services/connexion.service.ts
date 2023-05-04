@@ -30,7 +30,6 @@ export abstract class ConnexionService {
           }else{
             const docUser =  doc(this.fs, path).withConverter(conv) ;
             const snapUser = await getDoc( docUser );
-            console.log(u.displayName);
             
             if (!snapUser.exists()) {
               setDoc(docUser, {

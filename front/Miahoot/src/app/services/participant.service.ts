@@ -60,7 +60,6 @@ export class ParticipantService {
 
     this.obsQCMId = this.obsProjectedMiahoot.pipe(
       switchMap((projectedMiahootID) => {
-        console.log("projectedMiahootID",projectedMiahootID);
         
         if (projectedMiahootID === undefined) {
           return of(undefined);

@@ -108,7 +108,6 @@ export class CurrentMiahootService {
               return res
             }
               )
-              console.log(tableau)
               return tableau
             }
           }
@@ -118,7 +117,6 @@ export class CurrentMiahootService {
   
 
   async ajouterQuestion(question : Question){
-    console.log("je suis la");
     
     this.obsProjectedMiahootID.pipe(
       take(1),

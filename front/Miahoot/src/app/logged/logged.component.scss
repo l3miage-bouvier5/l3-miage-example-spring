@@ -89,6 +89,8 @@
   margin-top: 10px;
   background: #673ab7;
   color: #fff;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .question.votes:hover {
@@ -99,18 +101,16 @@ img {
   border-radius: 5px 5px 0 0;
 }
 
-// .container {
-
-// }
 .nbVote{
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  margin-top: 10px; 
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .valide {
-  background-color: greenyellow;
+  background-color: rgba(27, 218, 122, 0.973);
 }
 
 // .button-62:not([disabled]):focus {
@@ -160,3 +160,13 @@ img {
   touch-action: manipulation;
   white-space: nowrap;
 }
+
+.liste-pseudo {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
