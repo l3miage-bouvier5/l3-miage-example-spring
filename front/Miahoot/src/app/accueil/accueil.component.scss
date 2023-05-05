@@ -208,10 +208,11 @@
   border: 0;
   width: var(--width);
   padding-block: 1em;
-  color: #fff;
+  color: rgb(255, 255, 255);
   font-weight: bold;
   font-size: 1em;
-  background: linear-gradient(to bottom right, rgb(232, 117, 200), rgb(249, 255, 89));
+  //background: linear-gradient(to bottom right, rgb(232, 117, 200), rgb(249, 255, 89));
+  background-color: #ce93c1;
   transition: all 0.2s;
   border-radius: 3px;
   margin-top: 5%;
