@@ -11,16 +11,19 @@ import {
 import {
   BehaviorSubject,
   Observable,
+  ReplaySubject,
   Subject,
+  Subscription,
   combineLatest,
   lastValueFrom,
   map,
   of,
+  startWith,
   switchMap,
   take,
   tap,
 } from 'rxjs';
-import { CurrentMiahootService } from './current-miahoot.service';
+import { CurrentMiahootService, STATE } from './current-miahoot.service';
 import {
   FsMiahootProjectedConverter,
   FsQCMProjectedConverter,
@@ -37,15 +40,32 @@ export class ParticipantService {
   miahootId: string = '';
   id: string = '';
 
-  obsProjectedMiahoot!: Observable<MiahootProjected | undefined>;
-  obsQCMId!: Observable<string | undefined>;
-  obsQCM!: Observable<QCMProjected | undefined>;
-
+  private sub: Subscription;
+  readonly obsState : Observable<STATE>
+  // obsProjectedMiahoot!: Observable<MiahootProjected | undefined>;
+  // obsQCMId!: Observable<string | undefined>;
+  // obsQCM!: Observable<QCMProjected | undefined>;
+  
+  readonly rsState : ReplaySubject<STATE>( 1 );
 
   constructor(
     private fs: Firestore,
     private ms: CurrentMiahootService,
-  ) {    
+  ) {
+    this.obsState = this.ms.obsState.pipe(
+      startWith(undefined),
+      switchMap( state => {
+        if ( state === undefined ) {
+          return of( undefined );
+        } else {
+          const docMiahoot = doc( this.fs, `miahoot/${state.miahoot.id}` ).withConverter( FsMiahootProjectedConverter );
+          return docData( docMiahoot );
+        }
+      })
+    )
+
+    this.sub = this.obsState.subscribe(this.rsState)
+    
   }
 
 
@@ -53,6 +73,7 @@ export class ParticipantService {
   /**
    * fonction qui initialise les Observables
    */
+  //ReplaySubject
   init() {
     this.obsProjectedMiahoot = docData(
       doc(this.fs, `miahoot/${this.miahootId}`).withConverter(FsMiahootProjectedConverter)
@@ -92,6 +113,9 @@ export class ParticipantService {
         }
       })
     )
+
+
+    
   }
 
 
@@ -110,33 +134,24 @@ export class ParticipantService {
 
   }
 
-  /***
-   * Fonction qui initialise les Observables
-   */
+
   /*
    *Fonction qui permet de voter pour une proposition
    */
   vote(proposition: number) {
 
-    this.obsQCMId.subscribe((qcmId) => {
-      if (qcmId != undefined) {
+    this.obsQCMId.pipe(
+      take(1),
+      map((qcmId) => {
+      if (qcmId) {
         
         const docQCM = doc(this.fs,`miahoot/${this.miahootId}/QCMs/${qcmId}`).withConverter(FsQCMProjectedConverter);
         const qcm = docData(docQCM);
 
-        qcm
-          .pipe(
+        qcm.pipe(
             take(1),
             switchMap((qcm) => {
-              const votes = qcm.votes;
-              const newVote = votes[proposition];
               
-              const vote: VOTES = {
-                [this.id]: true,
-                ...newVote,
-              };
-              
-              votes[proposition] = vote;
               return updateDoc(docQCM, {
                 votes: votes,
               });
@@ -145,7 +160,7 @@ export class ParticipantService {
           .subscribe();
       }
       
-    });
+    })).subscribe()
 
     
   }
