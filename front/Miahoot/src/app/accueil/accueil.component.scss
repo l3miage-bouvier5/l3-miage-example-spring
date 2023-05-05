@@ -33,21 +33,28 @@
 .form-container {
     width: 380px;
     border-radius: 0.75rem;
-    // background-color: #ffca3a;
-    background: linear-gradient(to bottom right, rgba(25, 130, 196), rgb(180, 218, 254));
+    background-color: #ffffff;
+    // background: linear-gradient(to bottom right, rgba(25, 130, 196), rgb(180, 218, 254));
     padding: 2rem;
-    color: rgba(243, 244, 246, 1);
+    color: rgb(0, 0, 0);
     align-items: center;
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
   
+  // .title {
+  //   text-align: center;
+  //   font-size: 1.5rem;
+  //   line-height: 2rem;
+  //   font-weight: 700;
+  // }
   .title {
-    text-align: center;
-    font-size: 1.5rem;
-    line-height: 2rem;
-    font-weight: 700;
-  }
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 500; // kenit 600
+  text-align: center;
+  color: #000;
+}
   
   .form {
     margin-top: 1.2rem;
@@ -59,11 +66,12 @@
     font-size: 1rem;
     line-height: 1.25rem;
     width: 100%;
+    font-weight: bold; 
   }
   
   .input-group label {
     display: block;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     margin-bottom: 4px;
   }
   
@@ -125,12 +133,12 @@
   }
   
   .social-message .message {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    // padding-left: 0.0rem;
+    // padding-right: 0.0rem;
     // font-size: 0.875rem;
     font-size: 1.075rem;
     line-height: 1.25rem;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     font-weight: bold;
   }
   
@@ -203,7 +211,7 @@
   color: #fff;
   font-weight: bold;
   font-size: 1em;
-  background: rgba(149, 46, 163, 0.973);
+  background: linear-gradient(to bottom right, rgb(232, 117, 200), rgb(249, 255, 89));
   transition: all 0.2s;
   border-radius: 3px;
   margin-top: 5%;
@@ -220,5 +228,6 @@
     background-position: var(--width);
   }
 }
+
 
 
