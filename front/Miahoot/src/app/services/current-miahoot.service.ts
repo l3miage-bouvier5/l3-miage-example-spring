@@ -54,7 +54,7 @@ export class CurrentMiahootService implements OnDestroy {
           map(qcm => ({
             anonymes: qcm.responses.map((_val, index) => {
               let res: string[] = []
-              Object.entries(qcm.votes).filter(([_key, value]) => value.forEach(value => value === index) )
+              Object.entries(qcm.votes).filter(([_key, value]) => value === index )
                 .forEach(([key, _value]) => {
                   const docName = doc(this.fs, `anonymes/${key}`).withConverter(conv)
                   docData(docName).pipe(
@@ -91,11 +91,11 @@ export class CurrentMiahootService implements OnDestroy {
 
   async ajouterQuestion(question: Question) {
 
-    const val = this.bsState.subscribe(val => { return val })
+    // const val = this.bsState.subscribe(val => { return val })
     
     this.obsState.pipe(
       take(1),
-      map(async MiahootId => {
+      map(async MiahootId => { 
         if (MiahootId) {
           const QCMsCollection = collection(this.fs, `/miahoot/${MiahootId}/QCMs`)
           const QCMdata = await addDoc(QCMsCollection, {

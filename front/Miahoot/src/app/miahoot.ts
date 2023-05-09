@@ -26,7 +26,7 @@ export interface MiahootUser {
 
 
 export type VOTES = {
-  [participantUID: string]: number[]
+  [participantUID: string]: number
 }
 
 

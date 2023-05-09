@@ -113,13 +113,10 @@ export class ParticipantService {
                   
                   if (qcm) {
                     const votes = qcm.votes;
-                    let voteId = Object.entries(qcm.votes).find(([key, _value]) => this.id === key);
-                    if(voteId === undefined){
-                      voteId = [this.id, []];
-                    }
+                    
                     const newVotes = {
                       ...votes,
-                      [this.id]: [...voteId[1], proposition]
+                      [this.id]: proposition
                     }
 
                   return updateDoc(docQCM, {

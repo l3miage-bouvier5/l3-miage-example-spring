@@ -1,27 +1,29 @@
 <section>
     <div *ngIf="obsState | async as S ; else NoQCMProjected">
         <div class="boutons">
-            <button class="button-62 Aff" (click) = "afficherReponse()">Afficher Bonne Réponse</button>
-            <button class="button-62 Suiv" (click) = "nextQuestion()">Question suivante</button>
-            
+            <button class="button-62 Aff" (click)="afficherReponse()">Afficher bonne réponse</button>
+            <button *ngIf="!bsAfficherVote.value" class="button-62" (click)="afficherVote()">Afficher votes</button>
+            <button *ngIf="bsAfficherVote.value" class="button-62" (click)="afficherVote()">Cacher votes</button>
+
+            <button class="button-62 Suiv" (click)="nextQuestion()">Question suivante</button>
+
         </div>
-        
-            
-            <div class="question">
-                <h3>{{ S.qcm.question }}</h3>
-                <div class="container">
-                    <div class="liste">
-                    
-                        <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === S.qcm.correctanwser" *ngFor="let answer of S.qcm.responses; index as index">
-                            <h4>{{ answer }}</h4>
-                        </div>
+        <div class="question">
+            <h3>{{ S.qcm.question }}</h3>
+            <div class="container">
+                <div class="liste">
+                    <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === S.qcm.correctanwser"
+                        *ngFor="let answer of S.qcm.responses; index as index">
+                        <h4> {{index + 1}} : {{ answer }}</h4>
                     </div>
                 </div>
             </div>
-            <div *ngIf="S.nbVote !== 0">
-            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-            <div *ngIf="S.anonymes.length !== 0"> {{S.anonymes}}
-                    <mat-tab *ngFor="let names of S.anonymes; index as index" label="Votes pour la réponse numéro {{index + 1}}">
+        </div>
+        <div *ngIf="S.nbVote !== 0 && bsAfficherVote.value">
+            <mat-tab-group color="accent" mat-stretch-tabs="false" mat-align-tabs="center">
+                <div *ngIf="S.anonymes.length !== 0"> {{S.anonymes}}
+                    <mat-tab color="accent" *ngFor="let names of S.anonymes; index as index"
+                        label="Votes pour la réponse {{index + 1}}">
                         <div class="votes">
                             <div class="nbVote">{{proportionVote(names,S.nbVote)}}%</div>
                             <div class="liste-pseudo" *ngFor="let name of names">
@@ -31,15 +33,9 @@
                     </mat-tab>
                 </div>
             </mat-tab-group>
+        </div>
     </div>
-</div>
 
-<button class="button-62" (click) = "getMiahoot('qP4AphBixAUlRUQwSLbZeL2F0Hd2','cultureG')">LE nouveau miahoot la</button>
-<div> nom : {{bsMiahoot.value.nom}}
-s
-</div>
-
-    
     <ng-template #NoMiahootProjected>
         <h1>No Miahoot projected</h1>
     </ng-template>
