@@ -26,15 +26,16 @@ export interface MiahootUser {
 
 
 export type VOTES = {
-  [participantUID: string]: true
+  [participantUID: string]: number[]
 }
 
 
 export interface QCMProjected {
+  id: string;
   correctanwser: number;
   question: string;
   responses: string[]; // Les réponses possibles
-  votes: VOTES[]; // Autant d'entrée dans le tableau que de réponses possibles
+  votes: VOTES; // Autant d'entrée dans le tableau que de réponses possibles
 }
 export interface MiahootProjected {
   readonly id: string;
@@ -65,6 +66,7 @@ export const conv : FirestoreDataConverter<MiahootUser> = {
 export const FsQCMProjectedConverter: FirestoreDataConverter<QCMProjected> = {
   toFirestore: Q => Q,
   fromFirestore: snap => ({
+      id: snap.id,
       correctanwser: snap.get("correctanwser"),
       question: snap.get("question"),
       responses: snap.get("responses"),
