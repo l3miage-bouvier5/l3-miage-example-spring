@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import fr.uga.l3miage.example.error.ErrorResponse;
 import fr.uga.l3miage.example.error.MiahootAlreadyExistErrorResponse;
-import fr.uga.l3miage.example.error.MiahootQuestionEmptyErrorResponse;
+import fr.uga.l3miage.example.error.MiahootEmptyErrorResponse;
 import fr.uga.l3miage.example.exception.rest.MiahootAlreadyExistRestException;
 import fr.uga.l3miage.example.exception.rest.MiahootEmptyRestException;
 import fr.uga.l3miage.example.exception.rest.MiahootQuestionEmptyRestException;
@@ -86,11 +86,11 @@ public class MiahootCreationFailedExceptionHandler {
             return ResponseEntity.status(ex.getHttpStatus()).body(response);
         } else if (exception instanceof MiahootEmptyRestException) {
             MiahootEmptyRestException ex = (MiahootEmptyRestException) exception;
-            final MiahootAlreadyExistErrorResponse response = MiahootAlreadyExistErrorResponse.builder()
+            final MiahootEmptyErrorResponse response = MiahootEmptyErrorResponse.builder()
                     .uri(httpServletRequest.getRequestURI())
                     .httpStatus(ex.getHttpStatus())
-                    .errorMessage(ex.getMessage())
                     .errorCode(ex.getErrorCode())
+                    .errorMessage(ex.getMessage())
                     .request(ex.getRequest())
                     .build();
             log.warn(ex.getMessage());

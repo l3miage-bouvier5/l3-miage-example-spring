@@ -33,7 +33,7 @@ public class MiahootComponent {
                     String.format("Aucune entité n'a été trouvée pour le userId [%s]", userId), userId);
     }
 
-    public void createMiahoot(final MiahootEntity entity)
+    public MiahootEntity createMiahoot(final MiahootEntity entity)
             throws MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException {
         // userId is present and nom is present -> throw MiahootAlreadyExistException
         // userId is not present -> all good
@@ -56,7 +56,7 @@ public class MiahootComponent {
                     entity.getNom(), entity.getUserId(), q.getLabel() ), entity.getNom(), entity.getUserId(), q.getLabel());
             }
         }
-        miahootRepository.save(entity);
+        return miahootRepository.save(entity);
     }
 
     public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot)

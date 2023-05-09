@@ -44,10 +44,11 @@ public class MiahootService {
         }
     }
 
-    public void createMiahoot(final CreateMiahootRequest createMiahootRequest) {
+    public Miahoot createMiahoot(final CreateMiahootRequest createMiahootRequest) {
         MiahootEntity newMiahootEntity = miahootMapper.toEntity(createMiahootRequest);
         try {
-            miahootComponent.createMiahoot(newMiahootEntity);
+            return miahootMapper.toDto( miahootComponent.createMiahoot(newMiahootEntity));
+            
         } catch (MiahootAlreadyExistException ex) {
             throw new MiahootAlreadyExistRestException(String.format(
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: miahoot avec le même userId = (%s) et nom = (%s)  déjà existant en base de donné",
