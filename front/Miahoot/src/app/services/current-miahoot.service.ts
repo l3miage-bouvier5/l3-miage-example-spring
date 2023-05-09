@@ -22,7 +22,7 @@ export class CurrentMiahootService implements OnDestroy {
 
 
   private sub: Subscription;
-  private bsState = new ReplaySubject<STATE>(1)
+  private bsState = new BehaviorSubject<STATE>({miahoot : {} as MiahootProjected, qcm : {} as QCMProjected, nbVote : 0, anonymes : []})
 
   readonly obsState: Observable<STATE>
 
@@ -47,10 +47,6 @@ export class CurrentMiahootService implements OnDestroy {
         return docData(docPM);
       }),
       switchMap(miahoot => {
-        // miahoot: MiahootProjected;
-        // qcm: QCMProjected;
-        // nbVote: number;
-        // anonymes
         const docQCM = doc(fs, `miahoot/${miahoot.id}/QCMs/${miahoot.currentQCM}`).withConverter(FsQCMProjectedConverter);
         const obsQCM = docData(docQCM);
 
@@ -58,7 +54,7 @@ export class CurrentMiahootService implements OnDestroy {
           map(qcm => ({
             anonymes: qcm.responses.map((_val, index) => {
               let res: string[] = []
-              Object.entries(qcm.votes).filter(([_key, value]) => value === index)
+              Object.entries(qcm.votes).filter(([_key, value]) => value.forEach(value => value === index) )
                 .forEach(([key, _value]) => {
                   const docName = doc(this.fs, `anonymes/${key}`).withConverter(conv)
                   docData(docName).pipe(

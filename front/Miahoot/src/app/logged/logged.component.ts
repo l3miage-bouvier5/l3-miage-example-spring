@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription, combineLatest, map, of, switchMap, tap } from 'rxjs';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
@@ -13,9 +13,13 @@ import { ConverterService } from '../services/converter.service';
   templateUrl: './logged.component.html',
   styleUrls: ['./logged.component.scss']
 })
-export class LoggedComponent {
+export class LoggedComponent implements OnDestroy {
   readonly obsState : Observable<STATE>
-  readonly bsBonneReponse = new BehaviorSubject<number>(0)
+
+  readonly sub : Subscription
+  
+  readonly bsMiahoot = new BehaviorSubject<Miahoot>({} as Miahoot)
+
   readonly bsAfficherBonneReponse = new BehaviorSubject<boolean>(false)
 
   constructor(private ms: CurrentMiahootService,
@@ -23,6 +27,11 @@ export class LoggedComponent {
               private conv : ConverterService) {
 
     this.obsState = this.ms.obsState
+    this.sub = this.obsState.subscribe()
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe()
   }
 
 /**

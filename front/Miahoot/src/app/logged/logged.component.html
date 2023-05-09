@@ -1,5 +1,5 @@
 <section>
-    <div *ngIf="obsProjectedQCM | async as QCM ; else NoQCMProjected">
+    <div *ngIf="obsState | async as S ; else NoQCMProjected">
         <div class="boutons">
             <button class="button-62 Aff" (click) = "afficherReponse()">Afficher Bonne Réponse</button>
             <button class="button-62 Suiv" (click) = "nextQuestion()">Question suivante</button>
@@ -8,22 +8,22 @@
         
             
             <div class="question">
-                <h3>{{ QCM.question }}</h3>
+                <h3>{{ S.qcm.question }}</h3>
                 <div class="container">
                     <div class="liste">
                     
-                        <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === bsBonneReponse.value" *ngFor="let answer of QCM.responses; index as index">
+                        <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === S.qcm.correctanwser" *ngFor="let answer of S.qcm.responses; index as index">
                             <h4>{{ answer }}</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngIf="obsNbVote | async as nbVote">
+            <div *ngIf="S.nbVote !== 0">
             <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-            <div *ngIf="obsNames | async as tabNames"> {{tabNames}}
-                    <mat-tab *ngFor="let names of tabNames ; index as index" label="Votes pour la réponse numéro {{index + 1}}">
+            <div *ngIf="S.anonymes.length !== 0"> {{S.anonymes}}
+                    <mat-tab *ngFor="let names of S.anonymes; index as index" label="Votes pour la réponse numéro {{index + 1}}">
                         <div class="votes">
-                            <div class="nbVote">{{proportionVote(names,nbVote)}}%</div>
+                            <div class="nbVote">{{proportionVote(names,S.nbVote)}}%</div>
                             <div class="liste-pseudo" *ngFor="let name of names">
                                 {{ name }}
                             </div>

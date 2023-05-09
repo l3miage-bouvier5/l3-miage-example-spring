@@ -23,15 +23,22 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { CurrentMiahootService, STATE } from './current-miahoot.service';
+import { CurrentMiahootService } from './current-miahoot.service';
 import {
   FsMiahootProjectedConverter,
   FsQCMProjectedConverter,
-  
   MiahootProjected,
   QCMProjected,
   VOTES,
 } from '../miahoot';
+
+
+
+
+interface STATE_PARTICIPANT{
+  miahoot: MiahootProjected;
+  qcm: QCMProjected;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -40,128 +47,93 @@ export class ParticipantService {
   miahootId: string = '';
   id: string = '';
 
-  private sub: Subscription;
-  readonly obsState : Observable<STATE>
+  private sub!: Subscription;
+  obsState!: Observable<STATE_PARTICIPANT>;
   // obsProjectedMiahoot!: Observable<MiahootProjected | undefined>;
   // obsQCMId!: Observable<string | undefined>;
   // obsQCM!: Observable<QCMProjected | undefined>;
-  
-  readonly rsState : ReplaySubject<STATE>( 1 );
 
-  constructor(
-    private fs: Firestore,
-    private ms: CurrentMiahootService,
-  ) {
-    this.obsState = this.ms.obsState.pipe(
-      startWith(undefined),
-      switchMap( state => {
-        if ( state === undefined ) {
-          return of( undefined );
-        } else {
-          const docMiahoot = doc( this.fs, `miahoot/${state.miahoot.id}` ).withConverter( FsMiahootProjectedConverter );
-          return docData( docMiahoot );
-        }
-      })
-    )
+  readonly rsState = new ReplaySubject<STATE_PARTICIPANT>(1);
 
-    this.sub = this.obsState.subscribe(this.rsState)
-    
-  }
-
-
+  constructor(private fs: Firestore, private ms: CurrentMiahootService) {}
 
   /**
    * fonction qui initialise les Observables
    */
   //ReplaySubject
   init() {
-    this.obsProjectedMiahoot = docData(
-      doc(this.fs, `miahoot/${this.miahootId}`).withConverter(FsMiahootProjectedConverter)
+
+    this.obsState = docData(doc(this.fs, `miahoot/${this.miahootId}`).withConverter(
+      FsMiahootProjectedConverter
+    )).pipe(
+      switchMap(miahoot => {
+        const docQCM = doc(this.fs, `miahoot/${miahoot.id}/QCMs/${miahoot.currentQCM}`).withConverter(FsQCMProjectedConverter); 
+        const obsQCM = docData(docQCM);
+        return obsQCM.pipe(
+          map(qcm => ({miahoot, qcm})
+          )
+        )
+      }
+          
+        )
     )
-
-    this.obsQCMId = this.obsProjectedMiahoot.pipe(
-      switchMap((projectedMiahootID) => {
-        
-        if (projectedMiahootID === undefined) {
-          return of(undefined);
-        } else {
-          // Il faur renvoyer un observable du currentQCM du projected Miahoot M  dans la collection miahoot de Firestore
-          const docMiahoot = doc(
-            this.fs,
-            `miahoot/${projectedMiahootID.id}`
-          ).withConverter(FsMiahootProjectedConverter);
-          return docData(docMiahoot).pipe(
-            map((miahoot: { currentQCM: string }) => miahoot.currentQCM)
-          );
-        }
-      })
-    );
-    
-
-    this.obsQCM = this.obsQCMId.pipe(
-      switchMap((projectedQCMID) => {
-        
-        if (projectedQCMID === undefined || projectedQCMID === undefined) {
-          return of(undefined);
-        } else {
-          const docProjectedQCM = doc(
-            this.fs,
-            `/miahoot/${this.miahootId}/QCMs/${projectedQCMID}`
-          ).withConverter(FsQCMProjectedConverter);
-
-          return docData(docProjectedQCM);
-        }
-      })
-    )
-
-
-    
+    this.sub = this.obsState.subscribe(this.rsState);
   }
-
 
   /**
    * fonction qui permet d'ajouter un participant au miahoot
    */
-  async addParticipant(id: string) {    
+  async addParticipant(id: string) {
     this.id = id;
     const docMiahoot = doc(this.fs, `miahoot/${this.miahootId}`);
-    
+
     updateDoc(docMiahoot, {
       participants: arrayUnion(id),
     });
-
-    
-
   }
-
 
   /*
    *Fonction qui permet de voter pour une proposition
    */
   vote(proposition: number) {
+    this.obsState
+      .pipe(
+        take(1),
+        map((state) => {
+          if (state) {
+            const docQCM = doc(
+              this.fs,
+              `miahoot/${state.miahoot.id}/QCMs/${state.qcm.id}`
+            ).withConverter(FsQCMProjectedConverter);
+            const qcm = docData(docQCM);
 
-    this.obsQCMId.pipe(
-      take(1),
-      map((qcmId) => {
-      if (qcmId) {
-        
-        const docQCM = doc(this.fs,`miahoot/${this.miahootId}/QCMs/${qcmId}`).withConverter(FsQCMProjectedConverter);
-        const qcm = docData(docQCM);
+            qcm.pipe(
+                take(1),
+                switchMap((qcm) => {
+                  
+                  if (qcm) {
+                    const votes = qcm.votes;
+                    let voteId = Object.entries(qcm.votes).find(([key, _value]) => this.id === key);
+                    if(voteId === undefined){
+                      voteId = [this.id, []];
+                    }
+                    const newVotes = {
+                      ...votes,
+                      [this.id]: [...voteId[1], proposition]
+                    }
 
-        qcm.pipe(
-            take(1),
-            switchMap((qcm) => {
-              
-              return updateDoc(docQCM, {
-                votes: votes,
-              });
-            })
-          )
-          .subscribe();
-      }
-      
-    })).subscribe()
-
-    
+                  return updateDoc(docQCM, {
+                    votes: newVotes
+                  });
+                }else{
+                  return of(undefined);
+                }
+              })
+              )
+              .subscribe();
+          }
+        })
+      )
+      .subscribe();
   }
 }
