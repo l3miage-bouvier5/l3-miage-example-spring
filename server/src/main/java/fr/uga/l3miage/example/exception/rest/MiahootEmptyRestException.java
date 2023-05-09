@@ -21,7 +21,7 @@ public class MiahootEmptyRestException extends RuntimeException {
     }
 
     public HttpStatus getHttpStatus() {
-        return HttpStatus.BAD_REQUEST;
+        return HttpStatus.UNPROCESSABLE_ENTITY;
     }
 
     public ErrorCode getErrorCode() {

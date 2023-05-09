@@ -40,7 +40,7 @@ public interface MiahootEndpoint {
         @Error400Custom
         @ResponseStatus(HttpStatus.CREATED)
         @PostMapping
-        void createEntityMiahoot(@Valid @RequestBody CreateMiahootRequest request);
+        Miahoot createEntityMiahoot(@Valid @RequestBody CreateMiahootRequest request);
 
         // PATCH
         @Operation(description = "Mise à jour d'une entité Miahoot")
