@@ -76,17 +76,16 @@ public class MiahootService {
         }
     }
 
-    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot) {
+    public Miahoot updateMiahoot(final String userId, final String nom, final Miahoot miahoot) {
         try {
-            miahootComponent.updateMiahoot(userId, nom, miahoot);
+            return miahootMapper.toDto(miahootComponent.updateMiahoot(userId, nom, miahoot));
         } catch (MiahootEntityNotFoundException ex) {
-            throw new MiahootEntityNotFoundRestException("Impossible de charger l'entité. Raison : [%s]",
+            throw new MiahootEntityNotFoundRestException("Le miahoot n'existe pas en base de donnée",
                     ex.getMessage(), userId, ex);
         } catch (MiahootAlreadyExistException ex) {
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            // throw new MiahootAlreadyExistRestException(ERROR_DETECTED0, ex);
+             throw new MiahootAlreadyExistRestException("Le miahoot existe déjà en base de donnée");
         } catch (MiahootUserIdNotSameException ex) {
-            throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.", ex);
+            throw new MiahootUserIdNotSameRestException("Le miahoot n'a pas le même userId", ex);
         }
     }
 

@@ -21,6 +21,6 @@ public class MiahootUserIdNotSameRestException extends RuntimeException {
         return HttpStatus.BAD_REQUEST;
     }
 
-    public ErrorCode getErrorCode(){return ErrorCode.IS_NOT_TEST_ERROR;}
+    public ErrorCode getErrorCode(){return ErrorCode.MIAHOOT_UPDATE_FAILED;}
 
 }
