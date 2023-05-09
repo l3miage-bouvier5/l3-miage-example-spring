@@ -144,11 +144,7 @@ svg {
     align-items: center;
     padding: 2px 16px;
     display: flex;
-    margin-top: 10px;
-    margin-bottom: 10px;
     border-radius: 5px;
-    background: #673ab7;
-    color: #fff;
     width: 40%;
     margin: 2%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.449);
@@ -156,11 +152,15 @@ svg {
     justify-content: center;
     flex-direction: column;
    }
+
+   .reponses:hover{
+    box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.4), 0px 0.4em 0.7em -0.1em rgba(0, 0, 0, 0.3), inset 0px -0.1em 0px #000000;
+    transform: translateY(-0.1em);
+}
   
   .reponses label {
     display: block;
-    color: rgb(255, 255, 255);
-    margin-bottom: 4px;
+    color: rgb(0, 0, 0);
     text-align: center;
     font-size: 20px;
     font-weight: bold;
@@ -176,24 +176,9 @@ svg {
     margin-bottom: 10px;
   }
 
-  .reponses label {
-    display: block;
-    color: rgb(255, 255, 255);
-    margin-bottom: 4px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
   .question h3 {
-    font-size: 1.5em;
-    font-weight: bold;
     margin-bottom: 0;
-    margin-top: 0;
     padding: 10px;
-  
     text-align: center;
     font-size: 20px;
     font-weight: bold;
@@ -205,9 +190,9 @@ svg {
     transition: 0.3s;
     width: 65%;
     border-radius: 5px;
-    margin: 0 auto;
-    background: #673ab7;
-    color: #fff;
+    margin: 5% auto;
+    background: #ffffff;
+    color: #000000;
   }
 
   .liste {
@@ -222,6 +207,20 @@ svg {
   
    }
 
-   .voted {
-    background-color: aquamarine;
+   .rep1{
+    background-color: #8ac926;
+   }
+   .rep2{
+    background-color: #ff8bd2;
+   }
+
+   .rep3{
+    background-color: #ffde59;
+   }
+   .rep4{
+    background-color: #5ce1e6;
+   }
+   .voted{
+    box-shadow: 0px 0px 14px 11px rgb(0 0 0 / 45%);
+    text-decoration: underline;
    }

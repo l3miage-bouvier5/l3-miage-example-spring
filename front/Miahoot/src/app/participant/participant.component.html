@@ -1,25 +1,20 @@
 <div *ngIf="obsCurrentQCM | async as QCM ; else NoQCMProjected">
   <div class="question">
     <h3>{{QCM.question}}</h3>
-      <div class="liste">
-          <button class="reponses" [class.voted]="bsVoted.value" *ngFor="let answer of QCM.responses; index as i" (click)="vote(i)"><label>{{answer}}</label></button>
-      </div>
+    <div class="liste">
+      <button class="reponses" 
+      [class.rep1]= "i === 0" 
+      [class.rep2] = "i===1" 
+      [class.rep3] = "i===2"
+      [class.rep4] = "i >= 3"
+      [class.voted] = "bsVoted.value === i"
+      [disabled] = "bsVoted.value !== -1"
+      *ngFor="let answer of QCM.responses; index as i" 
+      (click)="vote(i)"><label>{{answer}}</label></button>
+    </div>
+    <h3 *ngIf="bsVoted.value !== -1">Votre vote a été pris en compte et ne peut plus être modifié</h3>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

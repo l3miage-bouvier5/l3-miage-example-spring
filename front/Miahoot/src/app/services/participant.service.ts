@@ -55,6 +55,9 @@ export class ParticipantService {
 
   readonly rsState = new ReplaySubject<STATE_PARTICIPANT>(1);
 
+
+  readonly bsVoted = new BehaviorSubject<number>(-1);
+
   constructor(private fs: Firestore, private ms: CurrentMiahootService) {}
 
   /**
@@ -92,10 +95,21 @@ export class ParticipantService {
     });
   }
 
+
+
+  /**
+   * Fonction qui reset le vote quand on passe à la question suivante
+   * 
+   */
+  resetVote() {
+    this.bsVoted.next(-1);
+  }
+
   /*
    *Fonction qui permet de voter pour une proposition
    */
   vote(proposition: number) {
+    this.bsVoted.next(proposition);
     this.obsState
       .pipe(
         take(1),

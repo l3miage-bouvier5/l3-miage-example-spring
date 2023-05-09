@@ -48,7 +48,5 @@ export class MiahootChoiceComponent {
     await this.ms.projeterMiahoot(miahoot)
     this.router.navigateByUrl("logged")
   }
-
-
   
 }
