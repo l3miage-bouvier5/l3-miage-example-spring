@@ -14,7 +14,7 @@ import { ConverterService } from '../services/converter.service';
   styleUrls: ['./logged.component.scss']
 })
 export class LoggedComponent implements OnDestroy {
-  readonly obsState : Observable<STATE>
+  readonly obsState : Observable<STATE | undefined>
 
   readonly sub : Subscription
   
@@ -54,13 +54,12 @@ export class LoggedComponent implements OnDestroy {
 
   async getMiahoot(uid : string , nom : string){
     this.bsMiahoot.next(await this.converter.getMiahoot(uid,nom))
+    console.log(this.bsMiahoot.value)
     await this.ms.projeterMiahoot(this.bsMiahoot.value)
   }
 
   afficherVote(){
     this.bsAfficherVote.next(!this.bsAfficherVote.value)
   }
-
-
 
 }

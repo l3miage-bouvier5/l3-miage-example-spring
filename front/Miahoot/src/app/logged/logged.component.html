@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="S.nbVote !== 0 && bsAfficherVote.value">
+        <div *ngIf="bsAfficherVote.value && S.nbVote !==0">
             <mat-tab-group color="accent" mat-stretch-tabs="false" mat-align-tabs="center">
                 <div *ngIf="S.anonymes.length !== 0"> {{S.anonymes}}
                     <mat-tab color="accent" *ngFor="let names of S.anonymes; index as index"
@@ -35,6 +35,7 @@
             </mat-tab-group>
         </div>
     </div>
+    <button (click)="getMiahoot('qP4AphBixAUlRUQwSLbZeL2F0Hd2','cultureG')">La je clicque</button>
 
     <ng-template #NoMiahootProjected>
         <h1>No Miahoot projected</h1>

@@ -18,6 +18,7 @@ export interface Miahoot {
 
 
 export interface MiahootUser {
+    uid:  string
     name: string
     email: string
     miahootProjected: string
@@ -56,6 +57,7 @@ export const FsMiahootProjectedConverter: FirestoreDataConverter<MiahootProjecte
 export const conv : FirestoreDataConverter<MiahootUser> = {
     toFirestore : val => val,
     fromFirestore: snap => ({
+      uid : snap.id,
       name : snap.get("name"),
       email : snap.get("email"),
       miahootProjected : snap.get("miahootProjected"),

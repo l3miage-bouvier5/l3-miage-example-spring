@@ -33,6 +33,7 @@ export abstract class ConnexionService {
             
             if (!snapUser.exists()) {
               setDoc(docUser, {
+                uid: u.uid,
                 name: u.displayName ?? u.email ?? u.uid,
                 email: u.email ?? "",
                 miahootProjected: "",
@@ -104,6 +105,7 @@ export abstract class ConnexionService {
         const snapUser = await getDoc( docUser );
         if (!snapUser.exists()) {
           setDoc(docUser, {
+          uid: user.uid,
           name: name ?? "Anonyme",
           email: "",
           miahootProjected: "",
@@ -112,6 +114,7 @@ export abstract class ConnexionService {
     } else {
           
           updateDoc(docUser, {
+            uid: user.uid,
             name: name ?? "Anonyme",
             email: "",
             miahootProjected: "",

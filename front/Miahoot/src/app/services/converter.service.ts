@@ -20,4 +20,8 @@ export class ConverterService {
   }
 
 
+  async getMiahoots(uid: string) : Promise<Miahoot[]>{
+    return lastValueFrom(this.http.get<Miahoot[]>(`/api/v0/miahoots/${uid}`))
+  }
+
 }

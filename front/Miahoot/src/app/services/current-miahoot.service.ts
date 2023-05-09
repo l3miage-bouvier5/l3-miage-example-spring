@@ -47,12 +47,15 @@ export class CurrentMiahootService implements OnDestroy {
         return docData(docPM);
       }),
       switchMap(miahoot => {
+        console.log("miahoot : ", miahoot);
+        
         const docQCM = doc(fs, `miahoot/${miahoot.id}/QCMs/${miahoot.currentQCM}`).withConverter(FsQCMProjectedConverter);
         const obsQCM = docData(docQCM);
 
         return obsQCM.pipe(
           map(qcm => ({
-            anonymes: qcm.responses.map((_val, index) => {
+            anonymes:
+            qcm.responses.map((_val, index) => {
               let res: string[] = []
               Object.entries(qcm.votes).filter(([_key, value]) => value === index )
                 .forEach(([key, _value]) => {
@@ -62,9 +65,7 @@ export class CurrentMiahootService implements OnDestroy {
                     tap((anonyme => res.push(anonyme.name)))).subscribe()
                 })
               return res
-            }
-
-            ),
+            }),
             miahoot,
             qcm,
             nbVote: Object.keys(qcm.votes).length,
@@ -82,38 +83,27 @@ export class CurrentMiahootService implements OnDestroy {
   async nextQuestion() {
     if (this.bsIndex.value < this.questions.length) {
       const question = this.questions[this.bsIndex.value]
-      await this.ajouterQuestion(question)
+      await this.ajouterQuestion(question,this.bsState.value.miahoot.id)
     } else {
       this.router.navigateByUrl("resultats")
     }
 
   }
 
-  async ajouterQuestion(question: Question) {
+  async ajouterQuestion(question: Question,idMiahoot : string) {
 
-    // const val = this.bsState.subscribe(val => { return val })
-    
-    this.obsState.pipe(
-      take(1),
-      map(async MiahootId => { 
-        if (MiahootId) {
-          const QCMsCollection = collection(this.fs, `/miahoot/${MiahootId}/QCMs`)
+          const QCMsCollection = collection(this.fs, `/miahoot/${idMiahoot}/QCMs`)
           const QCMdata = await addDoc(QCMsCollection, {
             question: question.label,
             responses: question.reponses.map(value => value.label),
             correctAnswer: question.reponses.findIndex(value => value.estValide === true),
-            votes: question.reponses.map(_ => { return {} as VOTES })
+            votes: {} as VOTES
           })
-          const miahootActuel = doc(this.fs, `miahoot/${MiahootId}`)
+          const miahootActuel = doc(this.fs, `miahoot/${idMiahoot}`)
           await updateDoc(miahootActuel, {
             currentQCM: QCMdata.id
           })
-        }
-      }
-      )
-    ).subscribe()
     this.bsIndex.next(this.bsIndex.value + 1)
-
   }
 
   /**
@@ -136,14 +126,17 @@ export class CurrentMiahootService implements OnDestroy {
           const MhCollection = collection(this.fs, `/miahoot`)
           const jstp = await addDoc(MhCollection, {
             creator: U.uid,
-            presentator: U.uid
+            presentator: U.uid,
           })
+          await this.ajouterQuestion(miahoot.questions[0],jstp.id)
           const userActuel = doc(this.fs, `users/${U.uid}`)
           await updateDoc(userActuel, {
             miahootProjected: jstp.id
           })
 
-          await this.ajouterQuestion(miahoot.questions[0])
+
+          
+          
         }
 
       })
