@@ -1,20 +1,20 @@
 <div class="form-container">
   <form class="form" [formGroup]="fgLogin">
-    <span class="signup">Sign In</span>
-    <input type="email" placeholder="@ Email address" class="form--input" [formControl]="fgLogin.controls.email">
-    <input type="password" placeholder="Password" class="form--input" [formControl] = "fgLogin.controls.password">
+    <span class="signup">Sign in</span>
+    <input type="email" placeholder="email address" class="form--input" [formControl]="fgLogin.controls.email">
+    <input type="password" placeholder="password" class="form--input" [formControl] = "fgLogin.controls.password">
     <button class="form--submit" (click)="login()">
-        Login
+        Sign in
     </button>
   </form>
 
 
   
   <form class="form" [formGroup]="fgRegister">
-    <span class="signup">Sign Up</span>
-    <input type="email" placeholder="@ Email address" class="form--input" [formControl]="fgRegister.controls.email">
-    <input type="password" placeholder="Password" class="form--input" [formControl] = "fgRegister.controls.password">
-    <input type="password" placeholder="Confirm password" class="form--input">
+    <span class="signup">Sign up</span>
+    <input type="email" placeholder="email address" class="form--input" [formControl]="fgRegister.controls.email">
+    <input type="password" placeholder="password" class="form--input" [formControl] = "fgRegister.controls.password">
+    <input type="password" placeholder="confirm password" class="form--input">
     <button class="form--submit" (click)="register()">
         Sign up
     </button>

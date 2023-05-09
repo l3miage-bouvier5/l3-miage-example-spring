@@ -24,36 +24,37 @@
     
     <div class="create form-container">
         <p class="title">Create a Miahoot</p>
-            <button class="button-62" (click)="loginWithAdresseMail()">Sign in with email</button>
+            <!-- <button class="button-62" (click)="loginWithAdresseMail()">Sign in with email</button> -->
             <button aria-label="Sign up with Google" class="button-62" (click)="loginGoogle()">
                 Sign in with Google
             </button>
+
+        <button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
+            Sign up / Sign in with email
+        </button>
+
         <div class="social-message">
             <div class="line"></div>
             <p class="message">Don't have an account? Sign up now!</p>
             <div class="line"></div>
         </div>
-
-        <button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
-            Sign up
-        </button>
     </div>
     
     <div class="join form-container">
         <p class="title">Join a Miahoot</p>
         <div class="form">
             <div class="input-group">
-                <label for=":">Username</label>
-                <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="">
+                <!-- <label for=":">Username</label> -->
+                <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="Username">
             </div>
 
             <div class="input-group">
-			    <label for="username">Miahoot ID</label>
-			    <input [(ngModel)]="miahootId" type="text" name="username" id="username" placeholder="">
+			    <!-- <label for="username">Miahoot ID</label> -->
+			    <input [(ngModel)]="miahootId" type="text" name="username" id="username" placeholder="Miahoot ID">
 		    </div>
             
         </div>
-        <button class="button-62" (click)="enregristrerInfo(miahootId,nom)">Join</button>
+        <button class="button-63" (click)="enregristrerInfo(miahootId,nom)">Join</button>
         <div class="input-error">
             <label class="err">{{outputError}}</label>
         </div> 

@@ -39,7 +39,7 @@
   #ppButton {
     background-color: transparent;
     width: auto;
-    height: 1px;
+    height: 1px;  
     border-color: transparent;
     right: 10px;
     position: absolute;
@@ -76,4 +76,11 @@ li a:hover {
     background-color: rgb(229, 227, 231);
     width:10px;
 }*/
+
+.logo {
+    position: absolute;
+    top: 49px;
+    left: 40px;
+    margin: 20px 0 0 20px;
+}
 
