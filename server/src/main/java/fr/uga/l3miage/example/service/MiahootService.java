@@ -54,10 +54,12 @@ public class MiahootService {
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: miahoot avec le même userId = (%s) et nom = (%s)  déjà existant en base de donné",
                     newMiahootEntity.getUserId(), newMiahootEntity.getNom()), createMiahootRequest, ex);
         } catch (MiahootQuestionEmptyException ex) {
-            //throw new MiahootQuestionEmptyRestException("Une question no possède pas de réponse", ex);
+            // throw new MiahootQuestionEmptyRestException("Une question no possède pas de
+            // réponse", ex);
             throw new MiahootQuestionEmptyRestException(
                     String.format("le miahoot [%s] du user [%s] a une ou plusieurs question(s) vide(s) ou null",
-                    newMiahootEntity.getNom(), newMiahootEntity.getUserId()), createMiahootRequest, ex);
+                            newMiahootEntity.getNom(), newMiahootEntity.getUserId()),
+                    createMiahootRequest, ex);
         } catch (MiahootEmptyException ex) {
             throw new MiahootEmptyRestException(String.format(
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s)  ne contient pas de questions",
@@ -65,17 +67,16 @@ public class MiahootService {
         }
     }
 
-    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot) {
+    public Miahoot updateMiahoot(final String userId, final String nom, final Miahoot miahoot) {
         try {
-            miahootComponent.updateMiahoot(userId, nom, miahoot);
+            return miahootMapper.toDto(miahootComponent.updateMiahoot(userId, nom, miahoot));
         } catch (MiahootEntityNotFoundException ex) {
-            throw new MiahootEntityNotFoundRestException("Impossible de charger l'entité. Raison : [%s]",
+            throw new MiahootEntityNotFoundRestException("Le miahoot n'existe pas en base de donnée",
                     ex.getMessage(), userId, ex);
         } catch (MiahootAlreadyExistException ex) {
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            // throw new MiahootAlreadyExistRestException(ERROR_DETECTED0, ex);
+             throw new MiahootAlreadyExistRestException("Le miahoot existe déjà en base de donnée");
         } catch (MiahootUserIdNotSameException ex) {
-            throw new MiahootUserIdNotSameRestException("Une erreur lors de la mise à jour de l'entité.", ex);
+            throw new MiahootUserIdNotSameRestException("Le miahoot n'a pas le même userId", ex);
         }
     }
 

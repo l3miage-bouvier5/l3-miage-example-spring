@@ -59,26 +59,25 @@ public class MiahootComponent {
         return miahootRepository.save(entity);
     }
 
-    public void updateMiahoot(final String userId, final String nom, final Miahoot miahoot)
+    public MiahootEntity updateMiahoot(final String userId, final String nom, final Miahoot miahoot)
             throws MiahootEntityNotFoundException, MiahootAlreadyExistException, MiahootUserIdNotSameException {
         // diff userId -> throw MiahootUserIdNotSameException
         // same userId diff nom -> check if new miahoot exists
-
-        if (!userId.equals(miahoot.getUserId())) {
-            throw new MiahootUserIdNotSameException(String.format(
-                    "Le userId [%d] est différent du userId [%d] de l'entité Miahoot", userId, miahoot.getUserId()));
-        }
-        if (!nom.equals(miahoot.getNom())
-                && !miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()) {
-            // throw new MiahootAlreadyExistException(String.format("Le miahoot %s existe
-            // déjà en BD."));
-        }
         MiahootEntity actualEntity = miahootRepository.findByUserIdAndNom(userId, nom)
                 .orElseThrow(() -> new MiahootEntityNotFoundException(
                         String.format("Aucune entité n'a été trouvée pour userId [%s] et nom [%s]", userId, nom),
                         userId, nom));
+
+        if (!userId.equals(miahoot.getUserId())) {
+            throw new MiahootUserIdNotSameException(String.format(
+                    "Le userId [%s] est différent du userId [%s] de l'entité Miahoot", userId, miahoot.getUserId()));
+        }
+        if (!nom.equals(miahoot.getNom())
+                && miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()) {
+             throw new MiahootAlreadyExistException("Le miahoot existe déjà en BD.","");
+        }
         miahootMapper.mergeMiahootEntity(actualEntity, miahoot);
-        miahootRepository.save(actualEntity);
+        return miahootRepository.save(actualEntity);
     }
 
     public void deleteMiahoot(final String userId, final String nom) throws MiahootEntityNotFoundException {
