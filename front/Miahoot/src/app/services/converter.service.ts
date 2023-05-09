@@ -19,5 +19,7 @@ export class ConverterService {
     return lastValueFrom(this.http.get<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`))
   }
 
-
+  async postMiahoot(uid:string, nom:string) {
+    return lastValueFrom(this.http.post<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`,{uid:uid,nom:nom}))
+  }
 }
