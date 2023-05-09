@@ -1,6 +1,7 @@
 package fr.uga.l3miage.example.exception.rest;
 
 import fr.uga.l3miage.example.error.ErrorCode;
+import fr.uga.l3miage.example.request.CreateMiahootRequest;
 import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
  * Correspond à l'exception d'API d'une entité non trouvée<br>
  * Les annotations :
  * <ul>
- *     <li>{@link Getter} permet de créer tout les getters de tous les attributs. Voir la doc <a href="https://projectlombok.org/features/GetterSetter">projetlombok.org/features/Getter</a></li>
+ * <li>{@link Getter} permet de créer tout les getters de tous les attributs.
+ * Voir la doc <a href=
+ * "https://projectlombok.org/features/GetterSetter">projetlombok.org/features/Getter</a></li>
  * </ul>
  */
 @Getter
@@ -21,7 +24,13 @@ public class DuplicationLabelReponsePourUneQuestionRestException extends Runtime
         this.request = request;
     }
 
-    public DuplicationLabelReponsePourUneQuestionRestException(String message, CreateQuestionRequest request, Throwable cause) {
+    public DuplicationLabelReponsePourUneQuestionRestException(String message) {
+        super(message);
+        this.request = null;
+    }
+
+    public DuplicationLabelReponsePourUneQuestionRestException(String message, CreateQuestionRequest request,
+            Throwable cause) {
         super(message, cause);
         this.request = request;
     }
@@ -30,5 +39,7 @@ public class DuplicationLabelReponsePourUneQuestionRestException extends Runtime
         return HttpStatus.UNPROCESSABLE_ENTITY;
     }
 
-    public ErrorCode getErrorCode(){return ErrorCode.DUPLICATION_LABEL_REPONSE_D_UNE_QUESTION;}
+    public ErrorCode getErrorCode() {
+        return ErrorCode.DUPLICATION_LABEL_REPONSE_D_UNE_QUESTION;
+    }
 }

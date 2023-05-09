@@ -7,12 +7,17 @@ import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import lombok.Getter;
 
 @Getter
-public class NbReponsesVraiInvalidRestException extends RuntimeException{
+public class NbReponsesVraiInvalidRestException extends RuntimeException {
     private final CreateQuestionRequest request;
 
     public NbReponsesVraiInvalidRestException(String message, CreateQuestionRequest request) {
         super(message);
         this.request = request;
+    }
+
+    public NbReponsesVraiInvalidRestException(String message) {
+        super(message);
+        this.request = null;
     }
 
     public NbReponsesVraiInvalidRestException(String message, CreateQuestionRequest request, Throwable cause) {
@@ -24,5 +29,7 @@ public class NbReponsesVraiInvalidRestException extends RuntimeException{
         return HttpStatus.UNPROCESSABLE_ENTITY;
     }
 
-    public ErrorCode getErrorCode(){return ErrorCode.NOMBRE_REPONSE_VRAI_INVALIDE_POUR_UNE_QUESTION;}
+    public ErrorCode getErrorCode() {
+        return ErrorCode.NOMBRE_REPONSE_VRAI_INVALIDE_POUR_UNE_QUESTION;
+    }
 }
