@@ -1,9 +1,20 @@
-<h3>Main working!</h3>
 
-<code [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
-<textarea [(ngModel)]="code" ></textarea>
+<div *ngIf="cs.obsMiahootUser$ | async as User ; else notFound">
+    <h3>Conception d'un miahoot</h3>
+    
+    <!-- Afficher un validateur pour textarea si bsInput = false (class pour text en vert) -->
+    <code hidden [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
+    <label> Editez votre MiaHoot ici :</label>
+    <textarea [ngClass]="{'valide':bsJSON.value?.language,
+    'notValide':!bsJSON.value?.language}" rows="5" cols="33" [(ngModel)]="code" (change)="update()">{{bsInputFile.value}}</textarea>
 
 
+    <!-- Afficher un validateur pour fichier si bsInput = true -->
+    <input mat-input (change)="onChange($event)" type="file"/>
+    <button (click)="postMiahoot()">Poster</button>
+    
+</div>
 
-<h4>Highlight response</h4>
-<pre>{{ response | json }}</pre>
+<ng-template #notFound>
+    <h3>You can't be here if you are not logged</h3>
+</ng-template>
