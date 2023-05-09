@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Miahoot, MiahootUser } from '../miahoot';
 import { ConnexionService } from '../services/connexion.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { ConverterService } from '../services/converter.service';
+import { CurrentMiahootService } from '../services/current-miahoot.service';
 
 @Component({
   selector: 'app-miahoot-choice',
@@ -12,11 +14,22 @@ import { Router } from '@angular/router';
 export class MiahootChoiceComponent {
   // Récupérer tous les miahoots de la base de données et les afficher
 
-  miahoots : Miahoot[] = []
-  readonly user : Observable< MiahootUser | undefined >
+  readonly miahoots = new BehaviorSubject<Miahoot[]>([])
+  readonly user : Observable<MiahootUser | undefined>
+  readonly mUser = new BehaviorSubject<MiahootUser>({} as MiahootUser)
+  
   constructor(private cs : ConnexionService,
-              private router : Router) {
-    this.user = this.cs.obsMiahootUser$
+              private router : Router,
+              private conv : ConverterService,
+              private ms :  CurrentMiahootService) {
+    this.user = this.cs.obsMiahootUser$.pipe(
+      tap(async user => {
+        if(user) {
+          await this.getMiahoots(user.uid)
+          this.mUser.next(user)
+        }
+      })
+    )
   }
 
   toConceptionMiahoot() {
@@ -26,4 +39,16 @@ export class MiahootChoiceComponent {
   toAccueil() {
     this.router.navigateByUrl("accueil")
   }
+
+  async getMiahoots(uid:string){
+    this.miahoots.next(await this.conv.getMiahoots(uid))
+  }
+
+  async goMiahoot(miahoot: Miahoot){
+    await this.ms.projeterMiahoot(miahoot)
+    this.router.navigateByUrl("logged")
+  }
+
+
+  
 }

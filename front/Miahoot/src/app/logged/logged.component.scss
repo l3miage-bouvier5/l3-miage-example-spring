@@ -15,7 +15,7 @@
   width: 65%;
   border-radius: 5px;
   margin: 0 auto;
-  background: #673ab7;
+  background: #1d143ffd;
   color: #fff;
 }
 
@@ -51,7 +51,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background: #673ab7;
+  background: #68185afd;
   color: #fff;
   width: 40%;
   margin: 2%;
@@ -87,7 +87,7 @@
   border-radius: 5px;
   margin: 0 auto;
   margin-top: 10px;
-  background: #673ab7;
+  background: #1d143ffd;
   color: #fff;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -129,21 +129,21 @@ img {
 }
 
 .boutons button {
-  width: 40%;
+  width: 30%;
   height: 40px;
   border-radius: 5px;
   border: none;
-  color: white;
+  color: #68185afd;
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
 }
 
 .button-62 {
-  background: linear-gradient(to bottom right, #1982C4, #6A4C93);
+  background: linear-gradient(to bottom right, #ffffff, #ffffff);
   border: 0;
   border-radius: 12px;
-  color: #FFFFFF;
+  color: #683838;
   cursor: pointer;
   display: inline-block;
   font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;

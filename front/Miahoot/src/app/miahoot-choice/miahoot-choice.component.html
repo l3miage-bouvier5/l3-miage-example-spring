@@ -9,12 +9,12 @@
 
 </section>
 
-<section class="container-master">
-    <h1 *ngIf = "miahoots.length !== 0  ; else noMiahoot">Choisissez votre miahoot à présenter</h1>
+<section *ngIf="miahoots| async as m" class="container-master">
+    <h1 *ngIf = "m.length !== 0  ; else noMiahoot">Choisissez votre miahoot à présenter</h1>
     <ng-template #noMiahoot><h1>Créez votre premier Miahoot !</h1>
     </ng-template>
         <div class="container" 
-            *ngFor="let miahoot of miahoots">
+            *ngFor="let miahoot of m">
             <h2>{{miahoot.nom}}</h2>
             <div class="nb-question"> Nombre de questions : {{miahoot.questions.length}}</div>
             <ul>
