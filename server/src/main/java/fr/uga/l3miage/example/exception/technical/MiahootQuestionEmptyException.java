@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class MiahootQuestionEmptyException extends Exception{
-    // entity.getNom(), entity.getUserId(), q.getLabel()
     private final String nom;
     private final String userId;
     private final String label;
