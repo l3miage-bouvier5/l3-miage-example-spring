@@ -10,6 +10,10 @@ import org.springframework.http.HttpStatus;
 public class MiahootAlreadyExistRestException extends RuntimeException {
     private final CreateMiahootRequest request;
 
+    public MiahootAlreadyExistRestException(String message) {
+        super(message);
+        this.request = null;
+    }
     public MiahootAlreadyExistRestException(String message, CreateMiahootRequest request) {
         super(message);
         this.request = request;

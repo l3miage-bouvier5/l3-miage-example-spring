@@ -50,7 +50,7 @@ public interface MiahootEndpoint {
         @ResponseStatus(HttpStatus.ACCEPTED)
 
         @PatchMapping("{userId}/{nom}")
-        void updateMiahootEntity(@PathVariable final String userId, @PathVariable final String nom,
+        Miahoot updateMiahootEntity(@PathVariable final String userId, @PathVariable final String nom,
                         @RequestBody final Miahoot miahoot);
 
         // DELETE

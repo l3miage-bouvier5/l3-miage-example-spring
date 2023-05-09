@@ -31,8 +31,8 @@ public class MiahootController implements MiahootEndpoint {
     }
 
 
-    public void updateMiahootEntity(final String userId, final String nom, final Miahoot miahoot) {
-        miahootService.updateMiahoot(userId,nom,miahoot);
+    public Miahoot updateMiahootEntity(final String userId, final String nom, final Miahoot miahoot) {
+        return miahootService.updateMiahoot(userId,nom,miahoot);
     }
 
     @Override
