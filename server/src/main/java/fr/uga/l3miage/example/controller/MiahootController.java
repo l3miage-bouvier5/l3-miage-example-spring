@@ -26,8 +26,8 @@ public class MiahootController implements MiahootEndpoint {
     }
 
     @Override
-    public Miahoot createEntityMiahoot(final CreateMiahootRequest request) {
-        return miahootService.createMiahoot(request);
+    public Miahoot createEntityMiahoot(final CreateMiahootRequest request, String userId) {
+        return miahootService.createMiahoot(request, userId);
     }
 
 

@@ -44,8 +44,9 @@ public class MiahootService {
         }
     }
 
-    public Miahoot createMiahoot(final CreateMiahootRequest createMiahootRequest) {
+    public Miahoot createMiahoot(final CreateMiahootRequest createMiahootRequest, String userId) {
         MiahootEntity newMiahootEntity = miahootMapper.toEntity(createMiahootRequest);
+        newMiahootEntity.setUserId(userId);
         try {
             return miahootMapper.toDto( miahootComponent.createMiahoot(newMiahootEntity));
             

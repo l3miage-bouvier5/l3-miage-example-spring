@@ -12,8 +12,7 @@ import java.util.List;
 @Schema(description = "Correspond à la requête permettant de créer une entité test")
 public class CreateMiahootRequest {
 
-    @Schema(description = "correspond à l'Id de l'utilisateur de l'objet",example = "23")
-    private String userId;
+    
 
     @Schema(description = "correspond au nom de l'objet",example = "qcm ihm")
     private String nom;

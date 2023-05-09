@@ -39,8 +39,8 @@ public interface MiahootEndpoint {
         @ApiResponse(responseCode = "201", description = "L'entité Miahoot a bien été créée.")
         @Error400Custom
         @ResponseStatus(HttpStatus.CREATED)
-        @PostMapping
-        Miahoot createEntityMiahoot(@Valid @RequestBody CreateMiahootRequest request);
+        @PostMapping("{userId}")
+        Miahoot createEntityMiahoot(@Valid @RequestBody CreateMiahootRequest request, @PathVariable String userId);
 
         // PATCH
         @Operation(description = "Mise à jour d'une entité Miahoot")
