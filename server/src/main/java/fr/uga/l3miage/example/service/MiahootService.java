@@ -1,6 +1,7 @@
 package fr.uga.l3miage.example.service;
 
 import fr.uga.l3miage.example.component.MiahootComponent;
+import fr.uga.l3miage.example.config.handler.DuplicationLabelReponsePourUneQuestionExceptionHandler;
 import fr.uga.l3miage.example.exception.rest.*;
 import fr.uga.l3miage.example.exception.technical.*;
 import fr.uga.l3miage.example.mapper.MiahootMapper;
@@ -48,8 +49,8 @@ public class MiahootService {
         MiahootEntity newMiahootEntity = miahootMapper.toEntity(createMiahootRequest);
         newMiahootEntity.setUserId(userId);
         try {
-            return miahootMapper.toDto( miahootComponent.createMiahoot(newMiahootEntity));
-            
+            return miahootMapper.toDto(miahootComponent.createMiahoot(newMiahootEntity));
+
         } catch (MiahootAlreadyExistException ex) {
             throw new MiahootAlreadyExistRestException(String.format(
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: miahoot avec le même userId = (%s) et nom = (%s)  déjà existant en base de donné",
@@ -65,6 +66,14 @@ public class MiahootService {
             throw new MiahootEmptyRestException(String.format(
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s)  ne contient pas de questions",
                     newMiahootEntity.getUserId(), newMiahootEntity.getNom()), createMiahootRequest, ex);
+        } catch (DuplicationLabelReponsePourUneQuestionException ex) {
+            throw new DuplicationLabelReponsePourUneQuestionRestException(String.format(
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s) contient une ou plusieurs questions qui ont 2 réponses identiques",
+                    newMiahootEntity.getUserId(), newMiahootEntity.getNom()));
+        } catch (NbReponsesVraiInvalidException ex) {
+            throw new NbReponsesVraiInvalidRestException(String.format(
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec userId = (%s) et nom = (%s) contient une ou plusieurs questions qui n'ont aucune réponse vraie",
+                    newMiahootEntity.getUserId(), newMiahootEntity.getNom()));
         }
     }
 

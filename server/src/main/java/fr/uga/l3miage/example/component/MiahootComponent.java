@@ -34,7 +34,8 @@ public class MiahootComponent {
     }
 
     public MiahootEntity createMiahoot(final MiahootEntity entity)
-            throws MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException {
+            throws MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException,
+            DuplicationLabelReponsePourUneQuestionException, NbReponsesVraiInvalidException {
         // userId is present and nom is present -> throw MiahootAlreadyExistException
         // userId is not present -> all good
         // userId present and nom isnt -> all good
@@ -52,8 +53,26 @@ public class MiahootComponent {
         for (QuestionEntity q : entity.getQuestions()) {
             if (q.getReponses() == null || q.getReponses().isEmpty()) {
                 throw new MiahootQuestionEmptyException(
-                    String.format("le miahoot [%s] du user [%s] a la question [%s] vide ou null",
-                    entity.getNom(), entity.getUserId(), q.getLabel() ), entity.getNom(), entity.getUserId(), q.getLabel());
+                        String.format("le miahoot [%s] du user [%s] a la question [%s] vide ou null",
+                                entity.getNom(), entity.getUserId(), q.getLabel()),
+                        entity.getNom(), entity.getUserId(), q.getLabel());
+            }
+        }
+
+        for (QuestionEntity q : entity.getQuestions()) {
+            if (QuestionComponent.existeRepetitionLabelReponses(q.getReponses()) == true) {
+                throw new DuplicationLabelReponsePourUneQuestionException(
+                        String.format(
+                                "le miahoot [%s] du user [%s] a la question [%s] avec une ou plusieurs réponses identiques",
+                                entity.getNom(), entity.getUserId(), q.getLabel()));
+            }
+        }
+
+        for (QuestionEntity q : entity.getQuestions()) {
+            if (QuestionComponent.nbReponsesVrai(q) == 0) {
+                throw new NbReponsesVraiInvalidException(String.format(
+                        "le miahoot [%s] du user [%s] a la question [%s] avec une ou plusieurs réponses identiques",
+                        entity.getNom(), entity.getUserId(), q.getLabel()));
             }
         }
         return miahootRepository.save(entity);
