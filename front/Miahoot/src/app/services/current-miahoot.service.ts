@@ -4,6 +4,7 @@ import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootP
 import { Firestore, addDoc, collection, collectionData, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Auth, User, authState, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { ParticipantService } from './participant.service';
 
 export interface STATE {
   miahoot: MiahootProjected;
@@ -29,7 +30,7 @@ export class CurrentMiahootService implements OnDestroy {
   private questions: Question[] = []
   private bsIndex = new BehaviorSubject<number>(0)
 
-  constructor(private auth: Auth, private fs: Firestore, private router: Router) {
+  constructor(private auth: Auth, private fs: Firestore, private router: Router, private ps : ParticipantService) {
     // On construit l'observable pour avoir STATE
 
     this.obsState = authState(this.auth).pipe(
@@ -84,6 +85,7 @@ export class CurrentMiahootService implements OnDestroy {
     if (this.bsIndex.value < this.questions.length) {
       const question = this.questions[this.bsIndex.value]
       await this.ajouterQuestion(question,this.bsState.value.miahoot.id)
+      this.ps.resetVote()
     } else {
       this.router.navigateByUrl("resultats")
     }

@@ -58,7 +58,7 @@ export class ParticipantService {
 
   readonly bsVoted = new BehaviorSubject<number>(-1);
 
-  constructor(private fs: Firestore, private ms: CurrentMiahootService) {}
+  constructor(private fs: Firestore) {}
 
   /**
    * fonction qui initialise les Observables
