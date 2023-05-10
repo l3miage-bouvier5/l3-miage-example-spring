@@ -20,7 +20,7 @@ public class MiahootComponent {
     public MiahootEntity getMiahoot(final String userId, final String nom) throws MiahootEntityNotFoundException {
         return miahootRepository.findByUserIdAndNom(userId, nom)
                 .orElseThrow(() -> new MiahootEntityNotFoundException(
-                        String.format("Aucune entité n'a été trouvée pour nom [%s]", nom),
+                        String.format("Aucune entité n'a été trouvée pour userId [%s] et nom [%s]", userId, nom),
                         userId, nom));
     }
 
@@ -30,7 +30,7 @@ public class MiahootComponent {
             return l;
         else
             throw new MiahootListEntityNotFoundException(
-                    String.format("Aucune entité n'a été trouvée"), userId);
+                    String.format("Aucune entité n'a été trouvée pour le userId [%s]", userId), userId);
     }
 
     public MiahootEntity createMiahoot(final MiahootEntity entity)
@@ -53,8 +53,8 @@ public class MiahootComponent {
         for (QuestionEntity q : entity.getQuestions()) {
             if (q.getReponses() == null || q.getReponses().isEmpty()) {
                 throw new MiahootQuestionEmptyException(
-                        String.format("le miahoot [%s] a la question [%s] vide ou null",
-                                entity.getNom(), q.getLabel()),
+                        String.format("le miahoot [%s] du user [%s] a la question [%s] vide ou null",
+                                entity.getNom(), entity.getUserId(), q.getLabel()),
                         entity.getNom(), entity.getUserId(), q.getLabel());
             }
         }
@@ -63,16 +63,16 @@ public class MiahootComponent {
             if (QuestionComponent.existeRepetitionLabelReponses(q.getReponses()) == true) {
                 throw new DuplicationLabelReponsePourUneQuestionException(
                         String.format(
-                                "le miahoot [%s] a la question [%s] avec une ou plusieurs réponses identiques",
-                                entity.getNom(), q.getLabel()));
+                                "le miahoot [%s] du user [%s] a la question [%s] avec une ou plusieurs réponses identiques",
+                                entity.getNom(), entity.getUserId(), q.getLabel()));
             }
         }
 
         for (QuestionEntity q : entity.getQuestions()) {
             if (QuestionComponent.nbReponsesVrai(q) == 0) {
                 throw new NbReponsesVraiInvalidException(String.format(
-                        "le miahoot [%s] a la question [%s] avec une ou plusieurs réponses identiques",
-                        entity.getNom(), q.getLabel()));
+                        "le miahoot [%s] du user [%s] a la question [%s] avec une ou plusieurs réponses identiques",
+                        entity.getNom(), entity.getUserId(), q.getLabel()));
             }
         }
         return miahootRepository.save(entity);
@@ -84,7 +84,7 @@ public class MiahootComponent {
         // same userId diff nom -> check if new miahoot exists
         MiahootEntity actualEntity = miahootRepository.findByUserIdAndNom(userId, nom)
                 .orElseThrow(() -> new MiahootEntityNotFoundException(
-                        String.format("Aucune entité n'a été trouvée pour nom [%s]", nom),
+                        String.format("Aucune entité n'a été trouvée pour userId [%s] et nom [%s]", userId, nom),
                         userId, nom));
 
         if (!userId.equals(miahoot.getUserId())) {
@@ -93,7 +93,7 @@ public class MiahootComponent {
         }
         if (!nom.equals(miahoot.getNom())
                 && miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()) {
-            throw new MiahootAlreadyExistException("Le miahoot existe déjà en BD.", "");
+             throw new MiahootAlreadyExistException("Le miahoot existe déjà en BD.","");
         }
         miahootMapper.mergeMiahootEntity(actualEntity, miahoot);
         return miahootRepository.save(actualEntity);
