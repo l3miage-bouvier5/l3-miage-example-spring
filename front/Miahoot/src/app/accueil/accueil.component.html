@@ -1,44 +1,34 @@
-<!-- <section class="Accueil">
-    <h1>Accueil</h1>
-    <section class="card shadow">
-        <div class="login">
-            <div class="title_container">
-                <label>Log in</label>
-            </div>
-            
-            <mat-form-field>
-                <input matInput [(ngModel)]="nom" placeholder="Votre pseudonyme"/>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput [(ngModel)] = "miahootId" placeholder="L'id du miahoot">
-            </mat-form-field>
-                
-            
-            
-            <button (click) = "enregristrerInfo(miahootId,nom)">Participer au miahoot</button> 
-        </div>
-    </section>
-</section> -->
-
 <div class="Accueil">
-    
-    <div class="create form-container">
-        <p class="title">Create a Miahoot</p>
-            <!-- <button class="button-62" (click)="loginWithAdresseMail()">Sign in with email</button> -->
-            <button aria-label="Sign up with Google" class="button-62" (click)="loginGoogle()">
-                Sign in with Google
+
+        <div *ngIf="obsUser | async as U; else noUser" class="create form-container" >
+            <p class="title">Vous êtes connecté ! </p>
+            <button aria-label="Voir mes Miahoots" class="button-62" (click)="toMesMiahoots()">
+                Voir mes Miahoots
+            </button>
+            <button aria-label="Logout" class="button-62" (click)="logout()">
+                Logout
+            </button>
+        </div>
+
+
+    <ng-template #noUser>
+        <div class="create form-container" >
+            <p class="title">Create a Miahoot</p>
+                <button aria-label="Sign up with Google" class="button-62" (click)="loginGoogle()">
+                    Sign in with Google
+                </button>
+
+            <button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
+                Sign up / Sign in with email
             </button>
 
-        <button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
-            Sign up / Sign in with email
-        </button>
-
-        <div class="social-message">
-            <div class="line"></div>
-            <p class="message">Don't have an account? Sign up now!</p>
-            <div class="line"></div>
+            <div class="social-message">
+                <div class="line"></div>
+                <p class="message">Don't have an account? Sign up now!</p>
+                <div class="line"></div>
+            </div>
         </div>
-    </div>
+    </ng-template>
     
     <div class="join form-container">
         <p class="title">Join a Miahoot</p>

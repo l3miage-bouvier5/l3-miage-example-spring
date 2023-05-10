@@ -18,7 +18,8 @@ export class ConverterService {
   }
 
   async getMiahoot(uid:string , nom:string) : Promise<Miahoot>{
-    return lastValueFrom(this.http.get<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`))
+    const m =  await lastValueFrom(this.http.get<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`))
+    return m
   }
 
   async postMiahoot(uid:string, json:string) : Promise<HttpErrorResponse | any> {
@@ -37,7 +38,9 @@ export class ConverterService {
   }
 
   async getMiahoots(uid: string) : Promise<Miahoot[]>{
-    return lastValueFrom(this.http.get<Miahoot[]>(`/api/v0/miahoots/${uid}`))
+    const miahoots = await lastValueFrom(this.http.get<Miahoot[]>(`/api/v0/miahoot/${uid}`))
+    miahoots.forEach(m => m.questions.forEach(question => question.reponses.sort(() => Math.random() - 0.5)))
+    return miahoots
   }
 
 }

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ParticipantService } from '../services/participant.service';
 import { ConnexionService } from '../services/connexion.service';
+import { MiahootUser } from '../miahoot';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-accueil',
@@ -13,9 +15,14 @@ export class AccueilComponent {
   nom : string = ""
   outputError : string = "";
 
+  readonly obsUser : Observable<MiahootUser |undefined>
+
+
   constructor(private router : Router,
               private ps : ParticipantService,
-              private connexion: ConnexionService) { }
+              private connexion: ConnexionService) { 
+                this.obsUser = this.connexion.obsMiahootUser$
+              }
 
 
   async enregristrerInfo(miahootId : string, nom:string){
@@ -38,5 +45,13 @@ export class AccueilComponent {
     this.router.navigateByUrl("loginWithAdresseMail")
   }
   
+
+  logout(){
+    this.connexion.logout()
+  }
+
+  toMesMiahoots(){
+    this.router.navigateByUrl("miahootChoice")
+  }
 
 }
