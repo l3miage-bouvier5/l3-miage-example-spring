@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subscription, combineLatest, delay, filter, lastValueFrom, map, of, startWith, switchMap, take, tap } from 'rxjs';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
-import { Firestore, addDoc, collection, collectionData, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, docSnapshots, getDocs, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Auth, User, authState, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { ParticipantService } from './participant.service';
@@ -43,7 +43,6 @@ export class CurrentMiahootService implements OnDestroy {
     // On construit l'observable pour avoir STATE
 
     this.obsState = authState(this.auth).pipe(
-      delay(1000),
       startWith(undefined),
       filter(U => !!U),
       map(U => U as User),
@@ -53,38 +52,47 @@ export class CurrentMiahootService implements OnDestroy {
         return docData(docUser);
       }),
       switchMap(miahootUser => {
-        const pm = miahootUser.miahootProjected;
+        delay(500)
+        let pm = miahootUser.miahootProjected;
         const docPM = doc(fs, `miahoot/${pm}`).withConverter(FsMiahootProjectedConverter);
         return docData(docPM);
       }),
       switchMap(miahoot => {
         console.log("miahoot : ", miahoot);
-        
-        const docQCM = doc(fs, `miahoot/${miahoot.id}/QCMs/${miahoot.currentQCM}`).withConverter(FsQCMProjectedConverter);
-        const obsQCM = docData(docQCM);
-
-        return obsQCM.pipe(
-          map(qcm => ({
-            anonymes:
-            qcm.responses.map((_val, index) => {
-              let res: string[] = []
-              Object.entries(qcm.votes).filter(([_key, value]) => value === index )
-                .forEach(([key, _value]) => {
-                  const docName = doc(this.fs, `anonymes/${key}`).withConverter(conv)
-                  docData(docName).pipe(
-                    take(1),
-                    tap((anonyme => res.push(anonyme.name)))).subscribe()
-                })
-              return res
-            }),
-            miahoot,
-            qcm,
-            nbVote: Object.keys(qcm.votes).length,
-          } satisfies STATE)
+        if(miahoot.id !== undefined){
+          
+          const docQCM = doc(fs, `miahoot/${miahoot.id}/QCMs/${miahoot.currentQCM}`).withConverter(FsQCMProjectedConverter);
+          const obsQCM = docData(docQCM);
+  
+          return obsQCM.pipe(
+            map(qcm => ({
+              anonymes:
+              qcm.responses.map((_val, index) => {
+                let res: string[] = []
+                Object.entries(qcm.votes).filter(([_key, value]) => value === index )
+                  .forEach(([key, _value]) => {
+                    const docName = doc(this.fs, `anonymes/${key}`).withConverter(conv)
+                    docData(docName).pipe(
+                      take(1),
+                      tap((anonyme => res.push(anonyme.name)))).subscribe()
+                  })
+                return res
+              }),
+              miahoot,
+              qcm,
+              nbVote: Object.keys(qcm.votes).length,
+            } satisfies STATE)
+            )
           )
-        )
+        }else{
+          return of({} as STATE)
+        }
       }))
-    this.sub = this.obsState.subscribe(this.bsState)
+    this.sub = this.obsState.subscribe(state => {
+      if (state) {
+        this.bsState.next(state)
+      }
+    })
     
     
   }
@@ -95,20 +103,16 @@ export class CurrentMiahootService implements OnDestroy {
   }
   async nextQuestion() {
     const resultats = this.bsResultats.value
-
+    console.log("resultats : ", resultats);
+    
       resultats.push({qcm : this.bsState.value.qcm, nbVote : this.bsState.value.nbVote})
       this.bsResultats.next(resultats)
     if (this.bsIndex.value < this.questions.length) {
       const question = this.questions[this.bsIndex.value]
-      
-
-
       await this.ajouterQuestion(question,this.bsState.value.miahoot.id)
-      this.ps.resetVote()
     } else {
       this.router.navigateByUrl("resultats")
     }
-
   }
 
   async ajouterQuestion(question: Question,idMiahoot : string) {
@@ -124,6 +128,7 @@ export class CurrentMiahootService implements OnDestroy {
           await updateDoc(miahootActuel, {
             currentQCM: QCMdata.id
           })
+
     this.bsIndex.next(this.bsIndex.value + 1)
   }
 
@@ -154,10 +159,6 @@ export class CurrentMiahootService implements OnDestroy {
           await updateDoc(userActuel, {
             miahootProjected: jstp.id
           })
-
-
-          
-          
         }
 
       })
@@ -168,6 +169,25 @@ export class CurrentMiahootService implements OnDestroy {
     this.router.navigateByUrl("miahootChoice")
   }
 
+
+  resetResultats(){
+    this.bsResultats.next([])
+  }
+
+
+  async supprimerMiahoot(){
+    // supprimer tous les qcms du miahoot dans firebase avant de supprimer le miahoot
+
+    const idMiahoot = this.bsState.value.miahoot.id
+        const qcms = await getDocs(collection(this.fs, `/miahoot/${idMiahoot}/QCMs`))
+    qcms.forEach(async qcm => {
+      await deleteDoc(qcm.ref)
+    })
+
+    const miahoot = doc(this.fs, `miahoot/${idMiahoot}`)
+    await deleteDoc(miahoot)
+    this.router.navigateByUrl("miahootChoice")
+  }
 
 
 

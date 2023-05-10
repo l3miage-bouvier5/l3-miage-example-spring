@@ -18,6 +18,8 @@ export class ResultatsComponent{
 
   constructor(private ms : CurrentMiahootService, private router : Router) { 
     this.ms.bsResultats.subscribe(this.bsResultat)
+
+    
     console.log("mon tableau", this.bsResultat.value)
     // const res = this.bsResultat.value.reduce((meilleurRes, res, index) => {
     //   const correctAnswer = res.qcm.correctanwser
@@ -34,6 +36,9 @@ export class ResultatsComponent{
       const votes2 = Object.values(s.qcm.votes).reduce((acc, value) => value === rep2 ? acc++ : acc, 0)
       return votes1 - votes2 // sorted in ascending order
     })
+
+    console.log("res", res);
+    
     const bestQuestion = res[this.bsResultat.value.length - 1]
     this.bsbestQuestion.next([bestQuestion,
       Object.values(bestQuestion.qcm.votes).reduce((acc, value) => value === bestQuestion.qcm.correctanswer ? acc++ : acc, 0)])
@@ -50,8 +55,7 @@ export class ResultatsComponent{
   }
 
   resetResultats(){
-    this.bsResultat.next([])
-    this.router.navigateByUrl("miahootChoice")
+    this.ms.supprimerMiahoot()
   }
 
   
