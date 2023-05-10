@@ -17,13 +17,16 @@
             *ngFor="let miahoot of m">
             <h2>{{miahoot.nom}}</h2>
             <div class="nb-question"> Nombre de questions : {{miahoot.questions.length}}</div>
-            <ul>
+            <ul>    
                 <li *ngFor="let question of miahoot.questions">
                     {{question.label}}
                 </li>
             </ul>
             <section class="button-pres">
+                <!-- BUTTON pour prensenter le qcm
                 <button mat-raised-button color="primary" (click)="goMiahoot(miahoot)">Présenter</button>
+            -->
+                <button mat-raised-button color="primary" (click)="afficherIdMiahoot(miahoot)">Présenter</button>
                 <button mat-raised-button color="primary">Aperçu</button>
             </section>
         </div>

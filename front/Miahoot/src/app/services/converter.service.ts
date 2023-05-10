@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, lastValueFrom, of, retry, take, throwError } from 'rxjs';
 import { Miahoot, Question } from '../miahoot';
 
 
@@ -8,6 +8,8 @@ import { Miahoot, Question } from '../miahoot';
   providedIn: 'root'
 })
 export class ConverterService {
+
+  bsErrorMessage = new BehaviorSubject<string>("")
 
   constructor(private http: HttpClient) { }
 
@@ -20,8 +22,19 @@ export class ConverterService {
     return m
   }
 
-  async postMiahoot(uid:string, nom:string) {
-    return lastValueFrom(this.http.post<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`,{uid:uid,nom:nom}))
+  async postMiahoot(uid:string, json:string) : Promise<HttpErrorResponse | any> {
+    const res = JSON.parse(json);
+
+    try {
+      
+      const truc = lastValueFrom(this.http.post<any>(`/api/v0/miahoot/${uid}`,res));
+      
+      return truc;
+
+    } catch (error: any) {
+      return error;
+    }
+    
   }
 
   async getMiahoots(uid: string) : Promise<Miahoot[]>{

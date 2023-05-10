@@ -6,13 +6,15 @@
     <code hidden [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
     <label> Editez votre MiaHoot ici :</label>
     <textarea [ngClass]="{'valide':bsJSON.value?.language,
-    'notValide':!bsJSON.value?.language}" rows="5" cols="33" [(ngModel)]="code" (change)="update()">{{bsInputFile.value}}</textarea>
+    'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows=10 [(ngModel)]="code">{{code}}</textarea>
 
 
     <!-- Afficher un validateur pour fichier si bsInput = true -->
     <input mat-input (change)="onChange($event)" type="file"/>
-    <button (click)="postMiahoot()">Poster</button>
+    <button [disabled]="!bsJSON.value?.language" [ngClass]="{'valideButton':bsJSON.value?.language,
+    'notValideButton':!bsJSON.value?.language}" (click)="postMiahoot()">Poster</button>
     
+    <h1>{{bsErrorMessage | async}}</h1>
 </div>
 
 <ng-template #notFound>
