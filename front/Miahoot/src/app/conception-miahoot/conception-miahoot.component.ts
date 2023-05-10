@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HighlightLoader, HighlightAutoResult } from 'ngx-highlightjs';
 import { BehaviorSubject, Observable, map, of, switchMap, take, tap } from 'rxjs';
 import { ConnexionService } from '../services/connexion.service';
@@ -12,7 +12,7 @@ import { LoggedComponent } from '../logged/logged.component';
   templateUrl: './conception-miahoot.component.html',
   styleUrls: ['./conception-miahoot.component.scss']
 })
-export class ConceptionMiahootComponent {
+export class ConceptionMiahootComponent implements OnInit{
   readonly bsJSON = new BehaviorSubject<HighlightAutoResult |undefined>(undefined)
 
 
@@ -55,9 +55,10 @@ export class ConceptionMiahootComponent {
         }
     ]
 }`;
-
+  chargement = new BehaviorSubject<boolean>(false)
   bsErrorMessage = new BehaviorSubject<string>("")
   bsInputFile = new BehaviorSubject<string>("")
+  bsValide = new BehaviorSubject<boolean>(false)
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
@@ -69,8 +70,17 @@ export class ConceptionMiahootComponent {
     this.bsJSON.next(e ? e : undefined);
   }
 
+  ngOnInit(): void {
+    this.chargement.next(true)
+
+    setTimeout(() => {
+      this.chargement.next(false)
+    }, 2000);
+}
+
   postMiahoot(){
-    
+    this.bsValide.next(false);
+    this.bsErrorMessage.next("")
     
     if(this.bsJSON.value?.language && this.cs.obsMiahootUser$){
       
@@ -79,6 +89,7 @@ export class ConceptionMiahootComponent {
         map(async user => {
           try {
             const truc = await this.conv.postMiahoot(user!.uid, this.code);
+            this.bsValide.next(true)
           } catch (err: any) {
             this.bsErrorMessage.next(err.error.errorMessage)
           }
