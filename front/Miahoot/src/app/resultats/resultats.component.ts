@@ -45,7 +45,6 @@ export class ResultatsComponent{
   }
 
   percentage(monBS: BehaviorSubject<[r: RESULTATS, n: number]>) : number {
-    // return monBS.value[1]/(monBS.value[0].nbVote) * 100
     const denominator = monBS.value[0].nbVote;
     return denominator === 0 ? 0 : monBS.value[1] / denominator * 100;
   }
