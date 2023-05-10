@@ -34,6 +34,7 @@ import { MiahootChoiceComponent } from './miahoot-choice/miahoot-choice.componen
 import { ParticipantComponent } from './participant/participant.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultatsComponent } from './resultats/resultats.component';
+import { IdMiahootComponent } from './id-miahoot/id-miahoot.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ResultatsComponent } from './resultats/resultats.component';
     ConceptionMiahootComponent,
     MiahootChoiceComponent,
     ParticipantComponent,
-    ResultatsComponent
+    ResultatsComponent,
+    IdMiahootComponent
   ],
   imports: [
     BrowserModule,
