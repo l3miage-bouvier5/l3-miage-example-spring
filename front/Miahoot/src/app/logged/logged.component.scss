@@ -170,3 +170,34 @@ img {
   padding-bottom: 10px;
 }
 
+section .spinner{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  margin-left: 50%;
+  margin-right: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+section .no-miahoot{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+.no-miahoot button{
+  margin-top: 5%;
+}
+.no-miahoot h1{
+  margin-top: 5%;
+  text-decoration: underline;
+}
+
+
+
+

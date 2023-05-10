@@ -161,6 +161,10 @@ export class CurrentMiahootService implements OnDestroy {
     ).subscribe()
   }
 
+  toMiahoots(){
+    this.router.navigateByUrl("miahootChoice")
+  }
+
 
 
 }

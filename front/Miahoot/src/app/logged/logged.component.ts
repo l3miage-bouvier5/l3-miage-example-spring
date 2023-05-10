@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, combineLatest, map, of, switchMap, tap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription, combineLatest, delay, map, of, switchMap, tap } from 'rxjs';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
@@ -13,7 +13,10 @@ import { ConverterService } from '../services/converter.service';
   templateUrl: './logged.component.html',
   styleUrls: ['./logged.component.scss']
 })
-export class LoggedComponent implements OnDestroy {
+export class LoggedComponent implements OnDestroy,OnInit {
+
+  chargement = new BehaviorSubject<boolean>(false)
+
   readonly obsState : Observable<STATE | undefined>
 
   readonly sub : Subscription
@@ -29,6 +32,15 @@ export class LoggedComponent implements OnDestroy {
 
     this.obsState = this.ms.obsState
     this.sub = this.obsState.subscribe()
+
+  }
+
+  ngOnInit(): void {
+      this.chargement.next(true)
+
+      setTimeout(() => {
+        this.chargement.next(false)
+      }, 2000);
   }
 
   ngOnDestroy(): void {
@@ -59,6 +71,10 @@ export class LoggedComponent implements OnDestroy {
 
   afficherVote(){
     this.bsAfficherVote.next(!this.bsAfficherVote.value)
+  }
+
+  toMiahoots(){
+    this.ms.toMiahoots()
   }
 
 }
