@@ -1,6 +1,111 @@
+.section {
+  // la class section prend toute la place dans la page
+  width: 100%;
+  height: 100%;
+
+}
+
 textarea {
-  width: 30%;
-  height: 30%; // team design help please
+  // editeur de code json centré et prend 80% de la page
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  // bordure
+  border: 1px solid #ccc;
+  // bordure arrondie
+  border-radius: 4px;
+  // police
+  font-size: 14px;
+  // couleur de fond
+  background-color: #f8f8f8;
+  // couleur de la police
+  color: #000;
+  // espacement entre les lignes
+  line-height: 1.5;
+  // espacement entre les caractères
+  letter-spacing: 1px;
+  
+}
+
+h1 {
+  text-align: center;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.labelEditeur {
+  // mettre au dessus de la class
+  display: block;
+  // mettre en gras
+  font-weight: bold;
+  // mettre en italique
+  font-style: italic;
+  // mettre en couleur
+
+  color: #000;
+  // mettre en taille
+  font-size: 20px;
+
+  padding-bottom: 1%;
+
+}
+
+
+.editeur {
+  float: left;
+  width: 70%;
+  padding-right: 0;
+  padding-left: 1%;
+  padding-bottom: 1%;
+}
+
+.submit {
+  float: right;
+  width: 25%;
+  height: 100%;
+  margin: 2%;
+
+}
+
+.submit button {
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+  color: #000;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+
+}
+
+.submit input {
+  // mettre input en bas du container avec petite marge
+  display: block;
+  margin-bottom: 0;
+
+}
+
+.buttonPost {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin-top: 10%;
+
 }
 
 .valide {
@@ -11,10 +116,108 @@ textarea {
   color: red;
 }
 
-.valideButton {
-  background-color: green;
+
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
 }
 
-.notValideButton {
-  background-color: red;
+.drop-container:hover {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+input[type=file] {
+  width: 350px;
+  max-width: 100%;
+  color: #444;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
+
+.errorMessage {
+  color: darkred;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+.notFound {
+  // page not found
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 2px 2px 4px #000000;
+
+}
+
+.spinner{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  margin-left: 50%;
+  margin-right: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.notFound h3 {
+  // titre de page not found
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 2px 2px 4px #000000;
+
+}
+
+.valideMessage {
+  color: green;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
 }

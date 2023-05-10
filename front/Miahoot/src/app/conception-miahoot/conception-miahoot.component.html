@@ -1,22 +1,48 @@
+<section>
+    <mat-progress-spinner class="spinner" *ngIf ="chargement | async ; else MIAHOOT"
+        class="spinner"
+        mode = "indeterminate">
+    </mat-progress-spinner>
 
-<div *ngIf="cs.obsMiahootUser$ | async as User ; else notFound">
-    <h3>Conception d'un miahoot</h3>
+    <ng-template #MIAHOOT>
+    <div *ngIf="cs.obsMiahootUser$ | async as User ; else notFound">
     
-    <!-- Afficher un validateur pour textarea si bsInput = false (class pour text en vert) -->
-    <code hidden [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
-    <label> Editez votre MiaHoot ici :</label>
-    <textarea [ngClass]="{'valide':bsJSON.value?.language,
-    'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows=10 [(ngModel)]="code">{{code}}</textarea>
+        <h1>Conception d'un miahoot</h1>
+        
+        <div class="editeur">
+            <!-- Afficher un validateur pour textarea si bsInput = false (class pour text en vert) -->
+            <code hidden [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
+            <label class="labelEditeur"> Editez votre MiaHoot ici :</label>
+            <textarea [ngClass]="{'valide':bsJSON.value?.language,
+            'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows="25" [(ngModel)]="code">{{code}}</textarea>
+        </div>
+        
+        <div class="submit">
+            <label for="json" class="drop-container">
+                <span class="drop-title">Drop files here</span>
+                or
+                <input id="json" accept="json/*" (change)="onChange($event)" type="file"/>
+            </label>
+            
+            <button class="buttonPost" [disabled]="!bsJSON.value?.language" [ngClass]="{'valideButton':bsJSON.value?.language,
+            'notValideButton':!bsJSON.value?.language}" (click)="postMiahoot()">Poster</button>
+
+            <div class="valideMessage" *ngIf="bsValide | async; else error">
+                Envoyé !
+            </div>
+            <ng-template #error>
+                <div class="errorMessage">
+                    {{bsErrorMessage | async}}
+                </div>         
+            </ng-template>
+        </div>
+        
+    </div>
+    </ng-template>
+
+    <ng-template #notFound class="notFound">
+        <h3>You can't be here if you are not logged</h3>
+    </ng-template>
 
 
-    <!-- Afficher un validateur pour fichier si bsInput = true -->
-    <input mat-input (change)="onChange($event)" type="file"/>
-    <button [disabled]="!bsJSON.value?.language" [ngClass]="{'valideButton':bsJSON.value?.language,
-    'notValideButton':!bsJSON.value?.language}" (click)="postMiahoot()">Poster</button>
-    
-    <h1>{{bsErrorMessage | async}}</h1>
-</div>
-
-<ng-template #notFound>
-    <h3>You can't be here if you are not logged</h3>
-</ng-template>
+</section>
