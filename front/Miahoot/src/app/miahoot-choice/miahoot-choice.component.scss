@@ -33,7 +33,8 @@ img{
     width: 100%;
     margin: 20px auto;
     padding: 10px 30px;
-    box-shadow: lightgray 4px 4px 20px;
+    //box-shadow: lightgray 4px 4px 20px;
+    //background-color: #fff;
 }
 .container{
     box-sizing: border-box;
@@ -41,6 +42,8 @@ img{
     margin: 20px auto;
     padding: 10px 30px;
     box-shadow: lightgray 4px 4px 20px;
+    background-color: #ffffff;
+    
 }
 .container:hover{
     box-shadow: rgb(169, 107, 107) 4px 4px 20px;
@@ -55,12 +58,13 @@ h2{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    
+    color : #ffffff;
 }
 h1{
     text-align: center;
     font-size: 30px;
     font-weight: bold;
+    color : #ffffff;
 }
 
 section{
@@ -95,8 +99,8 @@ button.create{
     cursor: pointer;
     display: flex;
     align-items: center;
-    border: 1px solid #23828b;
-    background-color: #23828b;
+    border: 1px solid #673ab7;
+    background-color: #673ab7;
   }
   
   .button, .button__icon, .button__text {
@@ -114,7 +118,7 @@ button.create{
     transform: translateX(109px);
     height: 40px;
     width: 39px;
-    background-color: #23828b;
+    background-color: #673ab7;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +130,7 @@ button.create{
   }
   
   .button:hover {
-    background: #23828b;
+    background: #673ab7;
   }
   
   .button:hover .button__text {

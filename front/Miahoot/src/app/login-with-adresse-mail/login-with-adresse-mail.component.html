@@ -1,22 +1,22 @@
 <div class="form-container">
   <form class="form" [formGroup]="fgLogin">
-    <span class="signup">Sign in</span>
+    <span class="signup">Connexion</span>
     <input type="email" placeholder="email address" class="form--input" [formControl]="fgLogin.controls.email">
     <input type="password" placeholder="password" class="form--input" [formControl] = "fgLogin.controls.password">
     <button class="form--submit" (click)="login()">
-        Sign in
+        Connexion
     </button>
   </form>
 
 
   
   <form class="form" [formGroup]="fgRegister">
-    <span class="signup">Sign up</span>
+    <span class="signup">Créer un Compte</span>
     <input type="email" placeholder="email address" class="form--input" [formControl]="fgRegister.controls.email">
     <input type="password" placeholder="password" class="form--input" [formControl] = "fgRegister.controls.password">
     <input type="password" placeholder="confirm password" class="form--input">
     <button class="form--submit" (click)="register()">
-        Sign up
+        Créer un Compte
     </button>
   </form>
 </div>

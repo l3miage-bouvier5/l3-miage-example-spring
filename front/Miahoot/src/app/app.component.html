@@ -28,15 +28,15 @@
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click) = "toMiahootEnCours()"> Miahoot en cours</button>
                         <button mat-menu-item (click)="toMesMiahoots()">Mes Miahoots</button>
-                        <button mat-menu-item (click)="toAccountConfig()">My Account</button>
-                        <button mat-menu-item (click)="logout()">Log out</button>
+                        <button mat-menu-item (click)="toAccountConfig()">Mon Compte</button>
+                        <button mat-menu-item (click)="logout()">Deconnexion</button>
                     </mat-menu>
                 </li>
             </div>
             <div *ngIf="bsIsAnonyme.value">
                 <button id="ppButton" [matMenuTriggerFor]="menu"><img id="pp" [src]="U.photoURL"/></button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="logout()">Log out</button>
+                    <button mat-menu-item (click)="logout()">Deconnexion</button>
                 </mat-menu>
             </div>
     </ng-container>

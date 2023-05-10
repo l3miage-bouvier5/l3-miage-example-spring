@@ -1,10 +1,12 @@
 
-
 <section *ngIf = "bsState | async as s" class="container-master">
     
+  <div *ngIf= "bsMiahoot | async as m">
+      <h1>Présentation du Miahoot : {{ m.nom }}</h1>
+    </div>
 
 
-    <h3>Id du Miahoot : {{ s.miahoot.id }} </h3>
+    <h2>Id du Miahoot : {{ s.miahoot.id }} </h2>
 
 
 <button  (click)="goMiahoot()">Présenter
@@ -30,6 +32,3 @@
 
 
 </section>
-
-
-

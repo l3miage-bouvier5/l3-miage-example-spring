@@ -6,32 +6,32 @@
                 Voir mes Miahoots
             </button>
             <button aria-label="Logout" class="button-62" (click)="logout()">
-                Logout
+                Deconnexion
             </button>
         </div>
 
 
     <ng-template #noUser>
         <div class="create form-container" >
-            <p class="title">Create a Miahoot</p>
+            <p class="title">Créer un Miahoot</p>
                 <button aria-label="Sign up with Google" class="button-62" (click)="loginGoogle()">
-                    Sign in with Google
+                    Se connecter avec Google
                 </button>
 
             <button aria-label="Sign up with Google" class="button-62" (click)="loginWithAdresseMail()">
-                Sign up / Sign in with email
+                créer un compte / connexion avec email
             </button>
 
             <div class="social-message">
                 <div class="line"></div>
-                <p class="message">Don't have an account? Sign up now!</p>
+                <p class="message">Pas encore de compte ? Sign up maintenant !</p>
                 <div class="line"></div>
             </div>
         </div>
     </ng-template>
     
     <div class="join form-container">
-        <p class="title">Join a Miahoot</p>
+        <p class="title">Rejoindre un Miahoot</p>
         <div class="form">
             <div class="input-group">
                 <input [(ngModel)]="nom" type="text" name="username" id="username" placeholder="Username">
@@ -42,7 +42,7 @@
 		    </div>
             
         </div>
-        <button class="button-63" (click)="enregristrerInfo(miahootId,nom)">Join</button>
+        <button class="button-63" (click)="enregristrerInfo(miahootId,nom)">JOUER</button>
         <div class="input-error">
             <label class="err">{{outputError}}</label>
         </div> 
