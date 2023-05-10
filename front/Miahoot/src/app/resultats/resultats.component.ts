@@ -36,5 +36,5 @@ export class ResultatsComponent{
     this.router.navigateByUrl("miahootChoice")
   }
 
-
+  
 }

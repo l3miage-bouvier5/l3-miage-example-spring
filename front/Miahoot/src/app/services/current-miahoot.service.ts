@@ -28,11 +28,13 @@ export class CurrentMiahootService implements OnDestroy {
 
 
   private sub: Subscription;
-  private bsState = new BehaviorSubject<STATE>({miahoot : {} as MiahootProjected, qcm : {} as QCMProjected, nbVote : 0, anonymes : []})
+  readonly bsState = new BehaviorSubject<STATE>({miahoot : {} as MiahootProjected, qcm : {} as QCMProjected, nbVote : 0, anonymes : []})
 
   readonly obsState: Observable<STATE>
 
   readonly bsResultats = new BehaviorSubject<RESULTATS[]>([])
+
+  readonly bsMiahoot = new BehaviorSubject<Miahoot>({} as Miahoot)
 
   private questions: Question[] = []
   private bsIndex = new BehaviorSubject<number>(0)
@@ -165,6 +167,10 @@ export class CurrentMiahootService implements OnDestroy {
     this.router.navigateByUrl("miahootChoice")
   }
 
+
+  goMiahoot(mia : Miahoot){
+    this.bsMiahoot.next(mia)
+  }
 
 
 }
