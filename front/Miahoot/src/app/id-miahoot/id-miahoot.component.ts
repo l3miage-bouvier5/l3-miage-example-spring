@@ -22,7 +22,4 @@ export class IdMiahootComponent {
     this.router.navigateByUrl("logged")
   }
 
-
-
-
 }

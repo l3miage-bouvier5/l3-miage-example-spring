@@ -56,7 +56,7 @@ export class ParticipantService {
   readonly rsState = new ReplaySubject<STATE_PARTICIPANT>(1);
 
 
-  readonly bsVoted = new BehaviorSubject<number>(-1);
+  readonly bsVoted = new BehaviorSubject<boolean>(false);
 
   constructor(private fs: Firestore) {}
 
@@ -102,14 +102,14 @@ export class ParticipantService {
    * 
    */
   resetVote() {
-    this.bsVoted.next(-1);
+    this.bsVoted.next(false);
   }
 
   /*
    *Fonction qui permet de voter pour une proposition
    */
   vote(proposition: number) {
-    this.bsVoted.next(proposition);
+    this.bsVoted.next(true);
     this.obsState
       .pipe(
         take(1),
