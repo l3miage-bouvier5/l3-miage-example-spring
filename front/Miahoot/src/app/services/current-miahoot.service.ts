@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subscription, combineLatest, filter, lastValueFrom, map, of, startWith, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subscription, combineLatest, delay, filter, lastValueFrom, map, of, startWith, switchMap, take, tap } from 'rxjs';
 import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
 import { Firestore, addDoc, collection, collectionData, doc, docData, docSnapshots, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Auth, User, authState, user } from '@angular/fire/auth';
@@ -43,6 +43,7 @@ export class CurrentMiahootService implements OnDestroy {
     // On construit l'observable pour avoir STATE
 
     this.obsState = authState(this.auth).pipe(
+      delay(1000),
       startWith(undefined),
       filter(U => !!U),
       map(U => U as User),
@@ -168,9 +169,6 @@ export class CurrentMiahootService implements OnDestroy {
   }
 
 
-  goMiahoot(mia : Miahoot){
-    this.bsMiahoot.next(mia)
-  }
 
 
 }

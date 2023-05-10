@@ -51,7 +51,7 @@ export class MiahootChoiceComponent {
   }*/
 
   async afficherIdMiahoot(miahoot: Miahoot){
-    this.ms.goMiahoot(miahoot)
+    await this.ms.projeterMiahoot(miahoot)
     this.router.navigateByUrl("id-miahoot")
   }
   

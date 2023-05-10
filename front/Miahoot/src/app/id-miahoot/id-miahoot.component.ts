@@ -16,11 +16,9 @@ export class IdMiahootComponent {
   constructor(private ms: CurrentMiahootService,
               private router : Router){
     this.ms.bsState.subscribe(this.bsState)
-    this.ms.bsMiahoot.subscribe(this.bsMiahoot)
   }
-
+  
   async goMiahoot(){
-    await this.ms.projeterMiahoot(this.bsMiahoot.value)
     this.router.navigateByUrl("logged")
   }
 
