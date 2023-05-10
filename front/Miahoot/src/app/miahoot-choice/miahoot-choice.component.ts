@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Miahoot, MiahootUser } from '../miahoot';
 import { ConnexionService } from '../services/connexion.service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConverterService } from '../services/converter.service';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
@@ -53,6 +53,18 @@ export class MiahootChoiceComponent {
   async afficherIdMiahoot(miahoot: Miahoot){
     await this.ms.projeterMiahoot(miahoot)
     this.router.navigateByUrl("id-miahoot")
+  }
+
+  deleteMiahoot(miahoot: Miahoot) {
+    this.cs.obsMiahootUser$.pipe(
+      map( async user => {
+        if(user) {
+          this.conv.deleteMiahoot(user.uid, miahoot.nom)
+          await this.getMiahoots(user.uid)
+          this.mUser.next(user)
+        }
+      })
+    )
   }
   
 }
