@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { HighlightLoader, HighlightAutoResult } from 'ngx-highlightjs';
-import { BehaviorSubject, Observable, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, switchMap, take, tap } from 'rxjs';
 import { ConnexionService } from '../services/connexion.service';
 import { ConverterService } from '../services/converter.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { LoggedComponent } from '../logged/logged.component';
 
 
 @Component({
@@ -12,41 +14,78 @@ import { ConverterService } from '../services/converter.service';
 })
 export class ConceptionMiahootComponent {
   readonly bsJSON = new BehaviorSubject<HighlightAutoResult |undefined>(undefined)
-  readonly bsValideOuPas = new BehaviorSubject<string>("")
-  // pour le choix entre textarea et input file (par défaut false pour textarea)
-  readonly bsInput = new BehaviorSubject<boolean>(false)
+
 
   code: string = `{
-  "Question": "exemple ?",
-  "reponse": "oui",
+    "nom": "LabelExempleDeMiahoot",
+    "questions": [
+        {
+        "label": "exemple d'un miahoot ?",
+        "reponses": [
+            {
+            "label": "response1",
+            "estValide": true
+            },
+            {
+            "label": "reponse2",
+            "estValide": false
+            }
+        ]
+        },
+        {
+        "label": "Deuxieme question ?",
+        "reponses": [
+            {
+            "label": "reponse1",
+            "estValide": false
+            },
+            {
+            "label": "reponse2",
+            "estValide": true
+            },
+            {
+            "label": "reponse3",
+            "estValide": false
+            },
+            {
+            "label": "reponse4",
+            "estValide": false
+            }
+        ]
+        }
+    ]
 }`;
 
+  bsErrorMessage = new BehaviorSubject<string>("")
   bsInputFile = new BehaviorSubject<string>("")
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
-              private conv: ConverterService) {
+              readonly conv: ConverterService) {
+    this.conv.bsErrorMessage.subscribe(this.bsErrorMessage)
               }
 
   onHighlight(e: HighlightAutoResult) {
     this.bsJSON.next(e ? e : undefined);
   }
 
-  postMiahoot() {
-    if(this.bsJSON.value?.language){
+  postMiahoot(){
+    
+    
+    if(this.bsJSON.value?.language && this.cs.obsMiahootUser$){
+      
       this.cs.obsMiahootUser$.pipe(
-        map(user => {
-          // this.conv.postMiahoot(user.uid, this.cs.nom, this.bsJSON.value.value)
+        take(1),
+        map(async user => {
+          try {
+            const truc = await this.conv.postMiahoot(user!.uid, this.code);
+          } catch (err: any) {
+            this.bsErrorMessage.next(err.error.errorMessage)
+          }
         })
-      )
+      ).subscribe();  
     }
   }
-
-  update() {
-    this.bsInputFile.next(this.code);
-  }
-
-  // si il y a un fichier alors on disable le textarea
 
 
   async onChange(event: any) {
@@ -55,15 +94,7 @@ export class ConceptionMiahootComponent {
     
     this.bsInputFile.next(await file.text());
     
-    this.code = this.bsInputFile.value    
-
-    try {
-      JSON.parse(this.bsInputFile.value)
-      this.bsValideOuPas.next("C'est ok mon reuf")
-    }catch(e) {
-      this.bsValideOuPas.next("C'est nul mec")
-    }
-
+    this.code = this.bsInputFile.value
   }
   
 }
