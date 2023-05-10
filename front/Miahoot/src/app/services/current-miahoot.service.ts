@@ -43,7 +43,6 @@ export class CurrentMiahootService implements OnDestroy {
     // On construit l'observable pour avoir STATE
 
     this.obsState = authState(this.auth).pipe(
-      delay(1000),
       startWith(undefined),
       filter(U => !!U),
       map(U => U as User),
@@ -53,10 +52,8 @@ export class CurrentMiahootService implements OnDestroy {
         return docData(docUser);
       }),
       switchMap(miahootUser => {
+        delay(500)
         let pm = miahootUser.miahootProjected;
-        if(pm === ""){
-          return of({} as MiahootProjected)
-        }
         const docPM = doc(fs, `miahoot/${pm}`).withConverter(FsMiahootProjectedConverter);
         return docData(docPM);
       }),
@@ -87,11 +84,15 @@ export class CurrentMiahootService implements OnDestroy {
             } satisfies STATE)
             )
           )
-        } else {
+        }else{
           return of({} as STATE)
         }
       }))
-    this.sub = this.obsState.subscribe(this.bsState)
+    this.sub = this.obsState.subscribe(state => {
+      if (state) {
+        this.bsState.next(state)
+      }
+    })
     
     
   }
