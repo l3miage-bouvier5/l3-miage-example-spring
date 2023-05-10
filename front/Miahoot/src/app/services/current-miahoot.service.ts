@@ -93,12 +93,13 @@ export class CurrentMiahootService implements OnDestroy {
     this.sub.unsubscribe();
   }
   async nextQuestion() {
-    if (this.bsIndex.value < this.questions.length) {
-      const question = this.questions[this.bsIndex.value]
-      const resultats = this.bsResultats.value
+    const resultats = this.bsResultats.value
 
       resultats.push({qcm : this.bsState.value.qcm, nbVote : this.bsState.value.nbVote})
       this.bsResultats.next(resultats)
+    if (this.bsIndex.value < this.questions.length) {
+      const question = this.questions[this.bsIndex.value]
+      
 
 
       await this.ajouterQuestion(question,this.bsState.value.miahoot.id)
