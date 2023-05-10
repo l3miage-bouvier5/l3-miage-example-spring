@@ -12,7 +12,7 @@
             <h3>{{ S.qcm.question }}</h3>
             <div class="container">
                 <div class="liste">
-                    <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === S.qcm.correctanwser"
+                    <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === S.qcm.correctanswer"
                         *ngFor="let answer of S.qcm.responses; index as index">
                         <h4> {{index + 1}} : {{ answer }}</h4>
                     </div>
