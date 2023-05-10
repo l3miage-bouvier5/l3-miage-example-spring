@@ -6,6 +6,16 @@
   transform: translateX(-50%);
 }
 
+.connected{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin-left: 8%;
+    margin-right: 5%;
+    margin-top: 10%;
+}
 
 .create {
   display: flex;

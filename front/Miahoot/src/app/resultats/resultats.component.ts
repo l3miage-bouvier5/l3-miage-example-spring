@@ -10,24 +10,22 @@ import { BehaviorSubject, Observable, map, tap } from 'rxjs';
   styleUrls: ['./resultats.component.scss']
 })
 export class ResultatsComponent{
-  bsResultat = new BehaviorSubject<RESULTATS[]>([]);
+  readonly bsResultat = new BehaviorSubject<RESULTATS[]>([]);
+  readonly bsbestQuestion = new BehaviorSubject<[r: RESULTATS,nbBonneReponse: number]>([{} as RESULTATS,0]);
 
   constructor(private ms : CurrentMiahootService, private router : Router) { 
     this.ms.bsResultats.subscribe(this.bsResultat)
     console.log("mon tableau", this.bsResultat.value)
+    const res = this.bsResultat.value.reduce((meilleurRes, res, index) => {
+      const correctAnswer = res.qcm.correctanwser
+      const votesPourBonneReponse = Object.values(res.qcm.votes).reduce((acc,  value) => value === correctAnswer ? acc++ : acc, 0)
+      meilleurRes = meilleurRes[0] > votesPourBonneReponse ? meilleurRes : [votesPourBonneReponse, index]
+      return meilleurRes
+    },[0,0])
+    const bestQuestion = this.bsResultat.value[res[1]]
+    this.bsbestQuestion.next([bestQuestion, res[0]])
   }
 
-  // bestQuestion(): string {
-  //   // i want to  the question with the most number of votes for the correct answer
-  //   //  this.bsResultat.value.reduce(x, y =>
-  //   //   x if x.qcm.votes[x.qcm.correctAnswer] > y.qcm.votes[y.qcm.correctAnswer] else y).qcm.question
-
-  //   this.bsResultat.value.reduce((acc, value) => {
-  //     const n = Object.entries(value.qcm.votes).filter([key, val]=> val === value.qcm.correctanwser)
-    
-  //     return 
-  //   },0)
-  // }
 
   worstQuestion() { }
 

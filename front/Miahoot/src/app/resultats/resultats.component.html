@@ -1,28 +1,34 @@
 <head>
-    <title>Resultas</title>
+  <title>Resultas</title>
 </head>
+
+
+<div *ngIf="bsbestQuestion | async as best">
+    Question  :
+    nb vote Pour la question : {{best[1]}}
 
 <body>
     <h1>Resultats</h1>
-<table>
+    <table>
     <thead>
-    <tr>
+        <tr>
         <th>Question</th>
         <th>% de réponses correctes</th>
-    </tr>
+        </tr>
     </thead>
     <tbody>
-    <tr class="best">
-        <td>INSERT BEST ANSWERED QUESTION LABEL</td>
-        <td>INSERT % OF VOTES FOR CORRECT ANSWER</td>
-    </tr>
-    <tr class="worst">
+        <tr class="best">
+        <td>{{best[0].qcm.question}}</td>
+        <td>{{best[1]/(best[0].nbVote) * 100}}</td>
+        </tr>
+        <tr class="worst">
         <td>INSERT WORST ANSWERED QUESTION LABEL</td>
         <td>INSERT 100 - % OF VOTES FOR CORRECT ANSWER</td>
-    </tr>
+      </tr>
     </tbody>
-</table>
-    <button (click) = "resetResultats()">quitter</button>
+  </table>
+  <button (click)="resetResultats()">quitter</button>
 </body>
+</div>
 
 <!-- add a button "quitter hek shi" that resets the resultst for the next miahoot -->
