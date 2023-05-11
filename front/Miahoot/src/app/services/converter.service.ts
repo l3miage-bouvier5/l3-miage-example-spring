@@ -47,4 +47,10 @@ export class ConverterService {
     await lastValueFrom(this.http.delete<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`));    
   }
 
+  convertirMiahootEnJSON(miahoot: Miahoot): string {
+    const json = JSON.stringify(miahoot);
+    return json;
+  }
+
+
 }

@@ -14,7 +14,7 @@
             <code hidden [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
             <label class="labelEditeur"> Editez votre MiaHoot ici :</label>
             <textarea [ngClass]="{'valide':bsJSON.value?.language,
-            'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows="25" [(ngModel)]="code">{{code}}</textarea>
+            'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows="25" [(ngModel)]="code">{{code | json}}</textarea>
         </div>
         
         <div class="submit">

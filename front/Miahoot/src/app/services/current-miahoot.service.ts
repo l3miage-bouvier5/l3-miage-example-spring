@@ -32,6 +32,8 @@ export class CurrentMiahootService implements OnDestroy {
 
   readonly bsMiahoot = new BehaviorSubject<Miahoot>({} as Miahoot)
 
+  readonly bsUpdate = new BehaviorSubject<boolean>(false)
+
   private questions: Question[] = []
   private bsIndex = new BehaviorSubject<number>(0)
 

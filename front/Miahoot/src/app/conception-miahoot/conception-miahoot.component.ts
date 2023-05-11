@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HighlightLoader, HighlightAutoResult } from 'ngx-highlightjs';
 import { BehaviorSubject, Observable, map, of, switchMap, take, tap } from 'rxjs';
 import { ConnexionService } from '../services/connexion.service';
@@ -7,6 +7,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { LoggedComponent } from '../logged/logged.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
+import { CurrentMiahootService } from '../services/current-miahoot.service';
 
 
 @Component({
@@ -14,10 +15,10 @@ import { __values } from 'tslib';
   templateUrl: './conception-miahoot.component.html',
   styleUrls: ['./conception-miahoot.component.scss']
 })
-export class ConceptionMiahootComponent implements OnInit{
+export class ConceptionMiahootComponent implements OnInit, OnDestroy{
   readonly bsJSON = new BehaviorSubject<HighlightAutoResult |undefined>(undefined)
+  readonly bsCode = new BehaviorSubject<string>("");
 
-//oumhilusdbhv
   code: string = `{
     "nom": "LabelExempleDeMiahoot",
     "questions": [
@@ -61,22 +62,35 @@ export class ConceptionMiahootComponent implements OnInit{
   bsErrorMessage = new BehaviorSubject<string>("")
   bsInputFile = new BehaviorSubject<string>("")
   bsValide = new BehaviorSubject<boolean>(false)
-  bsUpdate = new BehaviorSubject<boolean>(false)
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
               readonly conv: ConverterService,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private ms : CurrentMiahootService) {
     this.conv.bsErrorMessage.subscribe(this.bsErrorMessage)
-              }
+    
+    if(this.ms.bsUpdate.value){
+      console.log("oui");
+      
+      this.code = JSON.stringify(this.ms.bsMiahoot.value);
+      console.log(JSON.stringify(this.ms.bsMiahoot.value));
+      
+    }
+  }
 
   onHighlight(e: HighlightAutoResult) {
     this.bsJSON.next(e ? e : undefined);
   }
 
+  ngOnDestroy(): void {
+      this.ms.bsUpdate.next(false)
+  }
+
   ngOnInit(): void {
     this.chargement.next(true)
 
+    
     setTimeout(() => {
       this.chargement.next(false)
     }, 2000);
@@ -124,11 +138,6 @@ export class ConceptionMiahootComponent implements OnInit{
       })
     ).subscribe()
     
-  }
-
-  updateMiahoot(){
-    this.bsUpdate.next(true)
-    // this.code = 
   }
   
 }

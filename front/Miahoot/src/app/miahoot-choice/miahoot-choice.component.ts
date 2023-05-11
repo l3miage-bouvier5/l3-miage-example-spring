@@ -35,6 +35,7 @@ export class MiahootChoiceComponent {
   }
 
   toConceptionMiahoot() {
+    this.ms.bsUpdate.next(false)
     this.router.navigateByUrl("conceptionMiahoot")
   }
   
@@ -72,8 +73,10 @@ export class MiahootChoiceComponent {
     window.location.reload();
   }
 
-  updateMiahoot() {
-
+  updateMiahoot(miahoot: Miahoot) {
+    this.ms.bsUpdate.next(true);
+    this.ms.bsMiahoot.next(miahoot)
+    this.router.navigateByUrl("conceptionMiahoot")
   }
   
 }
