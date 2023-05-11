@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Miahoot } from '../miahoot';
 import { CurrentMiahootService, STATE } from '../services/current-miahoot.service';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-id-miahoot',
@@ -13,6 +14,7 @@ export class IdMiahootComponent implements OnInit{
   obsState : Observable<STATE>
   bsChargement = new BehaviorSubject<boolean>(false)
   
+
   constructor(private ms: CurrentMiahootService,
               private router : Router,
               private appRef: ApplicationRef){
@@ -23,6 +25,7 @@ export class IdMiahootComponent implements OnInit{
   }
   
   async goMiahoot(){
+    this.ms.stopAttente()
     this.router.navigateByUrl("logged")
   }
 

@@ -15,7 +15,7 @@ export class ParticipantComponent {
   obsCurrentQCM : Observable<QCMProjected | undefined>
 
 
-  constructor(private ps : ParticipantService) { 
+  constructor(public ps : ParticipantService) { 
     this.obsCurrentQCM = this.ps.obsState.pipe(
       map(state =>{
         if(state){

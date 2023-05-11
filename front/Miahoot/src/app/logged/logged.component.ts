@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, combineLatest, delay, map, of, switchMap, tap } from 'rxjs';
-import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
+import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, convMiahootUser } from '../miahoot';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
 import { CurrentMiahootService, STATE } from '../services/current-miahoot.service';

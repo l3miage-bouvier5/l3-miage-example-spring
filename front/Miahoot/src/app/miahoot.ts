@@ -43,6 +43,7 @@ export interface MiahootProjected {
   creator: string;
   presentator: string;
   currentQCM: string;
+  attente: boolean;
 }
 export const FsMiahootProjectedConverter: FirestoreDataConverter<MiahootProjected> = {
   toFirestore: M => M,
@@ -50,11 +51,12 @@ export const FsMiahootProjectedConverter: FirestoreDataConverter<MiahootProjecte
     id: snap.id,
     creator: snap.get("creator"),
     presentator: snap.get("presentator"),
-    currentQCM: snap.get("currentQCM")
+    currentQCM: snap.get("currentQCM"),
+    attente: snap.get("attente"),
   })
 }
 
-export const conv : FirestoreDataConverter<MiahootUser> = {
+export const convMiahootUser : FirestoreDataConverter<MiahootUser> = {
     toFirestore : val => val,
     fromFirestore: snap => ({
       uid : snap.id,

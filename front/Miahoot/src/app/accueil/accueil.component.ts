@@ -27,7 +27,7 @@ export class AccueilComponent {
 
   async enregristrerInfo(miahootId : string, nom:string){
     try {
-      this.ps.miahootId = miahootId
+      this.ps.enregistrerId(miahootId);
       await this.connexion.loginAnonymously(nom)
       this.ps.init()
       this.router.navigateByUrl("participer")

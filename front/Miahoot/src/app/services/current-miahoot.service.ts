@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subscription, combineLatest, delay, filter, lastValueFrom, map, of, startWith, switchMap, take, tap } from 'rxjs';
-import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
+import { BehaviorSubject, Observable, ReplaySubject, Subscription, combineLatest, delay, filter, lastValueFrom, map, of, shareReplay, startWith, switchMap, take, tap } from 'rxjs';
+import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, convMiahootUser } from '../miahoot';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, docSnapshots, getDocs, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Auth, User, authState, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export interface STATE {
 export class CurrentMiahootService implements OnDestroy {
 
 
-  private sub: Subscription;
+  // private sub: Subscription;
   // readonly bsState = new BehaviorSubject<STATE>({miahoot : {} as MiahootProjected, qcm : {} as QCMProjected, nbVote : 0, anonymes : []})
 
   readonly obsState: Observable<STATE>
@@ -35,6 +35,8 @@ export class CurrentMiahootService implements OnDestroy {
   private questions: Question[] = []
   private bsIndex = new BehaviorSubject<number>(0)
 
+  // readonly obsParticipants : Observable<string[]>
+
   constructor(private auth: Auth, private fs: Firestore, private router: Router, private ps : ParticipantService) {
     // On construit l'observable pour avoir STATE
 
@@ -44,7 +46,7 @@ export class CurrentMiahootService implements OnDestroy {
       map(U => U as User),
       switchMap(user => {
         // Accès au document correspondant à user
-        const docUser = doc(fs, `users/${user.uid}`).withConverter(conv);
+        const docUser = doc(fs, `users/${user.uid}`).withConverter(convMiahootUser);
         return docData(docUser);
       }),
       switchMap(miahootUser => {
@@ -68,7 +70,7 @@ export class CurrentMiahootService implements OnDestroy {
                 let res: string[] = []
                 Object.entries(qcm.votes).filter(([_key, value]) => value === index )
                   .forEach(([key, _value]) => {
-                    const docName = doc(this.fs, `anonymes/${key}`).withConverter(conv)
+                    const docName = doc(this.fs, `anonymes/${key}`).withConverter(convMiahootUser)
                     docData(docName).pipe(
                       take(1),
                       tap((anonyme => res.push(anonyme.name)))).subscribe()
@@ -84,15 +86,30 @@ export class CurrentMiahootService implements OnDestroy {
         }else{
           return of({} as STATE)
         }
-      }))
-    this.sub = this.obsState.subscribe()
+      }),
+      shareReplay(1)
+      )
+    // this.sub = this.obsState.subscribe()
     
     
   }
 
+  stopAttente(){
+    this.obsState.pipe(
+      take(1),
+      map(state => state.miahoot.id),
+      tap(async idMiahoot => {
+        const miahootActuel = doc(this.fs, `miahoot/${idMiahoot}`)
+        await updateDoc(miahootActuel, {
+          attente: false
+        })
+      })
+    ).subscribe()
+  }
+
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
   async nextQuestion() {
     this.obsState.pipe(
@@ -149,13 +166,16 @@ export class CurrentMiahootService implements OnDestroy {
       take(1),
       map(async U => {
         if (U) {
-          const MhCollection = collection(this.fs, `/miahoot`)
-          const jstp = await addDoc(MhCollection, {
+          const MhCollection = collection(this.fs, `/miahoot`).withConverter(FsMiahootProjectedConverter)
+          const jstp = await addDoc<MiahootProjected>(MhCollection, {
             creator: U.uid,
             presentator: U.uid,
+            attente: true,
+            currentQCM: "",
+            id: "..."
           })
           await this.ajouterQuestion(miahoot.questions[0],jstp.id)
-          const userActuel = doc(this.fs, `users/${U.uid}`)
+          const userActuel = doc(this.fs, `users/${U.uid}`).withConverter(convMiahootUser)
           await updateDoc(userActuel, {
             miahootProjected: jstp.id
           })

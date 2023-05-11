@@ -1,16 +1,20 @@
-<div *ngIf="obsCurrentQCM | async as QCM ; else NoQCMProjected">
-  <div class="question">
-    <h3>{{QCM.question}}</h3>
-    <div class="liste">
-      <button class="reponses" 
-      [class.rep1]= "i === 0" 
-      [class.rep2] = "i===1" 
-      [class.rep3] = "i===2"
-      [class.rep4] = "i >= 3"
-      *ngFor="let answer of QCM.responses; index as i" 
-      (click)="vote(i)"><label>{{answer}}</label></button>
+<div *ngIf="ps.obsState | async as S">
+  <div *ngIf="!S.miahoot.attente ; else NoQCMProjected">
+    <div class="question" *ngIf="obsCurrentQCM | async as QCM">
+      <h3>{{QCM.question}}</h3>
+      <div class="liste">
+        <button class="reponses" 
+        [class.rep1]= "i === 0" 
+        [class.rep2] = "i===1" 
+        [class.rep3] = "i===2"
+        [class.rep4] = "i >= 3"
+        *ngFor="let answer of QCM.responses; index as i" 
+        (click)="vote(i)"><label>{{answer}}</label></button>
+      </div>
     </div>
   </div>
+
+  
 </div>
 
 
