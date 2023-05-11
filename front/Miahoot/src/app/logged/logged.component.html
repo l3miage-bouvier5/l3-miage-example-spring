@@ -41,6 +41,14 @@
         <h1>No Miahoot projected</h1>
     </ng-template>
     <ng-template #NoQCMProjected>
-        <h1>No QCM projected</h1>
+        <div class="no-miahoot">
+            <h1>Aucun Miahoot en cours de présentation</h1>
+            <button class="button-62" (click)="toMiahoots()">Retourner vers les miahoots</button>
+        </div>
+
     </ng-template>
+</ng-template>
+
+<button class="button" (click)="resetResultats()">Quitter</button>
+
 </section>
