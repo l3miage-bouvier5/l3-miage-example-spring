@@ -31,6 +31,7 @@ export class MiahootChoiceComponent {
         }
       })
     )
+    
   }
 
   toConceptionMiahoot() {
@@ -60,6 +61,14 @@ export class MiahootChoiceComponent {
     
     this.conv.deleteMiahoot(this.mUser.value.uid, miahoot.nom)
     await this.getMiahoots(this.mUser.value.uid)
+    window.location.reload();
+  }
+
+  async deleteAll(miahoots: Miahoot[]){
+    for(let miahoot of miahoots){
+      this.conv.deleteMiahoot(this.mUser.value.uid, miahoot.nom)
+      await this.getMiahoots(this.mUser.value.uid)
+    }
     window.location.reload();
   }
   
