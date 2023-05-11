@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subscription, map, of, switchMap } from 'r
 import { CurrentMiahootService } from '../services/current-miahoot.service';
 import { signOut } from '@angular/fire/auth';
 import { ConnexionService } from '../services/connexion.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-participant',
@@ -14,8 +15,8 @@ import { ConnexionService } from '../services/connexion.service';
 export class ParticipantComponent {
   obsCurrentQCM : Observable<QCMProjected | undefined>
 
-
-  constructor(public ps : ParticipantService) { 
+  constructor(public ps : ParticipantService,
+              private _snackBar : MatSnackBar) { 
     this.obsCurrentQCM = this.ps.obsState.pipe(
       map(state =>{
         if(state){
@@ -29,7 +30,11 @@ export class ParticipantComponent {
     )
   }
 
-  vote(proposition : number){
+  vote(proposition : number, answer : string){
+    this.openMessage(answer)
     this.ps.vote(proposition)
+  }
+  openMessage(answer : string) {
+    this._snackBar.open(`Vote enregistré pour ${answer}`, "OK");
   }
 }

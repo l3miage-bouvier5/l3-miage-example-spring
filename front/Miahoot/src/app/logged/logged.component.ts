@@ -54,6 +54,10 @@ export class LoggedComponent implements OnDestroy,OnInit {
   }
 
 
+  resetResultats(){
+    this.ms.supprimerMiahoot()
+  }
+
   proportionVote(vote : string[], nbVote : number){
     return nbVote !== 0 ? Math.round(vote.length/nbVote * 100):0
   }
