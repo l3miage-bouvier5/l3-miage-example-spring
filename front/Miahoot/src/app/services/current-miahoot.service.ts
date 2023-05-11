@@ -52,7 +52,6 @@ export class CurrentMiahootService implements OnDestroy {
         return docData(docUser);
       }),
       switchMap(miahootUser => {
-        delay(500)
         let pm = miahootUser.miahootProjected;
         const docPM = doc(fs, `miahoot/${pm}`).withConverter(FsMiahootProjectedConverter);
         return docData(docPM);
@@ -104,12 +103,15 @@ export class CurrentMiahootService implements OnDestroy {
   async nextQuestion() {
     const resultats = this.bsResultats.value
     console.log("resultats : ", resultats);
-    
-      resultats.push({qcm : this.bsState.value.qcm, nbVote : this.bsState.value.nbVote})
-      this.bsResultats.next(resultats)
+    resultats.push({qcm : this.bsState.value.qcm, nbVote : this.bsState.value.nbVote})
+    this.bsResultats.next(resultats)
     if (this.bsIndex.value < this.questions.length) {
       const question = this.questions[this.bsIndex.value]
-      await this.ajouterQuestion(question,this.bsState.value.miahoot.id)
+      this.obsState.pipe(
+        take(1),
+        map(state => state.miahoot.id),
+        tap(async idMiahoot => await this.ajouterQuestion(question,idMiahoot))
+      ).subscribe()
     } else {
       this.router.navigateByUrl("resultats")
     }
@@ -171,13 +173,13 @@ export class CurrentMiahootService implements OnDestroy {
 
 
   resetResultats(){
-    this.bsResultats.next([])
+    
   }
 
 
   async supprimerMiahoot(){
     // supprimer tous les qcms du miahoot dans firebase avant de supprimer le miahoot
-
+    this.bsResultats.next([])
     const idMiahoot = this.bsState.value.miahoot.id
         const qcms = await getDocs(collection(this.fs, `/miahoot/${idMiahoot}/QCMs`))
     qcms.forEach(async qcm => {

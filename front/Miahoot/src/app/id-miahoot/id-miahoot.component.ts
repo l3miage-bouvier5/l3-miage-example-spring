@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { ApplicationRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Miahoot } from '../miahoot';
 import { CurrentMiahootService, STATE } from '../services/current-miahoot.service';
 
@@ -9,17 +9,30 @@ import { CurrentMiahootService, STATE } from '../services/current-miahoot.servic
   templateUrl: './id-miahoot.component.html',
   styleUrls: ['./id-miahoot.component.scss']
 })
-export class IdMiahootComponent {
-  bsState = new BehaviorSubject<STATE>({} as STATE)
-  bsMiahoot = new BehaviorSubject<Miahoot>({} as Miahoot)
+export class IdMiahootComponent implements OnInit{
+  obsState : Observable<STATE>
+  bsChargement = new BehaviorSubject<boolean>(false)
   
   constructor(private ms: CurrentMiahootService,
-              private router : Router){
-    this.ms.bsState.subscribe(this.bsState)
+              private router : Router,
+              private appRef: ApplicationRef){
+    this.obsState = this.ms.obsState.pipe(
+      tap(state => console.log("state : ", state))
+      
+    )
   }
   
   async goMiahoot(){
     this.router.navigateByUrl("logged")
+  }
+
+  ngOnInit(): void {
+    this.bsChargement.next(true)
+    setTimeout(() => {
+      this.bsChargement.next(false)
+    }
+    , 1500)
+
   }
 
 }

@@ -36,7 +36,7 @@ export interface QCMProjected {
   correctanswer: number;
   question: string;
   responses: string[]; // Les réponses possibles
-  votes: VOTES; // Autant d'entrée dans le tableau que de réponses possibles
+  votes: VOTES; 
 }
 export interface MiahootProjected {
   readonly id: string;

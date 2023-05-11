@@ -1,6 +1,9 @@
+<div *ngIf="bsChargement | async ; else loaded">Le Miahoot est en cours de chargement</div>
 
 
-<section *ngIf = "bsState | async as s" class="container-master">
+<ng-template #loaded>
+
+  <section *ngIf = "obsState | async as s" class="container-master">
     
 
 
@@ -14,10 +17,10 @@
 
 
 
+  
 
-
-
-
+  
+  
 
 
   
@@ -45,4 +48,5 @@
 </section>
 
 
+</ng-template>
 
