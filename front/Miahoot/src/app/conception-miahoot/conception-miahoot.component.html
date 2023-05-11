@@ -8,13 +8,13 @@
     <div *ngIf="cs.obsMiahootUser$ | async as User ; else notFound">
     
         <h1>Conception d'un miahoot</h1>
-        
+
         <div class="editeur">
             <!-- Afficher un validateur pour textarea si bsInput = false (class pour text en vert) -->
             <code hidden [highlight]="code" [languages]="['json']" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
             <label class="labelEditeur"> Editez votre MiaHoot ici :</label>
             <textarea [ngClass]="{'valide':bsJSON.value?.language,
-            'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows="25" [(ngModel)]="code">{{code | json}}</textarea>
+            'notValide':!bsJSON.value?.language}" placeholder="Create your miahoot in JSON" cols="50" rows="25" [(ngModel)]="code">{{bsCode | async}}</textarea>
         </div>
         
         <div class="submit">
@@ -25,7 +25,7 @@
             </label>
             
             <button class="buttonPost" [disabled]="!bsJSON.value?.language" [ngClass]="{'valideButton':bsJSON.value?.language,
-            'notValideButton':!bsJSON.value?.language}" (click)="postMiahoot()">Poster</button>
+            'notValideButton':!bsJSON.value?.language}" (click)="postMiahoot()">Envoyer</button>
         </div>
         
     </div>

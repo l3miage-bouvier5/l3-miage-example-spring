@@ -47,10 +47,18 @@ export class ConverterService {
     await lastValueFrom(this.http.delete<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`));    
   }
 
-  convertirMiahootEnJSON(miahoot: Miahoot): string {
-    const json = JSON.stringify(miahoot);
-    return json;
-  }
+  async putMiahoot(uid: string, nom:string, json:string) : Promise<HttpErrorResponse | any> {
+    const res = JSON.parse(json);
 
+    try {
+      
+      const truc = lastValueFrom(this.http.post<any>(`/api/v0/miahoot/${uid}/${nom}`,res));
+      
+      return truc;
+
+    } catch (error: any) {
+      return error;
+    }
+  }
 
 }

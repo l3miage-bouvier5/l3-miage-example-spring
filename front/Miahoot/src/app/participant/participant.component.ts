@@ -4,6 +4,7 @@ import { QCMProjected } from '../miahoot';
 import { BehaviorSubject, Observable, Subscription, map, of, switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CurrentMiahootService } from '../services/current-miahoot.service';
 
 @Component({
   selector: 'app-participant',

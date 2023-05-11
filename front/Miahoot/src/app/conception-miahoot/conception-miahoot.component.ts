@@ -19,63 +19,65 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
   readonly bsJSON = new BehaviorSubject<HighlightAutoResult |undefined>(undefined)
   readonly bsCode = new BehaviorSubject<string>("");
 
-  code: string = `{
-    "nom": "LabelExempleDeMiahoot",
-    "questions": [
-        {
-        "label": "exemple d'un miahoot ?",
-        "reponses": [
-            {
-            "label": "response1",
-            "estValide": true
-            },
-            {
-            "label": "reponse2",
-            "estValide": false
-            }
-        ]
-        },
-        {
-        "label": "Deuxieme question ?",
-        "reponses": [
-            {
-            "label": "reponse1",
-            "estValide": false
-            },
-            {
-            "label": "reponse2",
-            "estValide": true
-            },
-            {
-            "label": "reponse3",
-            "estValide": false
-            },
-            {
-            "label": "reponse4",
-            "estValide": false
-            }
-        ]
-        }
-    ]
-}`;
   chargement = new BehaviorSubject<boolean>(false)
   bsErrorMessage = new BehaviorSubject<string>("")
   bsInputFile = new BehaviorSubject<string>("")
   bsValide = new BehaviorSubject<boolean>(false)
+  code : string = ""
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
               readonly conv: ConverterService,
               private _snackBar: MatSnackBar,
-              private ms : CurrentMiahootService) {
+              public ms : CurrentMiahootService) {
     this.conv.bsErrorMessage.subscribe(this.bsErrorMessage)
     
+
     if(this.ms.bsUpdate.value){
-      console.log("oui");
-      
-      this.code = JSON.stringify(this.ms.bsMiahoot.value);
-      console.log(JSON.stringify(this.ms.bsMiahoot.value));
-      
+      this.code = JSON.stringify(this.ms.bsMiahoot.value, null, "\t");
+      this.bsCode.next(this.code)
+
+    }else {
+      this.code = `{
+        "nom": "LabelExempleDeMiahoot",
+        "questions": [
+            {
+            "label": "exemple d'un miahoot ?",
+            "reponses": [
+                {
+                "label": "response1",
+                "estValide": true
+                },
+                {
+                "label": "reponse2",
+                "estValide": false
+                }
+            ]
+            },
+            {
+            "label": "Deuxieme question ?",
+            "reponses": [
+                {
+                "label": "reponse1",
+                "estValide": false
+                },
+                {
+                "label": "reponse2",
+                "estValide": true
+                },
+                {
+                "label": "reponse3",
+                "estValide": false
+                },
+                {
+                "label": "reponse4",
+                "estValide": false
+                }
+            ]
+            }
+        ]
+    }`;
+    this.bsCode.next(this.code)
     }
   }
 
@@ -105,15 +107,30 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
       this.cs.obsMiahootUser$.pipe(
         take(1),
         map(async user => {
-          try {
-            const truc = await this.conv.postMiahoot(user!.uid, this.code);
+          // cas de modification ou de création
+          if(this.ms.bsUpdate.value){
+            try {
+            await this.conv.putMiahoot(user!.uid, this.ms.bsMiahoot.value.nom, this.code);
             this.bsValide.next(true)
             this.bsErrorMessage.next("Envoyé !")
             this.openMessage();
-          } catch (err: any) {
-            this.bsErrorMessage.next(err.error.errorMessage)
-            this.openMessage();
+            } catch (err: any) {
+              this.bsErrorMessage.next(err.error.errorMessage)
+              this.openMessage();
+            }
+
+          }else {
+            try {
+              await this.conv.postMiahoot(user!.uid, this.code);
+              this.bsValide.next(true)
+              this.bsErrorMessage.next("Envoyé !")
+              this.openMessage();
+            } catch (err: any) {
+              this.bsErrorMessage.next(err.error.errorMessage)
+              this.openMessage();
+            }
           }
+
         })
       ).subscribe();
     }
@@ -124,10 +141,8 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
   async onChange(event: any) {
     
     const file: File = event.target.files[0];
-    
-    this.bsInputFile.next(await file.text());
-    
-    this.code = this.bsInputFile.value
+    this.code = await file.text();
+    this.bsCode.next(this.code)
   }
 
   openMessage() {
