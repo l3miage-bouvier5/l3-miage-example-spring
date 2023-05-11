@@ -1,14 +1,12 @@
 <div *ngIf = "bsResultat | async as QCMs">
-  <div *ngFor="let qcm of QCMs">{{qcm.question}} : nbVote : {{nbVote(qcm)}} pourcentage : {{pourcentageBonneReponse(qcm)}}
+  <!-- <div *ngFor="let qcm of QCMs">{{qcm.question}} : nbVote : {{nbVote(qcm)}} pourcentage : {{pourcentageBonneReponse(qcm)}} -->
+  <!-- <div *ngFor="let qcm of triMeilleuresReponses(QCMs)">{{qcm.question}}</div> -->
+
+  <div id="graphiqueHlr" class="graph">
+    <dl *ngFor="let qcm of triMeilleuresReponses(QCMs)" class="taille" style="--pourcentage: {{pourcentageBonneReponse(qcm)}};"><dt class="">{{qcm.question}}</dt><dd>{{pourcentageBonneReponse(qcm)}}%</dd></dl>
   </div>
 
-
-  <div *ngFor="let qcm of triMeilleuresReponses(QCMs)">{{qcm.question}}</div>
-
-
-
 </div>
-
 
 <button class="button" (click)="resetResultats()">Quitter</button>
 
