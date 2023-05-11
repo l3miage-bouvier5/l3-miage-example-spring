@@ -3,7 +3,6 @@ package fr.uga.l3miage.example.error;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import fr.uga.l3miage.example.request.CreateMiahootRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -47,14 +46,11 @@ public class MiahootAlreadyExistErrorResponse extends ErrorResponse {
     @JsonProperty(access = WRITE_ONLY)
     private final String errorCodeSwaggerDocumentation = "Field used only to generate documentation, don't use it";
 
-    @Schema(description = "le label utilisé pour la recherche", example = "donner une réponse ?")
-    private final CreateMiahootRequest request;
+    
 
     @Builder
     @Jacksonized
-    public MiahootAlreadyExistErrorResponse(String uri, HttpStatus httpStatus, ErrorCode errorCode, String errorMessage,
-            CreateMiahootRequest request) {
+    public MiahootAlreadyExistErrorResponse(String uri, HttpStatus httpStatus, ErrorCode errorCode, String errorMessage) {
         super(uri, httpStatus, errorCode, errorMessage);
-        this.request = request;
     }
 }

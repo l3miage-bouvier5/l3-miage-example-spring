@@ -86,9 +86,13 @@ public class MiahootService {
         miahoot.setUserId(userId);
         try {
             return miahootMapper.toDto(miahootComponent.updateMiahoot(miahoot, userId, oldName));
-        } catch (MiahootEntityNotFoundException ex) {
-            throw new MiahootEntityNotFoundRestException("Le miahoot n'existe pas en base de donnée",
+        } catch (MiahootEntityNotFoundException ex) { //#########
+            throw new MiahootEntityNotFoundRestException(String.format("Aucun Miahoot de nom [%s] n'a été trouvée dans la BD pour le update", oldName),
                     ex.getMessage(), userId, ex);
+        } catch (MiahootAlreadyExistException ex){ //#########
+            throw new MiahootAlreadyExistRestException(String.format(
+                    "Une erreur lors de la modifiction de l'entité Miahoot à été détecté: le nouveau miahoot nom = (%s)  déjà existant en base de donné",
+                    miahoot.getNom()), miahoot);
         } catch (MiahootQuestionEmptyException ex) {
             // throw new MiahootQuestionEmptyRestException("Une question no possède pas de
             // réponse", ex);

@@ -6,6 +6,11 @@ import lombok.Getter;
 public class MiahootAlreadyExistException extends Exception {
     private final String description;
 
+    public MiahootAlreadyExistException(String message){
+        super(message);
+        this.description = null;
+    }
+
     public MiahootAlreadyExistException(String message, String description) {
         super(message);
         this.description = description;
