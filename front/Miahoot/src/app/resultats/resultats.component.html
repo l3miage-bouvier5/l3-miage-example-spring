@@ -10,7 +10,9 @@
 </div>
 
 
-<button class="button" (click)="resetResultats()">Quitter</button>
+<button  class="button" (click)="resetResultats()">Quitter</button>
+<button mat-button (click)="afficherJSON()">Exporter en JSON</button>
+<textarea *ngIf="bsAfficherRes.value">{{bsResultat | async | json}}</textarea>
 
 <!-- <head>
   <title>Resultats</title>
