@@ -61,6 +61,7 @@ export class ConceptionMiahootComponent implements OnInit{
   bsErrorMessage = new BehaviorSubject<string>("")
   bsInputFile = new BehaviorSubject<string>("")
   bsValide = new BehaviorSubject<boolean>(false)
+  bsUpdate = new BehaviorSubject<boolean>(false)
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
@@ -123,6 +124,11 @@ export class ConceptionMiahootComponent implements OnInit{
       })
     ).subscribe()
     
+  }
+
+  updateMiahoot(){
+    this.bsUpdate.next(true)
+    // this.code = 
   }
   
 }

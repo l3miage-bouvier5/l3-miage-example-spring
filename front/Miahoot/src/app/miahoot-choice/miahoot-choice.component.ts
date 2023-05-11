@@ -71,5 +71,9 @@ export class MiahootChoiceComponent {
     }
     window.location.reload();
   }
+
+  updateMiahoot() {
+
+  }
   
 }
