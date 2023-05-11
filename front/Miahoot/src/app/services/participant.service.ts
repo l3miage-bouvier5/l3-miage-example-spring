@@ -44,7 +44,7 @@ interface STATE_PARTICIPANT{
   providedIn: 'root',
 })
 export class ParticipantService {
-  miahootId: string = '';
+  miahootId = new BehaviorSubject<string>("");
   id: string = '';
 
   private sub!: Subscription;
@@ -56,7 +56,7 @@ export class ParticipantService {
   readonly rsState = new ReplaySubject<STATE_PARTICIPANT>(1);
 
 
-  readonly bsVoted = new BehaviorSubject<number>(-1);
+  readonly bsVoted = new BehaviorSubject<boolean>(false);
 
   constructor(private fs: Firestore) {}
 
@@ -66,7 +66,7 @@ export class ParticipantService {
   //ReplaySubject
   init() {
 
-    this.obsState = docData(doc(this.fs, `miahoot/${this.miahootId}`).withConverter(
+    this.obsState = docData(doc(this.fs, `miahoot/${this.miahootId.value}`).withConverter(
       FsMiahootProjectedConverter
     )).pipe(
       switchMap(miahoot => {
@@ -88,28 +88,30 @@ export class ParticipantService {
    */
   async addParticipant(id: string) {
     this.id = id;
-    const docMiahoot = doc(this.fs, `miahoot/${this.miahootId}`);
+    const docMiahoot = doc(this.fs, `miahoot/${this.miahootId.value}`);
 
     updateDoc(docMiahoot, {
       participants: arrayUnion(id),
     });
   }
 
-
+  enregistrerId(id:string){
+    this.miahootId.next(id);
+  }
 
   /**
    * Fonction qui reset le vote quand on passe à la question suivante
    * 
    */
   resetVote() {
-    this.bsVoted.next(-1);
+    this.bsVoted.next(false);
   }
 
   /*
    *Fonction qui permet de voter pour une proposition
    */
   vote(proposition: number) {
-    this.bsVoted.next(proposition);
+    this.bsVoted.next(true);
     this.obsState
       .pipe(
         take(1),

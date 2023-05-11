@@ -1,4 +1,4 @@
-import { conv, MiahootUser } from '../miahoot';
+import { convMiahootUser, MiahootUser } from '../miahoot';
 import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, User } from '@angular/fire/auth';
 import { docData, Firestore, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from '@angular/fire/firestore';
@@ -28,7 +28,7 @@ export abstract class ConnexionService {
           if(u.isAnonymous){
             this.bsIsAnonyme.next(true)
           }else{
-            const docUser =  doc(this.fs, path).withConverter(conv) ;
+            const docUser =  doc(this.fs, path).withConverter(convMiahootUser) ;
             const snapUser = await getDoc( docUser );
             
             if (!snapUser.exists()) {
@@ -51,11 +51,11 @@ export abstract class ConnexionService {
           if(user === null){
             return of(undefined)
           } else if (!user.isAnonymous){
-            const userRef = doc(this.fs , `users/${user.uid}`).withConverter(conv)
+            const userRef = doc(this.fs , `users/${user.uid}`).withConverter(convMiahootUser)
             const userData$ = docData(userRef)
             return userData$
           }else{
-            const userRef = doc(this.fs , `anonymes/${user.uid}`).withConverter(conv)
+            const userRef = doc(this.fs , `anonymes/${user.uid}`).withConverter(convMiahootUser)
             const userData$ = docData(userRef)
             return userData$
           }
@@ -101,7 +101,7 @@ export abstract class ConnexionService {
         // Signed in
         const user = uc.user;
         console.log("Connexion success !", user);
-        const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(conv) ;
+        const docUser =  doc(this.fs, `anonymes/${uc.user.uid}`).withConverter(convMiahootUser) ;
         const snapUser = await getDoc( docUser );
         if (!snapUser.exists()) {
           setDoc(docUser, {

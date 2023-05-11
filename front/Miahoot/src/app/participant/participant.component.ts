@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ParticipantService } from '../services/participant.service';
 import { QCMProjected } from '../miahoot';
-import { BehaviorSubject, Observable, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map, of, switchMap } from 'rxjs';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
 import { signOut } from '@angular/fire/auth';
 import { ConnexionService } from '../services/connexion.service';
@@ -11,11 +11,11 @@ import { ConnexionService } from '../services/connexion.service';
   templateUrl: './participant.component.html',
   styleUrls: ['./participant.component.scss']
 })
-export class ParticipantComponent implements OnDestroy {
-
-  bsVoted = new BehaviorSubject<number>(-1);
+export class ParticipantComponent {
   obsCurrentQCM : Observable<QCMProjected | undefined>
-  constructor(private ps : ParticipantService) { 
+
+
+  constructor(public ps : ParticipantService) { 
     this.obsCurrentQCM = this.ps.obsState.pipe(
       map(state =>{
         if(state){
@@ -27,15 +27,7 @@ export class ParticipantComponent implements OnDestroy {
       }
         )
     )
-
-    this.ps.bsVoted.subscribe(this.bsVoted)
-
   }
-
-  ngOnDestroy(): void {
-    this.ps.bsVoted.unsubscribe()
-  }
-
 
   vote(proposition : number){
     this.ps.vote(proposition)

@@ -25,3 +25,33 @@ background-color: #b7e1cd;
 .worst {
 background-color: #f7cac9;
 }
+
+.button {
+    --width: 150px;
+    --timing: 2s;
+    border: 0;
+    width: var(--width);
+    padding-block: 1em;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1em;
+    background-color: #000000;
+    transition: all 0.2s;
+    border-radius: 7px;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    top: 0.6;
+    left: 0;
+    bottom: 0.1;
+    right: 0;
+    margin: auto;
+    margin-top : 2%;
+}
+
+.button:hover {
+    box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.4), 0px 0.4em 0.7em -0.1em rgba(0, 0, 0, 0.3), inset 0px -0.1em 0px #000000;
+    transform: translateY(-0.1em);
+}

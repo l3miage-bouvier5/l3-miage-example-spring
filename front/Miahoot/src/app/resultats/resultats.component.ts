@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentMiahootService, RESULTATS } from '../services/current-miahoot.service';
+import { CurrentMiahootService } from '../services/current-miahoot.service';
 import { QCMProjected } from '../miahoot';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
@@ -10,31 +10,34 @@ import { BehaviorSubject, Observable, map, tap } from 'rxjs';
   styleUrls: ['./resultats.component.scss']
 })
 export class ResultatsComponent{
-  readonly bsResultat = new BehaviorSubject<RESULTATS[]>([]);
-  readonly bsbestQuestion = new BehaviorSubject<[r: RESULTATS,nbBonneReponse: number]>([{} as RESULTATS,0]);
+  readonly bsResultat = new BehaviorSubject<QCMProjected[]>([]);
 
-  constructor(private ms : CurrentMiahootService, private router : Router) { 
-    this.ms.bsResultats.subscribe(this.bsResultat)
-    console.log("mon tableau", this.bsResultat.value)
-    const res = this.bsResultat.value.reduce((meilleurRes, res, index) => {
-      const correctAnswer = res.qcm.correctanwser
-      const votesPourBonneReponse = Object.values(res.qcm.votes).reduce((acc,  value) => value === correctAnswer ? acc++ : acc, 0)
-      meilleurRes = meilleurRes[0] > votesPourBonneReponse ? meilleurRes : [votesPourBonneReponse, index]
-      return meilleurRes
-    },[0,0])
-    const bestQuestion = this.bsResultat.value[res[1]]
-    this.bsbestQuestion.next([bestQuestion, res[0]])
+  constructor(private ms : CurrentMiahootService) { 
+    this.ms.bsResultats.subscribe(res => {
+      console.log("res : ", res);
+      this.bsResultat.next(res)})
   }
-
-
-  worstQuestion() { }
-
-  percentage() {}
 
   resetResultats(){
-    this.bsResultat.next([])
-    this.router.navigateByUrl("miahootChoice")
+    this.ms.supprimerMiahoot()
   }
+
+  nbVote(QCM : QCMProjected){
+    return Object.keys(QCM.votes).length
+  }
+
+
+  pourcentageBonneReponse(QCM : QCMProjected){
+    const nbVote = this.nbVote(QCM)
+    const nbBonneReponse = Object.values(QCM.votes).filter(val => val === QCM.correctanswer).length
+    return nbVote === 0 ? 0 : Math.round(nbBonneReponse / nbVote * 100)
+  }
+
+  triMeilleuresReponses(QCM : QCMProjected[]) : QCMProjected[]{
+    const sorted = [...QCM].sort((a, b) => this.pourcentageBonneReponse(b) - this.pourcentageBonneReponse(a))
+    return sorted
+  }
+
 
   
 }

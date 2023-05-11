@@ -3,6 +3,10 @@ import { HighlightLoader, HighlightAutoResult } from 'ngx-highlightjs';
 import { BehaviorSubject, Observable, map, of, switchMap } from 'rxjs';
 import { ConnexionService } from '../services/connexion.service';
 import { ConverterService } from '../services/converter.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { LoggedComponent } from '../logged/logged.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { __values } from 'tslib';
 
 
 @Component({
@@ -25,7 +29,9 @@ export class ConceptionMiahootComponent {
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
-              private conv: ConverterService) {
+              readonly conv: ConverterService,
+              private _snackBar: MatSnackBar) {
+    this.conv.bsErrorMessage.subscribe(this.bsErrorMessage)
               }
 
   onHighlight(e: HighlightAutoResult) {
@@ -35,18 +41,22 @@ export class ConceptionMiahootComponent {
   postMiahoot() {
     if(this.bsJSON.value?.language){
       this.cs.obsMiahootUser$.pipe(
-        map(user => {
-          // this.conv.postMiahoot(user.uid, this.cs.nom, this.bsJSON.value.value)
+        take(1),
+        map(async user => {
+          try {
+            const truc = await this.conv.postMiahoot(user!.uid, this.code);
+            this.bsValide.next(true)
+            this.bsErrorMessage.next("Envoyé !")
+            this.openMessage();
+          } catch (err: any) {
+            this.bsErrorMessage.next(err.error.errorMessage)
+            this.openMessage();
+          }
         })
-      )
+      ).subscribe();
     }
+    
   }
-
-  update() {
-    this.bsInputFile.next(this.code);
-  }
-
-  // si il y a un fichier alors on disable le textarea
 
 
   async onChange(event: any) {
@@ -55,15 +65,16 @@ export class ConceptionMiahootComponent {
     
     this.bsInputFile.next(await file.text());
     
-    this.code = this.bsInputFile.value    
+    this.code = this.bsInputFile.value
+  }
 
-    try {
-      JSON.parse(this.bsInputFile.value)
-      this.bsValideOuPas.next("C'est ok mon reuf")
-    }catch(e) {
-      this.bsValideOuPas.next("C'est nul mec")
-    }
-
+  openMessage() {
+    this.bsErrorMessage.pipe(
+      map(value => {
+        this._snackBar.open(value, "close");
+      })
+    ).subscribe()
+    
   }
   
 }

@@ -13,6 +13,7 @@
     <h1 *ngIf = "m.length !== 0  ; else noMiahoot">Choisissez votre miahoot à présenter</h1>
     <ng-template #noMiahoot><h1>Créez votre premier Miahoot !</h1>
     </ng-template>
+    <button *ngIf="this.miahoots.value.length" mat-raised-button color="primary" (click)="deleteAll(m)">Tout supprimer</button>
         <div class="container" 
             *ngFor="let miahoot of m">
             <h2>{{miahoot.nom}}</h2>
@@ -26,6 +27,7 @@
                 <!-- BUTTON pour prensenter le qcm
                 <button mat-raised-button color="primary" (click)="goMiahoot(miahoot)">Présenter</button>
             -->
+                <button mat-raised-button color="primary" (click)="deleteMiahoot(miahoot)">Supprimer</button>
                 <button mat-raised-button color="primary" (click)="afficherIdMiahoot(miahoot)">Présenter</button>
                 <button mat-raised-button color="primary">Aperçu</button>
             </section>
@@ -38,18 +40,3 @@
     <h2>Vous devez être connecté pour accéder à cette page</h2>
     <button mat-raised-button (click)="toAccueil()"> Retourner à l'écran d'accueil</button>
 </ng-template>
-<!-- Le code pourri qui affichait les questions et les réponses  -->
-
-<!-- <div class="question" *ngFor="let question of miahoot.questions">
-    {{question.label}}
-    <div class="reponses">
-        <div class="reponse" *ngFor="let reponse of question.reponses">
-            <img *ngIf = "reponse.estValide ; else nonValide" class="good-answer" src="https://fotomelia.com/wp-content/uploads/2017/02/clipart-images-gratuites-libres-de-droits-14-400x300.png" alt="">
-            <ng-template #nonValide>
-                <img class="wrong-answer" src="https://www.pngmart.com/files/3/Cancel-Button-PNG-Photos.png" alt="">
-            </ng-template>
-            
-            {{reponse.label}} 
-        </div>
-    </div>
-</div> -->

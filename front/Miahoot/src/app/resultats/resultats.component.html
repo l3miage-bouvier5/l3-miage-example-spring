@@ -1,5 +1,19 @@
-<head>
-  <title>Resultas</title>
+<div *ngIf = "bsResultat | async as QCMs">
+  <div *ngFor="let qcm of QCMs">{{qcm.question}} : nbVote : {{nbVote(qcm)}} pourcentage : {{pourcentageBonneReponse(qcm)}}
+  </div>
+
+
+  <div *ngFor="let qcm of triMeilleuresReponses(QCMs)">{{qcm.question}}</div>
+
+
+
+</div>
+
+
+<button class="button" (click)="resetResultats()">Quitter</button>
+
+<!-- <head>
+  <title>Resultats</title>
 </head>
 
 
@@ -8,27 +22,30 @@
     nb vote Pour la question : {{best[1]}}
 
 <body>
-    <h1>Resultats</h1>
-    <table>
-    <thead>
-        <tr>
-        <th>Question</th>
-        <th>% de réponses correctes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="best">
-        <td>{{best[0].qcm.question}}</td>
-        <td>{{best[1]/(best[0].nbVote) * 100}}</td>
-        </tr>
-        <tr class="worst">
-        <td>INSERT WORST ANSWERED QUESTION LABEL</td>
-        <td>INSERT 100 - % OF VOTES FOR CORRECT ANSWER</td>
-      </tr>
-    </tbody>
-  </table>
-  <button (click)="resetResultats()">quitter</button>
-</body>
-</div>
+  <div *ngIf="bsbestQuestion | async as best">
+    <div *ngIf="bsworstQuestion | async as worst">
+        <h1>Resultats</h1>
+        <table>
+        <thead>
+            <tr>
+            <th>Question</th>
+            <th>% de réponses correctes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="best">
+            <td>{{best[0].qcm.question}}</td>
+            <td>{{percentageBest}}</td>
+            </tr>
+            <tr class="worst">
+            <td>{{worst[0].qcm.question}}</td>
+            <td>{{percentageWorst}}</td>
+          </tr>
+        </tbody>
+      </table>
+     
+    </div>
+  </div>
+</body> -->
 
 <!-- add a button "quitter hek shi" that resets the resultst for the next miahoot -->

@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, combineLatest, map, of, switchMap, tap } from 'rxjs';
-import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, conv } from '../miahoot';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription, combineLatest, delay, map, of, switchMap, tap } from 'rxjs';
+import { FsMiahootProjectedConverter, FsQCMProjectedConverter, Miahoot, MiahootProjected, QCMProjected, Question, VOTES, convMiahootUser } from '../miahoot';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
 import { CurrentMiahootService, STATE } from '../services/current-miahoot.service';
@@ -24,8 +24,7 @@ export class LoggedComponent implements OnDestroy {
   readonly bsAfficherVote = new BehaviorSubject<boolean>(true)
 
   constructor(private ms: CurrentMiahootService,
-              private converter : ConverterService,
-              private conv : ConverterService) {
+              private converter : ConverterService) {
 
     this.obsState = this.ms.obsState
     this.sub = this.obsState.subscribe()
