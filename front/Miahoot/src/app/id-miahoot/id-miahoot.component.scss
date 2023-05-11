@@ -1,6 +1,6 @@
 .container-master{
     box-sizing: border-box;
-    width: 100%;
+    width: 80%;
     margin: 8% auto;
     padding: 10px 30px;
     box-shadow: lightgray 4px 4px 20px;
@@ -157,3 +157,21 @@ button:hover .star-6 {
   fill: #FFFDEF
 }
 
+
+h2{
+  font-size: 30px;
+  font-weight: 500;
+  color: #181818;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}

@@ -1,9 +1,11 @@
 <section>
 
-    <mat-progress-spinner *ngIf ="chargement | async ; else MIAHOOT"
+    
+
+        <mat-progress-spinner *ngIf ="chargement | async ; else MIAHOOT"
         class="spinner"
         mode = "indeterminate">
-    </mat-progress-spinner>
+        </mat-progress-spinner>
 
 
     <ng-template #MIAHOOT>

@@ -35,6 +35,7 @@ export class CurrentMiahootService implements OnDestroy {
   readonly bsUpdate = new BehaviorSubject<boolean>(false)
 
   private questions: Question[] = []
+
   private bsIndex = new BehaviorSubject<number>(0)
 
   // readonly obsParticipants : Observable<string[]>
@@ -200,14 +201,20 @@ export class CurrentMiahootService implements OnDestroy {
     
     this.obsState.pipe(
       take(1),
-      map(state => state.miahoot.id),
-      tap(async idMiahoot => {
+      map(state => state.miahoot),
+      tap(async Miahoot => {
+        const participants = Miahoot.participants
 
-        const qcms = await getDocs(collection(this.fs, `/miahoot/${idMiahoot}/QCMs`))
+        participants.forEach(async participant => {
+          const docAno = doc(this.fs, `anonymes/${participant}`)
+          await deleteDoc(docAno)
+        })
+
+        const qcms = await getDocs(collection(this.fs, `/miahoot/${Miahoot.id}/QCMs`))
         qcms.forEach(async qcm => {
           await deleteDoc(qcm.ref)
         })
-        const miahoot = doc(this.fs, `miahoot/${idMiahoot}`)
+        const miahoot = doc(this.fs, `miahoot/${Miahoot.id}`)
         await deleteDoc(miahoot)
       })).subscribe()
 
