@@ -70,6 +70,7 @@ export class ConceptionMiahootComponent {
 
   openMessage() {
     this.bsErrorMessage.pipe(
+      take(1),
       map(value => {
         this._snackBar.open(value, "close");
       })

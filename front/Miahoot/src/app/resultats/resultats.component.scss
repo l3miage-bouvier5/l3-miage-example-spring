@@ -1,31 +1,3 @@
-body {
-font-family: Arial, sans-serif;
-margin: 0;
-padding: 0;
-}
-
-h1 {
-text-align: center;
-}
-
-table {
-border-collapse: collapse;
-width: 100%;
-}
-
-th, td {
-padding: 8px;
-text-align: left;
-border-bottom: 1px solid #ddd;
-}
-
-.best {
-background-color: #b7e1cd;
-}
-.worst {
-background-color: #f7cac9;
-}
-
 .button {
     --width: 150px;
     --timing: 2s;
@@ -54,4 +26,77 @@ background-color: #f7cac9;
 .button:hover {
     box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.4), 0px 0.4em 0.7em -0.1em rgba(0, 0, 0, 0.3), inset 0px -0.1em 0px #000000;
     transform: translateY(-0.1em);
+}
+
+// #graphiqueHlr{
+// 	border:1px solid red;
+// 	width:400px;
+// 	position:relative;
+// 	border:1px solid #e5ddd5;
+// 	padding:5px;
+// }
+// #graphiqueHlr dl,#graphiqueHlr dt,#graphiqueHlr dd{
+// 	margin:0;
+// 	padding:0;
+// 	display:block;
+// 	// vertical-align:middle;
+// 	font-family:Arial, Helvetica, sans-serif;
+// 	font-size:10pt;
+// 	font-size:0.9em;
+// 	height:18pt;
+// 	line-height:18pt;
+// }
+
+.graph {
+}
+
+#graphiqueHlr dl, #graphiqueHlr dt, #graphiqueHlr dd {
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14pt; /* increase font size */
+  height: 30px; /* increase height */
+  line-height: 30px; /* increase line-height */
+}
+
+#graphiqueHlr {
+  border: 1px solid red;
+  width: 800px; /* increase width */
+  height: auto; /* increase height */
+  position: relative;
+  border: 1px solid #000000;
+  padding: 10px; /* increase padding */
+  margin: 0 auto;
+}
+
+#graphiqueHlr dl{
+	position:relative;
+	left:100px;
+	width:300px;
+	margin-top:1px;
+}
+#graphiqueHlr dt{
+	position:absolute;
+	left:-100px;
+	width:400px;
+	border:1px solid #000000;
+	border-left:none;
+	border-right:none;
+	font-weight:bold;
+}
+#graphiqueHlr dd{
+	position:relative;
+	left:300px;
+	top:0px;
+	border:1px solid #000;
+	text-align:right;
+	font-size:0.9em;
+	padding-right:0.2em;
+	padding-left:0.2em;
+}
+
+.taille dd{
+	width:var(--pourcentage);
+	background-color:hsl(var(--pourcentage), 100%, 50%);
 }

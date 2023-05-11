@@ -28,6 +28,15 @@ export class LoggedComponent implements OnDestroy {
 
     this.obsState = this.ms.obsState
     this.sub = this.obsState.subscribe()
+
+  }
+
+  ngOnInit(): void {
+      this.chargement.next(true)
+
+      setTimeout(() => {
+        this.chargement.next(false)
+      }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -41,6 +50,10 @@ export class LoggedComponent implements OnDestroy {
     await this.ms.nextQuestion()
   }
 
+
+  resetResultats(){
+    this.ms.supprimerMiahoot()
+  }
 
   proportionVote(vote : string[], nbVote : number){
     return nbVote !== 0 ? Math.round(vote.length/nbVote * 100):0

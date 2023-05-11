@@ -57,7 +57,6 @@ export class CurrentMiahootService implements OnDestroy {
 
       }),
       switchMap(miahoot => {
-        console.log("miahoot : ", miahoot);
         if(miahoot.id !== undefined){
           
           const docQCM = doc(fs, `miahoot/${miahoot.id}/QCMs/${miahoot.currentQCM}`).withConverter(FsQCMProjectedConverter);
@@ -197,7 +196,6 @@ export class CurrentMiahootService implements OnDestroy {
   async supprimerMiahoot(){
     // supprimer tous les qcms du miahoot dans firebase avant de supprimer le miahoot
     this.bsResultats.next([])
-    console.log("resultats : ", this.bsResultats.value);
     
     this.obsState.pipe(
       take(1),
@@ -214,7 +212,6 @@ export class CurrentMiahootService implements OnDestroy {
 
     this.router.navigateByUrl("miahootChoice")
   }
-
 
 
 }
