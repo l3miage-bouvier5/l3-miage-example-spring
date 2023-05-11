@@ -35,6 +35,7 @@ import { ParticipantComponent } from './participant/participant.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultatsComponent } from './resultats/resultats.component';
 import { IdMiahootComponent } from './id-miahoot/id-miahoot.component';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { IdMiahootComponent } from './id-miahoot/id-miahoot.component';
     ReactiveFormsModule,
     HighlightModule,
     MatTabsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [
     {

@@ -5,6 +5,8 @@ import { ConnexionService } from '../services/connexion.service';
 import { ConverterService } from '../services/converter.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { LoggedComponent } from '../logged/logged.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { __values } from 'tslib';
 
 
 @Component({
@@ -62,7 +64,8 @@ export class ConceptionMiahootComponent implements OnInit{
 
   constructor(private hljsLoader: HighlightLoader,
               readonly cs: ConnexionService,
-              readonly conv: ConverterService) {
+              readonly conv: ConverterService,
+              private _snackBar: MatSnackBar) {
     this.conv.bsErrorMessage.subscribe(this.bsErrorMessage)
               }
 
@@ -90,12 +93,16 @@ export class ConceptionMiahootComponent implements OnInit{
           try {
             const truc = await this.conv.postMiahoot(user!.uid, this.code);
             this.bsValide.next(true)
+            this.bsErrorMessage.next("Envoyé !")
+            this.openMessage();
           } catch (err: any) {
             this.bsErrorMessage.next(err.error.errorMessage)
+            this.openMessage();
           }
         })
-      ).subscribe();  
+      ).subscribe();
     }
+    
   }
 
 
@@ -106,6 +113,15 @@ export class ConceptionMiahootComponent implements OnInit{
     this.bsInputFile.next(await file.text());
     
     this.code = this.bsInputFile.value
+  }
+
+  openMessage() {
+    this.bsErrorMessage.pipe(
+      map(value => {
+        this._snackBar.open(value, "close");
+      })
+    ).subscribe()
+    
   }
   
 }
