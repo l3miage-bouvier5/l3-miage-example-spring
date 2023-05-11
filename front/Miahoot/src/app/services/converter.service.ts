@@ -43,4 +43,8 @@ export class ConverterService {
     return miahoots
   }
 
+  async deleteMiahoot(uid: string, nom: string) {
+    await lastValueFrom(this.http.delete<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`));    
+  }
+
 }
