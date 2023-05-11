@@ -13,10 +13,6 @@ export interface STATE {
   anonymes: string[][]; // ...
 }
 
-export interface RESULTATS{
-  qcm : QCMProjected;
-  nbVote : number;
-}
 
 /**
  * Le service du présentateur
@@ -28,11 +24,11 @@ export class CurrentMiahootService implements OnDestroy {
 
 
   private sub: Subscription;
-  readonly bsState = new BehaviorSubject<STATE>({miahoot : {} as MiahootProjected, qcm : {} as QCMProjected, nbVote : 0, anonymes : []})
+  // readonly bsState = new BehaviorSubject<STATE>({miahoot : {} as MiahootProjected, qcm : {} as QCMProjected, nbVote : 0, anonymes : []})
 
   readonly obsState: Observable<STATE>
 
-  readonly bsResultats = new BehaviorSubject<RESULTATS[]>([])
+  readonly bsResultats = new BehaviorSubject<QCMProjected[]>([])
 
   readonly bsMiahoot = new BehaviorSubject<Miahoot>({} as Miahoot)
 
@@ -54,13 +50,8 @@ export class CurrentMiahootService implements OnDestroy {
       switchMap(miahootUser => {
       
         let pm = miahootUser.miahootProjected;
-        // if(pm !== ""){
           const docPM = doc(fs, `miahoot/${pm}`).withConverter(FsMiahootProjectedConverter);
           return docData(docPM);
-        // }
-        // else{
-        //   return of({} as MiahootProjected)
-        // }
 
       }),
       switchMap(miahoot => {
@@ -94,12 +85,7 @@ export class CurrentMiahootService implements OnDestroy {
           return of({} as STATE)
         }
       }))
-    this.sub = this.obsState.subscribe(state => {
-      if (state) {
-        
-        this.bsState.next(state)
-      }
-    })
+    this.sub = this.obsState.subscribe()
     
     
   }
@@ -109,10 +95,13 @@ export class CurrentMiahootService implements OnDestroy {
     this.sub.unsubscribe();
   }
   async nextQuestion() {
-    const resultats = this.bsResultats.value
-    console.log("resultats : ", resultats);
-    resultats.push({qcm : this.bsState.value.qcm, nbVote : this.bsState.value.nbVote})
-    this.bsResultats.next(resultats)
+    this.obsState.pipe(
+      take(1),
+      tap(state => {
+        this.bsResultats.next([...this.bsResultats.value, state.qcm])
+      })
+    ).subscribe()
+
     if (this.bsIndex.value < this.questions.length) {
       const question = this.questions[this.bsIndex.value]
       this.obsState.pipe(
@@ -150,6 +139,7 @@ export class CurrentMiahootService implements OnDestroy {
    * @param miahoot Le miahoot qu'on veut projeter
    */
   async projeterMiahoot(miahoot: Miahoot) {
+    this.bsResultats.next([])
     this.bsIndex.next(0)
     // ajouter un miahoot à firebase
 
@@ -180,22 +170,26 @@ export class CurrentMiahootService implements OnDestroy {
   }
 
 
-  resetResultats(){
-    
-  }
 
 
   async supprimerMiahoot(){
     // supprimer tous les qcms du miahoot dans firebase avant de supprimer le miahoot
     this.bsResultats.next([])
-    const idMiahoot = this.bsState.value.miahoot.id
-        const qcms = await getDocs(collection(this.fs, `/miahoot/${idMiahoot}/QCMs`))
-    qcms.forEach(async qcm => {
-      await deleteDoc(qcm.ref)
-    })
+    console.log("resultats : ", this.bsResultats.value);
+    
+    this.obsState.pipe(
+      take(1),
+      map(state => state.miahoot.id),
+      tap(async idMiahoot => {
 
-    const miahoot = doc(this.fs, `miahoot/${idMiahoot}`)
-    await deleteDoc(miahoot)
+        const qcms = await getDocs(collection(this.fs, `/miahoot/${idMiahoot}/QCMs`))
+        qcms.forEach(async qcm => {
+          await deleteDoc(qcm.ref)
+        })
+        const miahoot = doc(this.fs, `miahoot/${idMiahoot}`)
+        await deleteDoc(miahoot)
+      })).subscribe()
+
     this.router.navigateByUrl("miahootChoice")
   }
 
