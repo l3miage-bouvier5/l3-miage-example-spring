@@ -1,4 +1,6 @@
-<div *ngIf = "bsResultat | async as QCMs">
+<h1>Résultats par question</h1>
+
+<div class="res" *ngIf = "bsResultat | async as QCMs">
   <!-- <div *ngFor="let qcm of QCMs">{{qcm.question}} : nbVote : {{nbVote(qcm)}} pourcentage : {{pourcentageBonneReponse(qcm)}} -->
   <!-- <div *ngFor="let qcm of triMeilleuresReponses(QCMs)">{{qcm.question}}</div> -->
 
@@ -8,10 +10,30 @@
 
 </div>
 
+<div style="display:inline-block;margin-top: 5%;text-align: center;margin-right: 50%; margin-left: 25%;">
+  
 
-<button  class="button" (click)="resetResultats()">Quitter</button>
-<button mat-button (click)="afficherJSON()">Exporter en JSON</button>
-<textarea *ngIf="bsAfficherRes.value">{{bsResultat | async | json}}</textarea>
+  <button (click)="afficherJSON()" class="learn-more">
+    <span class="circle" aria-hidden="true">
+    <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">Exporter JSON</span>
+  </button>
+
+  <button  class="button" (click)="resetResultats()">Quitter</button>
+</div>
+
+
+
+
+
+
+<div class="container_area">
+  <div class="comment_area">
+    <textarea  class="textinput" *ngIf="bsAfficherRes.value">{{bsResultat | async | json}}</textarea>
+  </div>
+</div>
+
 
 <!-- <head>
   <title>Resultats</title>
