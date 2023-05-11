@@ -27,8 +27,7 @@ export class LoggedComponent implements OnDestroy,OnInit {
   readonly bsAfficherVote = new BehaviorSubject<boolean>(true)
 
   constructor(private ms: CurrentMiahootService,
-              private converter : ConverterService,
-              private conv : ConverterService) {
+              private converter : ConverterService) {
 
     this.obsState = this.ms.obsState
     this.sub = this.obsState.subscribe()

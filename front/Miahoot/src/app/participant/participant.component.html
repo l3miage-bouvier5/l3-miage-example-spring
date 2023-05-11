@@ -1,5 +1,5 @@
-<div *ngIf="ps.obsState | async as S">
-  <div *ngIf="!S.miahoot.attente ; else NoQCMProjected">
+<div *ngIf="ps.obsState | async as S ; else NoQCMProjected">
+  <div *ngIf="!S.miahoot.attente ; else attente">
     <div class="question" *ngIf="obsCurrentQCM | async as QCM">
       <h3>{{QCM.question}}</h3>
       <div class="liste">
@@ -13,6 +13,10 @@
       </div>
     </div>
   </div>
+
+  <ng-template #attente>
+    <h3>Attendez que le presentateur affiche la premiere question</h3>
+  </ng-template>
 
   
 </div>

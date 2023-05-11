@@ -172,7 +172,8 @@ export class CurrentMiahootService implements OnDestroy {
             presentator: U.uid,
             attente: true,
             currentQCM: "",
-            id: "..."
+            id: "...",
+            participants: [],
           })
           await this.ajouterQuestion(miahoot.questions[0],jstp.id)
           const userActuel = doc(this.fs, `users/${U.uid}`).withConverter(convMiahootUser)

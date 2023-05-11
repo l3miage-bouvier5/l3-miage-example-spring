@@ -20,10 +20,8 @@ export class IdMiahootComponent implements OnInit{
               private appRef: ApplicationRef){
     this.obsState = this.ms.obsState.pipe(
       tap(state => console.log("state : ", state))
-      
     )
   }
-  
   async goMiahoot(){
     this.ms.stopAttente()
     this.router.navigateByUrl("logged")
@@ -35,7 +33,6 @@ export class IdMiahootComponent implements OnInit{
       this.bsChargement.next(false)
     }
     , 1500)
-
   }
 
 }
