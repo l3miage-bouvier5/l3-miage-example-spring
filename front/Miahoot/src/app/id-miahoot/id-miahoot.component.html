@@ -1,4 +1,6 @@
-<div *ngIf="bsChargement | async ; else loaded">Le Miahoot est en cours de chargement</div>
+
+  <div  class="centered-div" *ngIf="bsChargement | async ; else loaded">Le Miahoot est en cours de chargement</div>
+
 
 
 <ng-template #loaded>
@@ -9,7 +11,7 @@
 
     <h2>Id du Miahoot : {{ s.miahoot.id }} </h2>
 
-    <h3>Nombre de participants : {{s.miahoot.participants.length}}</h3>
+    <h3>{{s.miahoot.participants.length}} participant(s)</h3>
 
 
 

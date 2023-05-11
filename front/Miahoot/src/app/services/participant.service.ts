@@ -45,6 +45,8 @@ interface STATE_PARTICIPANT{
 })
 export class ParticipantService {
   miahootId = new BehaviorSubject<string>("");
+
+  bsLogout = new BehaviorSubject<boolean>(false);
   id: string = '';
 
   private sub!: Subscription;
@@ -82,6 +84,7 @@ export class ParticipantService {
     )
     this.sub = this.obsState.subscribe(this.rsState);
   }
+
 
   /**
    * fonction qui permet d'ajouter un participant au miahoot

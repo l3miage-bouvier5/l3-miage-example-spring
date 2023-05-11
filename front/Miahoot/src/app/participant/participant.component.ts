@@ -2,10 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { ParticipantService } from '../services/participant.service';
 import { QCMProjected } from '../miahoot';
 import { BehaviorSubject, Observable, Subscription, map, of, switchMap } from 'rxjs';
-import { CurrentMiahootService } from '../services/current-miahoot.service';
-import { signOut } from '@angular/fire/auth';
-import { ConnexionService } from '../services/connexion.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-participant',
@@ -16,7 +14,8 @@ export class ParticipantComponent {
   obsCurrentQCM : Observable<QCMProjected | undefined>
 
   constructor(public ps : ParticipantService,
-              private _snackBar : MatSnackBar) { 
+              private _snackBar : MatSnackBar,
+              private router : Router) { 
     this.obsCurrentQCM = this.ps.obsState.pipe(
       map(state =>{
         if(state){
@@ -36,5 +35,10 @@ export class ParticipantComponent {
   }
   openMessage(answer : string) {
     this._snackBar.open(`Vote enregistré pour ${answer}`, "OK");
+  }
+
+
+  toAccueil(){
+    this.router.navigateByUrl("")
   }
 }
