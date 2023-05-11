@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
-import { QCMProjected } from '../miahoot';
+import { MiahootProjected, QCMProjected } from '../miahoot';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-resultats',
@@ -11,11 +11,24 @@ import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 })
 export class ResultatsComponent{
   readonly bsResultat = new BehaviorSubject<QCMProjected[]>([]);
+  readonly bsJSON = new BehaviorSubject<string>("");
+  readonly obsResultat : Observable<MiahootProjected|undefined>;
+  readonly bsAfficherRes = new BehaviorSubject<boolean>(false);
 
   constructor(private ms : CurrentMiahootService) { 
     this.ms.bsResultats.subscribe(res => {
-      console.log("res : ", res);
       this.bsResultat.next(res)})
+    
+    this.obsResultat = this.ms.obsState.pipe(
+      map(state => {
+        if(state){
+          return state.miahoot
+        }else{
+          return undefined
+        }
+      }
+      )
+    )
   }
 
   resetResultats(){
@@ -38,6 +51,9 @@ export class ResultatsComponent{
     return sorted
   }
 
+  async afficherJSON() {
+    this.bsAfficherRes.next(!this.bsAfficherRes.value);
+  }
 
   
 }

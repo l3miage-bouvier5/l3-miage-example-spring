@@ -39,7 +39,7 @@ export class LoggedComponent implements OnDestroy,OnInit {
 
       setTimeout(() => {
         this.chargement.next(false)
-      }, 2000);
+      }, 1000);
   }
 
   ngOnDestroy(): void {
