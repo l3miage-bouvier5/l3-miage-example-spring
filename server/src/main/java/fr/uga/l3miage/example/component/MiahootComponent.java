@@ -6,6 +6,7 @@ import fr.uga.l3miage.example.models.MiahootEntity;
 import fr.uga.l3miage.example.models.QuestionEntity;
 import fr.uga.l3miage.example.repository.MiahootRepository;
 import fr.uga.l3miage.example.response.Miahoot;
+import fr.uga.l3miage.example.response.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -79,7 +80,7 @@ public class MiahootComponent {
 
     public MiahootEntity updateMiahoot(final Miahoot miahoot, final String userId, String oldName) 
         throws MiahootEntityNotFoundException, MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException, DuplicationLabelReponsePourUneQuestionException, NbReponsesVraiInvalidException{ // , MiahootAlreadyExistException, MiahootUserIdNotSameException
-        
+        MiahootEntity newEntityC = miahootMapper.toEntity(miahoot);
         //#########
         // ancien miahoot pas trouvé
         MiahootEntity oldEntity = miahootRepository.findByUserIdAndNom(miahoot.getUserId(), oldName)
@@ -94,34 +95,39 @@ public class MiahootComponent {
         }
 
 
-        
+        //#########
         if (miahoot.getQuestions() == null || miahoot.getQuestions().isEmpty()) {
             throw new MiahootEmptyException(String.format("Le nouveau miahoot ne contient aucune question", miahoot.getUserId()),
                     miahoot.getUserId());
         }
 
+        //#########
         // verifier que chaque question contient au moins une reponse
-        /*  for (QuestionEntity q : entity.getQuestions()) {
+        for (Question q : miahoot.getQuestions()) {
             if (q.getReponses() == null || q.getReponses().isEmpty()) {
                 throw new MiahootQuestionEmptyException(
-                        String.format("le miahoot [%s] du user [%s] a la question [%s] vide ou null",
-                                entity.getNom(), entity.getUserId(), q.getLabel()),
-                        entity.getNom(), entity.getUserId(), q.getLabel());
+                    String.format("le miahoot [%s] a une ou plusieurs question(s) vide(s) ou null",
+                    miahoot.getNom()), miahoot.getNom(), miahoot.getUserId(), q.getLabel());
             }
         }
 
         // existe une repetition de label de reponse pour une question
-        for (QuestionEntity q : entity.getQuestions()) {
+        for (QuestionEntity q : newEntityC.getQuestions()) {
             if (QuestionComponent.existeRepetitionLabelReponses(q.getReponses()) == true) {
                 throw new DuplicationLabelReponsePourUneQuestionException(
                         String.format(
-                                "le miahoot [%s] du user [%s] a la question [%s] avec une ou plusieurs réponses identiques",
-                                entity.getNom(), entity.getUserId(), q.getLabel()));
+                                "le miahoot [%s]  a une question avec une ou plusieurs réponses identiques",
+                                miahoot.getNom()));
+            }
+            if (QuestionComponent.nbReponsesVrai(q) == 0) {
+                throw new NbReponsesVraiInvalidException(String.format(
+                        "le miahoot [%s] a une question avec aucune réponse vrai",
+                        miahoot.getNom()));
             }
         }
 
-        // 
-        for (QuestionEntity q : entity.getQuestions()) {
+        /* 
+        for (QuestionEntity q : newEntityC.getQuestions()) {
             if (QuestionComponent.nbReponsesVrai(q) == 0) {
                 throw new NbReponsesVraiInvalidException(String.format(
                         "le miahoot [%s] du user [%s] a la question [%s] avec aucune réponse vrai",

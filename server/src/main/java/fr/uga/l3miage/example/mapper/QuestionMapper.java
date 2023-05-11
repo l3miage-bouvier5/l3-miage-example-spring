@@ -19,6 +19,8 @@ public interface QuestionMapper {
 
     QuestionEntity toEntity(CreateQuestionRequest request);
 
+    QuestionEntity toEntity(Question response);
+
     /**
      * La fonction merge va mélanger le target avec la source, et quand une valeur n'est pas la même de la source au target elle est modifiée<br>
      * <br>
