@@ -44,9 +44,7 @@ export class ConverterService {
   }
 
   async deleteMiahoot(uid: string, nom: string) {
-    const miahoot = await lastValueFrom(this.http.delete<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`));
-    console.log("DELETE : ",miahoot);
-    
+    await lastValueFrom(this.http.delete<Miahoot>(`/api/v0/miahoot/${uid}/${nom}`));    
   }
 
 }
