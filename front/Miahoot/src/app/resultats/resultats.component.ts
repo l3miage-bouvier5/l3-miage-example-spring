@@ -21,14 +21,7 @@ export class ResultatsComponent{
 
     
     console.log("mon tableau", this.bsResultat.value)
-    // const res = this.bsResultat.value.reduce((meilleurRes, res, index) => {
-    //   const correctAnswer = res.qcm.correctanwser
-    //   const votesPourBonneReponse = Object.values(res.qcm.votes).reduce((acc,  value) => value === correctAnswer ? acc++ : acc, 0)
-    //   meilleurRes = meilleurRes[0] > votesPourBonneReponse ? meilleurRes : [votesPourBonneReponse, index]
-    //   return meilleurRes
-    // },[0,0])
-    // const bestQuestion = this.bsResultat.value[res[1]]
-    // this.bsbestQuestion.next([bestQuestion, res[0]])
+    
     const res = this.bsResultat.value.sort((r, s) => {
       const rep1 = r.qcm.correctanswer
       const rep2 = s.qcm.correctanswer
