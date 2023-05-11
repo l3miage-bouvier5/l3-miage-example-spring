@@ -26,15 +26,6 @@
             
             <button class="buttonPost" [disabled]="!bsJSON.value?.language" [ngClass]="{'valideButton':bsJSON.value?.language,
             'notValideButton':!bsJSON.value?.language}" (click)="postMiahoot()">Poster</button>
-
-            <div class="valideMessage" *ngIf="bsValide | async; else error">
-                Envoyé !
-            </div>
-            <ng-template #error>
-                <div class="errorMessage">
-                    {{bsErrorMessage | async}}
-                </div>         
-            </ng-template>
         </div>
         
     </div>
