@@ -52,10 +52,16 @@ export class CurrentMiahootService implements OnDestroy {
         return docData(docUser);
       }),
       switchMap(miahootUser => {
-        delay(500)
+      
         let pm = miahootUser.miahootProjected;
-        const docPM = doc(fs, `miahoot/${pm}`).withConverter(FsMiahootProjectedConverter);
-        return docData(docPM);
+        // if(pm !== ""){
+          const docPM = doc(fs, `miahoot/${pm}`).withConverter(FsMiahootProjectedConverter);
+          return docData(docPM);
+        // }
+        // else{
+        //   return of({} as MiahootProjected)
+        // }
+
       }),
       switchMap(miahoot => {
         console.log("miahoot : ", miahoot);
@@ -90,6 +96,7 @@ export class CurrentMiahootService implements OnDestroy {
       }))
     this.sub = this.obsState.subscribe(state => {
       if (state) {
+        
         this.bsState.next(state)
       }
     })
