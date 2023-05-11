@@ -1,6 +1,7 @@
 package fr.uga.l3miage.example.controller;
 
 import fr.uga.l3miage.example.endpoint.MiahootEndpoint;
+import fr.uga.l3miage.example.models.MiahootEntity;
 import fr.uga.l3miage.example.request.CreateMiahootRequest;
 import fr.uga.l3miage.example.response.Miahoot;
 import fr.uga.l3miage.example.service.MiahootService;
@@ -31,8 +32,8 @@ public class MiahootController implements MiahootEndpoint {
     }
 
 
-    public Miahoot updateMiahootEntity(final String userId, final String nom, final Miahoot miahoot) {
-        return miahootService.updateMiahoot(userId,nom,miahoot);
+    public Miahoot updateMiahootEntity(final Miahoot miahoot, final String userId, final String oldName) {
+        return miahootService.updateMiahoot(miahoot, userId, oldName);
     }
 
     @Override

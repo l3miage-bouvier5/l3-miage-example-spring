@@ -49,9 +49,8 @@ public interface MiahootEndpoint {
         @Error400Custom
         @ResponseStatus(HttpStatus.ACCEPTED)
 
-        @PatchMapping("{userId}/{nom}")
-        Miahoot updateMiahootEntity(@PathVariable final String userId, @PathVariable final String nom,
-                        @RequestBody final Miahoot miahoot);
+        @PatchMapping("{userId}/{oldName}")
+        Miahoot updateMiahootEntity(@RequestBody Miahoot miahoot, @PathVariable String userId, @PathVariable String oldName);
 
         // DELETE
         @Operation(description = "Suppression d'une entité Miahoot en bd")
