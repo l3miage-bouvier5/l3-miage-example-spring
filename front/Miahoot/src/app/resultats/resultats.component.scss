@@ -10,17 +10,10 @@
     background-color: #000000;
     transition: all 0.2s;
     border-radius: 7px;
-    //margin-top: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
     position:absolute;
-    //top: 0.6;
-    //left: 0;
-    //bottom: 0.1;
-    //right: 0;
-    //margin: auto;
-    //margin-top : 5%;
     display:inline-block;
 }
 
@@ -38,25 +31,6 @@ h1{
 
 }
 
-// #graphiqueHlr{
-// 	border:1px solid red;
-// 	width:400px;
-// 	position:relative;
-// 	border:1px solid #e5ddd5;
-// 	padding:5px;
-// }
-// #graphiqueHlr dl,#graphiqueHlr dt,#graphiqueHlr dd{
-// 	margin:0;
-// 	padding:0;
-// 	display:block;
-// 	// vertical-align:middle;
-// 	font-family:Arial, Helvetica, sans-serif;
-// 	font-size:10pt;
-// 	font-size:0.9em;
-// 	height:18pt;
-// 	line-height:18pt;
-// }
-
 .res{
   margin-top: 5%;
 }
@@ -70,19 +44,18 @@ h1{
   padding: 0;
   display: block;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 14pt; /* increase font size */
+  font-size: 12pt; /* increase font size */
   height: 30px; /* increase height */
   line-height: 30px; /* increase line-height */
 }
 
 #graphiqueHlr {
-  border: 1px solid red;
   width: 800px; /* increase width */
   height: auto; /* increase height */
   position: relative;
-  border: 1px solid #000000;
   padding: 10px; /* increase padding */
   margin: 0 auto;
+  margin-left: 0;
 }
 
 #graphiqueHlr dl{
@@ -95,14 +68,17 @@ h1{
 	position:absolute;
 	left:-100px;
 	width:400px;
-	border:1px solid #000000;
+	// border:1px solid #000000;
 	border-left:none;
 	border-right:none;
 	font-weight:bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+
 #graphiqueHlr dd{
 	position:relative;
-	left:300px;
+	left:250%;
 	top:0px;
 	border:1px solid #000;
 	text-align:right;
