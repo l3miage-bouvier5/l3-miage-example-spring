@@ -1,0 +1,1287 @@
+{
+	"info": {
+		"_postman_id": "79dd52cf-5fbd-4a84-9f1c-1b100cf1d9e3",
+		"name": "scénario 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25950725",
+		"_collection_link": "https://dark-astronaut-982099.postman.co/workspace/-l3-miage-example-spring~dc0069e4-e3d6-4065-b1d1-6c742b69bf3b/collection/25950725-79dd52cf-5fbd-4a84-9f1c-1b100cf1d9e3?action=share&creator=25950725&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Err-Nom Miahoot Null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error \", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": null,\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom Miahoot Vide",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error \", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom Question Null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": null,\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom Question Vide",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": \"\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom Reponse Null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": null,\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom Reponse Vide",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err- Miahoot Vide { }",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err- Question Vide { }",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_QUESTION_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureGG\",\n    \"questions\": [\n        {\n        \n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err- Reponse Vide { }",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_REPONSE_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureGGG\",\n    \"questions\": [\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n           \n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cultureG 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Miahoot is created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Response body has correct structure\", function () {",
+							"    // Verify the top-level properties in the response",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"1A\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"cultureG\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"3\");",
+							"",
+							"    // Verify the properties inside each question object",
+							"    pm.response.json().questions.forEach(function (question) {",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");",
+							"",
+							"        // Verify the properties inside each response object",
+							"        question.reponses.forEach(function (response) {",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response body has correct values\", function (){",
+							"    var jsonData = pm.response.json();",
+							"    // Verify all values for the first question",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Dans quelle ville italienne la pizza a-t-elle été inventée\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"Palerme\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"Pise\");",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Rome\");",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Naples\");",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the firt question",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the second question",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the third question",
+							"    pm.expect(jsonData.questions[2]).to.have.property(\"label\", \"Lequel de ces prix Nobel n’existe pas\");",
+							"    pm.expect(jsonData.questions[2].reponses[0]).to.have.property(\"label\", \"Le prix Nobel de littérature\");",
+							"    pm.expect(jsonData.questions[2].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[2].reponses[1]).to.have.property(\"label\", \"Le prix Nobel de physiologie\");",
+							"    pm.expect(jsonData.questions[2].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[2].reponses[2]).to.have.property(\"label\", \"Le prix Nobel de physique\");",
+							"    pm.expect(jsonData.questions[2].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[2].reponses[3]).to.have.property(\"label\", \"Le prix Nobel de mathématiques\");",
+							"    pm.expect(jsonData.questions[2].reponses[3]).to.have.property(\"estValide\", true);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modif cultureG 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"update is accepted\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"pm.test(\"Response body has correct structure\", function () {",
+							"    // Verify the top-level properties in the response",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"1A\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"cultureG\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"2\");",
+							"",
+							"    // Verify the properties inside each question object",
+							"    pm.response.json().questions.forEach(function (question) {",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");",
+							"",
+							"        // Verify the properties inside each response object",
+							"        question.reponses.forEach(function (response) {",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response body has correct values\", function (){",
+							"    var jsonData = pm.response.json();",
+							"    // Verify all values for the first question",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Dans quelle ville italienne la pizza a-t-elle été inventée\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"Palerme\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"Pise\");",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Rome\");",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Naples\");",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the firt question",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom newMiahoot Null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": null,\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom newMiahoot Vide \"\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom newQuestion Null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"newName\",\n    \"questions\": [\n        {\n        \"label\": null,\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom newQuestion Vide \"\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"newName\",\n    \"questions\": [\n        {\n        \"label\": \"\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom newReponse Null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"newName\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": null,\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Nom newReponse Vide \"\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"CHAINE_CARACTERE_VIDE_OU_NULL\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"newName\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err- newMiahoot Vide { }",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_EMPTY\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-newQuestion Vide { }",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_QUESTION_EMPTY\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"newName\",\n    \"questions\": [\n        {\n\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-newReponse Vide { }",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the PATCH error\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_REPONSE_EMPTY\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"newName\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n           \n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cultureG 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete a miahoot\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,1254 @@
+{
+	"info": {
+		"_postman_id": "b97520f5-b961-4915-89f1-9cb22f2c27df",
+		"name": "scénario 0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25950725",
+		"_collection_link": "https://dark-astronaut-982099.postman.co/workspace/-l3-miage-example-spring~dc0069e4-e3d6-4065-b1d1-6c742b69bf3b/collection/25950725-b97520f5-b961-4915-89f1-9cb22f2c27df?action=share&creator=25950725&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Create cultureG 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Meahoot is created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Response body has correct structure\", function () {",
+							"    // Verify the top-level properties in the response",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"1A\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"cultureG\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"3\");",
+							"",
+							"    // Verify the properties inside each question object",
+							"    pm.response.json().questions.forEach(function (question) {",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");",
+							"",
+							"        // Verify the properties inside each response object",
+							"        question.reponses.forEach(function (response) {",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response body has correct values\", function (){",
+							"    var jsonData = pm.response.json();",
+							"    // Verify all values for the first question",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Dans quelle ville italienne la pizza a-t-elle été inventée\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"Palerme\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"Pise\");",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Rome\");",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Naples\");",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the firt question",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the second question",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);",
+							"",
+							"    // verify all values for the third question",
+							"    pm.expect(jsonData.questions[2]).to.have.property(\"label\", \"Lequel de ces prix Nobel n’existe pas\");",
+							"    pm.expect(jsonData.questions[2].reponses[0]).to.have.property(\"label\", \"Le prix Nobel de littérature\");",
+							"    pm.expect(jsonData.questions[2].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[2].reponses[1]).to.have.property(\"label\", \"Le prix Nobel de physiologie\");",
+							"    pm.expect(jsonData.questions[2].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[2].reponses[2]).to.have.property(\"label\", \"Le prix Nobel de physique\");",
+							"    pm.expect(jsonData.questions[2].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[2].reponses[3]).to.have.property(\"label\", \"Le prix Nobel de mathématiques\");",
+							"    pm.expect(jsonData.questions[2].reponses[3]).to.have.property(\"estValide\", true);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG\",\n    \"questions\": [\n        {\n        \"label\": \"Dans quelle ville italienne la pizza a-t-elle été inventée\",\n        \"reponses\": [\n            {\n            \"label\": \"Rome\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Palerme\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Naples\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Pise\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\",\n        \"reponses\": [\n            {\n            \"label\": \"Les reins\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le pancréas\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"La thyroïde\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le foie\",\n            \"estValide\": true\n            }\n        ]\n        },\n        {\n        \"label\": \"Lequel de ces prix Nobel n’existe pas\",\n        \"reponses\": [\n            {\n            \"label\": \"Le prix Nobel de physique\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de physiologie\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le prix Nobel de mathématiques\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Le prix Nobel de littérature\",\n            \"estValide\": false\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cultureG 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Meahoot is created\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response body has correct structure\", function () {\r",
+							"    // Verify the top-level properties in the response\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"1A\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"cultureG\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"3\");\r",
+							"\r",
+							"    // Verify the properties inside each question object\r",
+							"    pm.response.json().questions.forEach(function (question) {\r",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");\r",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");\r",
+							"\r",
+							"        // Verify the properties inside each response object\r",
+							"        question.reponses.forEach(function (response) {\r",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");\r",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");\r",
+							"        });\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body has correct values\", function (){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    // Verify all values for the first question\r",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));\r",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Dans quelle ville italienne la pizza a-t-elle été inventée\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"Palerme\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"Pise\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Rome\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",false );\r",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Naples\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", true);\r",
+							"\r",
+							"    // verify all values for the firt question\r",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );\r",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);\r",
+							"\r",
+							"    // verify all values for the second question\r",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Quel organe du corps humain est capable de se régénérer en quelques mois si une partie lui a été enlevée\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Les reins\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"La thyroïde\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le pancréas\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );\r",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le foie\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);\r",
+							"\r",
+							"    // verify all values for the third question\r",
+							"    pm.expect(jsonData.questions[2]).to.have.property(\"label\", \"Lequel de ces prix Nobel n’existe pas\");\r",
+							"    pm.expect(jsonData.questions[2].reponses[0]).to.have.property(\"label\", \"Le prix Nobel de littérature\");\r",
+							"    pm.expect(jsonData.questions[2].reponses[0]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[2].reponses[1]).to.have.property(\"label\", \"Le prix Nobel de physiologie\");\r",
+							"    pm.expect(jsonData.questions[2].reponses[1]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[2].reponses[2]).to.have.property(\"label\", \"Le prix Nobel de physique\");\r",
+							"    pm.expect(jsonData.questions[2].reponses[2]).to.have.property(\"estValide\",false );\r",
+							"    pm.expect(jsonData.questions[2].reponses[3]).to.have.property(\"label\", \"Le prix Nobel de mathématiques\");\r",
+							"    pm.expect(jsonData.questions[2].reponses[3]).to.have.property(\"estValide\", true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"cultureG"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create corpsLangue 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Meahoot is created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Response body has correct structure\", function () {",
+							"    // Verify the top-level properties in the response",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"1A\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"corpsLangue\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"2\");",
+							"",
+							"    // Verify the properties inside each question object",
+							"    pm.response.json().questions.forEach(function (question) {",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");",
+							"",
+							"        // Verify the properties inside each response object",
+							"        question.reponses.forEach(function (response) {",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response body has correct values\", function (){",
+							"    var jsonData = pm.response.json();",
+							"    // Verify all values for the first question",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"Au revoir\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"Bonjour\");",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", true);",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Je t aime\");",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Merci\");",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", false);",
+							"",
+							"    // verify all values for the firt question",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Dans quelle articulation du corps humain se situe la rotule\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Le coude\");",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"Le cou\");",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le bassin\");",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le genou\");",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"corpsLangue\",\n    \"questions\": [\n        {\n        \"label\": \"Que signifie en français le mot (Guten Tag) en allemand\",\n        \"reponses\": [\n            {\n            \"label\": \"Merci\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Bonjour\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Au revoir\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Je t aime\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Dans quelle articulation du corps humain se situe la rotule\",\n        \"reponses\": [\n            {\n            \"label\": \"Le coude\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le cou\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le bassin\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le genou\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get corpsLangue 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verification of the response status\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response body has correct structure\", function () {\r",
+							"    // Verify the top-level properties in the response\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"1A\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"corpsLangue\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"2\");\r",
+							"\r",
+							"    // Verify the properties inside each question object\r",
+							"    pm.response.json().questions.forEach(function (question) {\r",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");\r",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");\r",
+							"\r",
+							"        // Verify the properties inside each response object\r",
+							"        question.reponses.forEach(function (response) {\r",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");\r",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");\r",
+							"        });\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body has correct values\", function (){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    // Verify all values for the first question\r",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));\r",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"Au revoir\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"Bonjour\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", true);\r",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Je t aime\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",false );\r",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Merci\");\r",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", false);\r",
+							"\r",
+							"    // verify all values for the firt question\r",
+							"    pm.expect(jsonData.questions[1]).to.have.property(\"label\", \"Dans quelle articulation du corps humain se situe la rotule\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"label\", \"Le coude\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[0]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"label\", \"Le cou\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[1]).to.have.property(\"estValide\", false);\r",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"label\", \"Le bassin\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[2]).to.have.property(\"estValide\",false );\r",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"label\", \"Le genou\");\r",
+							"    pm.expect(jsonData.questions[1].reponses[3]).to.have.property(\"estValide\", true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/corpsLangue",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"corpsLangue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create corpsLangue 1A (Already exists)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status, errorCode and httpStatus verifications\", function () {",
+							"    pm.response.to.have.status(400);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_ALREADY_EXISTS\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"BAD_REQUEST\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"corpsLangue\",\n    \"questions\": [\n        {\n        \"label\": \"Que signifie en français le mot (Guten Tag) en allemand\",\n        \"reponses\": [\n            {\n            \"label\": \"Merci\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Bonjour\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Au revoir\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Je t aime\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Dans quelle articulation du corps humain se situe la rotule\",\n        \"reponses\": [\n            {\n            \"label\": \"Le coude\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le cou\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le bassin\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Le genou\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create  Miahoot 5A (Reponse null))",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error: Reponse Null\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_QUESTION_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Miahoot\",\n    \"questions\": [\n        {\n        \"label\": \"Que signifie en français le mot (Guten Tag) en allemand\",\n        \"reponses\": [\n            {\n            \"label\": \"Merci\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Bonjour\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Au revoir\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Je t aime\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Dans quelle articulation du corps humain se situe la rotule\",\n        \"reponses\": null\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/5A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"5A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create  Miahoot 6A (Reponse vide))",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error: Reponse Vide\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_QUESTION_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Miahoot\",\n    \"questions\": [\n        {\n        \"label\": \"Que signifie en français le mot (Guten Tag) en allemand\",\n        \"reponses\": [\n            {\n            \"label\": \"Merci\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Bonjour\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Au revoir\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Je t aime\",\n            \"estValide\": false\n            }\n        ]\n        },\n        {\n        \"label\": \"Dans quelle articulation du corps humain se situe la rotule\",\n        \"reponses\": []\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/6A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"6A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create  Miahoot 7A (Questions null)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error: Question Null\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Miahoot\",\n    \"questions\": null\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/7A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"7A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create  Miahoot 8A (Questions vide)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error: Question Vide\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_EMPTY\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Miahoot\",\n    \"questions\": []\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/7A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"7A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create  Miahoot 9A (Duplicated label reponse)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error: duplicated responses\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"DUPLICATION_LABEL_REPONSE_D_UNE_QUESTION\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Miahoot\",\n    \"questions\": [\n        {\n        \"label\": \"Que signifie en français le mot (Guten Tag) en allemand\",\n        \"reponses\": [\n            {\n            \"label\": \"Merci\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Bonjour\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Merci\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Je t aime\",\n            \"estValide\": false\n            }\n        ]\n        }  \n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/9A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"9A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Create  Miahoot 10A (nb Reponse Vrai Invalid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the POST error: nb Reponse Vrai Invalid\", function () {",
+							"    pm.response.to.have.status(422);",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"NOMBRE_REPONSE_VRAI_INVALIDE_POUR_UNE_QUESTION\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"UNPROCESSABLE_ENTITY\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Miahoot\",\n    \"questions\": [\n        {\n        \"label\": \"Que signifie en français le mot (Guten Tag) en allemand\",\n        \"reponses\": [\n            {\n            \"label\": \"Merci\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Bonjour\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Au revoir\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Je t aime\",\n            \"estValide\": false\n            }\n        ]\n        }  \n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/10A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"10A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cultureG2 2A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Miahoot is created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Response body has correct structure\", function () {",
+							"    // Verify the top-level properties in the response",
+							"    pm.expect(pm.response.json()).to.have.property(\"userId\", \"2A\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"nom\", \"cultureG2\");",
+							"    pm.expect(pm.response.json()).to.have.property(\"questions\").that.is.an(\"array\").that.have.length(\"1\");",
+							"",
+							"    // Verify the properties inside each question object",
+							"    pm.response.json().questions.forEach(function (question) {",
+							"        pm.expect(question).to.have.property(\"label\").that.is.a(\"string\");",
+							"        pm.expect(question).to.have.property(\"reponses\").that.is.an(\"array\").that.have.length(\"4\");",
+							"",
+							"        // Verify the properties inside each response object",
+							"        question.reponses.forEach(function (response) {",
+							"            pm.expect(response).to.have.property(\"label\").that.is.a(\"string\");",
+							"            pm.expect(response).to.have.property(\"estValide\").that.is.a(\"boolean\");",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response body has correct values\", function (){",
+							"    var jsonData = pm.response.json();",
+							"    // Verify all values for the first question",
+							"    //pm.expect(jsonData.questions[0].to.have.property(\"label\", \"Que signifie en français le mot (Guten Tag) en allemand\"));",
+							"    pm.expect(jsonData.questions[0]).to.have.property(\"label\", \"Quels langages sont orientés objet\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"label\", \"C\");",
+							"    pm.expect(jsonData.questions[0].reponses[0]).to.have.property(\"estValide\", false);",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"label\", \"C++\");",
+							"    pm.expect(jsonData.questions[0].reponses[1]).to.have.property(\"estValide\", true);",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"label\", \"Java\");",
+							"    pm.expect(jsonData.questions[0].reponses[2]).to.have.property(\"estValide\",true );",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"label\", \"Prolog\");",
+							"    pm.expect(jsonData.questions[0].reponses[3]).to.have.property(\"estValide\", false);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"cultureG2\",\n    \"questions\": [\n        {\n        \"label\": \"Quels langages sont orientés objet\",\n        \"reponses\": [\n            {\n            \"label\": \"C\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"C++\",\n            \"estValide\": true\n            },\n            {\n            \"label\": \"Prolog\",\n            \"estValide\": false\n            },\n            {\n            \"label\": \"Java\",\n            \"estValide\": true\n            }\n        ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/2A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"2A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getting all miahoot for a user indecated in the path variable\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Get cultureG 10B (USER INEXISTANT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the GET error: USER Inexistant\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_NOT_FOUND\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/10B/cultureG",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"10B",
+						"cultureG"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Get Miahoote 1A (NOM INEXISTANT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the GET error: NAME Inexistant\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_NOT_FOUND\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A/Miahoote",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A",
+						"Miahoote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cultureG2 2A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete a miahoot\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/2A/cultureG2",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"2A",
+						"cultureG2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Get cultureG2 2A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the GET error: NOT FOUND\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_NOT_FOUND\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/2A/cultureG2",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"2A",
+						"cultureG2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-Delete cultureG2 2A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the DELETE error: NOT FOUND\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_IS_NOT_FOUND\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/2A/cultureG2",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"2A",
+						"cultureG2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAll 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete all miahoots\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-GetAll 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the DELETE error: NOT FOUND\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_LIST_IS_NOT_FOUND\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/7A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"7A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Err-DeleteAll 1A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"detect the DELETE error: NOT FOUND\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"errorCode\", \"MIAHOOT_LIST_IS_NOT_FOUND\");\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"httpStatus\", \"NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://129.88.210.27:8080/api/v0/miahoot/1A",
+					"protocol": "http",
+					"host": [
+						"129",
+						"88",
+						"210",
+						"27"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"miahoot",
+						"1A"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
