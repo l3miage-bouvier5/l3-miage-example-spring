@@ -85,6 +85,8 @@ public class MiahootService {
         CreateMiahootRequest createMiahootRequest = miahootMapper.toDtoCreate(miahootMapper.toEntity(miahoot));
         try {
             return miahootMapper.toDto(miahootComponent.updateMiahoot(miahoot, userId, oldName));
+        } catch(ChaineCaractereVideOuNullException ex){
+            throw new ChaineCaractereVideOuNullRestException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
         } catch (MiahootEntityNotFoundException ex) { // #########
             throw new MiahootEntityNotFoundRestException(
                     String.format("Aucun Miahoot de nom [%s] n'a été trouvée dans la BD pour le update", oldName),

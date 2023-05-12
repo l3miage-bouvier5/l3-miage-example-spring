@@ -46,7 +46,7 @@ public class MiahootComponent {
         // userId present and nom isnt -> all good
 
         if (chaineCaractereEstVideOuNull(entity)) {
-            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un nom Vide ou Null"));
+            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
 
         }
 
@@ -90,10 +90,16 @@ public class MiahootComponent {
     }
 
     public MiahootEntity updateMiahoot(final Miahoot miahoot, final String userId, String oldName)
-            throws MiahootEntityNotFoundException, MiahootAlreadyExistException, MiahootEmptyException,
-            MiahootQuestionEmptyException, DuplicationLabelReponsePourUneQuestionException,
-            NbReponsesVraiInvalidException { // , MiahootAlreadyExistException, MiahootUserIdNotSameException
+        throws ChaineCaractereVideOuNullException, MiahootEntityNotFoundException, MiahootAlreadyExistException, MiahootEmptyException,
+        MiahootQuestionEmptyException, DuplicationLabelReponsePourUneQuestionException,
+        NbReponsesVraiInvalidException { // , MiahootAlreadyExistException, MiahootUserIdNotSameException
         MiahootEntity newEntityC = miahootMapper.toEntity(miahoot);
+        
+        if (chaineCaractereEstVideOuNull(newEntityC)) {
+            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
+
+        }
+
         // #########
         // ancien miahoot pas trouvé
         MiahootEntity oldEntity = miahootRepository.findByUserIdAndNom(miahoot.getUserId(), oldName)
