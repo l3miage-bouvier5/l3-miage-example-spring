@@ -1,14 +1,25 @@
 <h1>Résultats par question</h1>
 
 <div class="res" *ngIf = "bsResultat | async as QCMs">
-  <!-- <div *ngFor="let qcm of QCMs">{{qcm.question}} : nbVote : {{nbVote(qcm)}} pourcentage : {{pourcentageBonneReponse(qcm)}} -->
-  <!-- <div *ngFor="let qcm of triMeilleuresReponses(QCMs)">{{qcm.question}}</div> -->
-
   <div id="graphiqueHlr" class="graph">
     <dl *ngFor="let qcm of triMeilleuresReponses(QCMs)" class="taille" style="--pourcentage: {{pourcentageBonneReponse(qcm)}};"><dt class="">{{qcm.question}}</dt><dd>{{pourcentageBonneReponse(qcm)}}%</dd></dl>
   </div>
 
 </div>
+
+<!-- 
+<section *ngIf = "bsResultat | async as QMCs">
+  <div class="resultats" *ngFor="let qcm of triMeilleuresReponses(QMCs); index as index">
+    <div [class.premier] = "index === 0"  
+         [class.deuxieme] = "index === 1 "
+         [class.troisieme] = "index === 2"
+         [class.dernier] = "index === QMCs.length - 1">
+      {{qcm.question}} avec {{pourcentageBonneReponse(qcm)}}% de bonnes réponses
+    </div>
+  </div>
+</section> -->
+
+
 
 <div style="display:inline-block;margin-top: 5%;text-align: center;margin-right: 50%; margin-left: 25%;">
   
