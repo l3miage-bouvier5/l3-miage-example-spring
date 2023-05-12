@@ -160,7 +160,9 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
     this.bsErrorMessage.pipe(
       take(1),
       map(value => {
-        this._snackBar.open(value, "close");
+        this._snackBar.open(value, "close", {
+          duration: 3000
+        });
       })
     ).subscribe()
     
