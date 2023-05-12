@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subscription, map, of, switchMap } from 'r
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
+import { ConnexionService } from '../services/connexion.service';
 
 @Component({
   selector: 'app-participant',
@@ -16,7 +17,8 @@ export class ParticipantComponent {
 
   constructor(public ps : ParticipantService,
               private _snackBar : MatSnackBar,
-              private router : Router) { 
+              private router : Router,
+              private cs : ConnexionService) { 
     this.obsCurrentQCM = this.ps.obsState.pipe(
       map(state =>{
         if(state){
@@ -40,6 +42,9 @@ export class ParticipantComponent {
 
 
   toAccueil(){
+    this.cs.logout()
+    this.ps.supprimerParticipant()
+    
     this.router.navigateByUrl("")
   }
 }
