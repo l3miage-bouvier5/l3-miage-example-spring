@@ -14,7 +14,6 @@
             <button class="button-62 Aff" (click)="afficherReponse()">Afficher bonne réponse</button>
             <button *ngIf="!bsAfficherVote.value" class="button-62" (click)="afficherVote()">Afficher votes</button>
             <button *ngIf="bsAfficherVote.value" class="button-62" (click)="afficherVote()">Cacher votes</button>
-
             <button class="button-62 Suiv" (click)="nextQuestion()">Question suivante</button>
 
         </div>
@@ -22,7 +21,7 @@
             <h3>{{ S.qcm.question }}</h3>
             <div class="container">
                 <div class="liste">
-                    <div class="reponses" [class.valide]="bsAfficherBonneReponse.value && index === S.qcm.correctanswer"
+                    <div class="reponses" [class.valide]="(bsAfficherBonneReponse|async) && index === S.qcm.correctanswer"
                         *ngFor="let answer of S.qcm.responses; index as index">
                         <h4> {{index + 1}} : {{ answer }}</h4>
                     </div>

@@ -79,6 +79,7 @@
               "browserTarget": "Miahoot:build:production"
             },
             "development": {
+              "host": "0.0.0.0",
               "browserTarget": "Miahoot:build:development"
             }
           },

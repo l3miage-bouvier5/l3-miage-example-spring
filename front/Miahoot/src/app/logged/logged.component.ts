@@ -31,6 +31,7 @@ export class LoggedComponent implements OnDestroy,OnInit {
 
     this.obsState = this.ms.obsState
     this.sub = this.obsState.subscribe()
+    this.ms.bsAfficherQuestion.subscribe(this.bsAfficherBonneReponse)
 
   }
 

@@ -36,6 +36,8 @@ export class CurrentMiahootService implements OnDestroy {
 
   private questions: Question[] = []
 
+  readonly bsAfficherQuestion = new BehaviorSubject<boolean>(false)
+
   private bsIndex = new BehaviorSubject<number>(0)
 
   // readonly obsParticipants : Observable<string[]>
@@ -114,6 +116,7 @@ export class CurrentMiahootService implements OnDestroy {
     // this.sub.unsubscribe();
   }
   async nextQuestion() {
+    this.bsAfficherQuestion.next(false)
     this.obsState.pipe(
       take(1),
       tap(state => {
