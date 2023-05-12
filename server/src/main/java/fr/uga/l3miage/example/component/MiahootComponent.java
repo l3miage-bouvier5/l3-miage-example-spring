@@ -7,6 +7,7 @@ import fr.uga.l3miage.example.models.QuestionEntity;
 import fr.uga.l3miage.example.repository.MiahootRepository;
 import fr.uga.l3miage.example.response.Miahoot;
 import fr.uga.l3miage.example.response.Question;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -36,12 +37,19 @@ public class MiahootComponent {
 
     public MiahootEntity createMiahoot(final MiahootEntity entity)
             throws MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException,
-            DuplicationLabelReponsePourUneQuestionException, NbReponsesVraiInvalidException {
+            DuplicationLabelReponsePourUneQuestionException, NbReponsesVraiInvalidException,
+            ChaineCaractereVideOuNullException {
         // userId is present and nom is present -> throw MiahootAlreadyExistException
         // userId is not present -> all good
         // userId present and nom isnt -> all good
+
+        if ((StringUtils.isBlank(entity.getNom()))) {
+            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un nom Vide ou Null"));
+
+        }
+
         if (miahootRepository.findByUserIdAndNom(entity.getUserId(), entity.getNom()).isPresent()) {
-            throw new MiahootAlreadyExistException( "le miahoot existe déja en BD", entity.getUserId());
+            throw new MiahootAlreadyExistException("le miahoot existe déja en BD", entity.getUserId());
         }
 
         if (entity.getQuestions() == null || entity.getQuestions().isEmpty()) {
@@ -75,39 +83,45 @@ public class MiahootComponent {
                         entity.getNom(), entity.getUserId(), q.getLabel()));
             }
         }
+
         return miahootRepository.save(entity);
     }
 
-    public MiahootEntity updateMiahoot(final Miahoot miahoot, final String userId, String oldName) 
-        throws MiahootEntityNotFoundException, MiahootAlreadyExistException, MiahootEmptyException, MiahootQuestionEmptyException, DuplicationLabelReponsePourUneQuestionException, NbReponsesVraiInvalidException{ // , MiahootAlreadyExistException, MiahootUserIdNotSameException
+    public MiahootEntity updateMiahoot(final Miahoot miahoot, final String userId, String oldName)
+            throws MiahootEntityNotFoundException, MiahootAlreadyExistException, MiahootEmptyException,
+            MiahootQuestionEmptyException, DuplicationLabelReponsePourUneQuestionException,
+            NbReponsesVraiInvalidException { // , MiahootAlreadyExistException, MiahootUserIdNotSameException
         MiahootEntity newEntityC = miahootMapper.toEntity(miahoot);
-        //#########
+        // #########
         // ancien miahoot pas trouvé
         MiahootEntity oldEntity = miahootRepository.findByUserIdAndNom(miahoot.getUserId(), oldName)
                 .orElseThrow(() -> new MiahootEntityNotFoundException(
-                        String.format("Aucun Miahoot de nom [%s] n'a été trouvée dans la BD pour le update", oldName), miahoot.getUserId(), oldName ));
-        
-        //#########                
+                        String.format("Aucun Miahoot de nom [%s] n'a été trouvée dans la BD pour le update", oldName),
+                        miahoot.getUserId(), oldName));
+
+        // #########
         // nouveau miahoot existe déja dans la base
-        if(miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()){
+        if (miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()) {
             throw new MiahootAlreadyExistException("le miahoot existe déja en BD");
-            //throw new MiahootAlreadyExistException( "le miahoot existe déja en BD", userId);
+            // throw new MiahootAlreadyExistException( "le miahoot existe déja en BD",
+            // userId);
         }
 
-
-        //#########
+        // #########
         if (miahoot.getQuestions() == null || miahoot.getQuestions().isEmpty()) {
-            throw new MiahootEmptyException(String.format("Le nouveau miahoot ne contient aucune question", miahoot.getUserId()),
+            throw new MiahootEmptyException(
+                    String.format("Le nouveau miahoot ne contient aucune question", miahoot.getUserId()),
                     miahoot.getUserId());
         }
 
-        //#########
+        // #########
         // verifier que chaque question contient au moins une reponse
         for (Question q : miahoot.getQuestions()) {
             if (q.getReponses() == null || q.getReponses().isEmpty()) {
                 throw new MiahootQuestionEmptyException(
-                    String.format("le miahoot [%s] a une ou plusieurs question(s) vide(s) ou null",
-                    miahoot.getNom()), miahoot.getNom(), miahoot.getUserId(), q.getLabel());
+                        String.format("le miahoot [%s] a une ou plusieurs question(s) vide(s) ou null",
+                                miahoot.getNom()),
+                        miahoot.getNom(), miahoot.getUserId(), q.getLabel());
             }
         }
 
@@ -126,18 +140,19 @@ public class MiahootComponent {
             }
         }
 
-        /* 
-        for (QuestionEntity q : newEntityC.getQuestions()) {
-            if (QuestionComponent.nbReponsesVrai(q) == 0) {
-                throw new NbReponsesVraiInvalidException(String.format(
-                        "le miahoot [%s] du user [%s] a la question [%s] avec aucune réponse vrai",
-                        entity.getNom(), entity.getUserId(), q.getLabel()));
-            }
-        }
-        */
+        /*
+         * for (QuestionEntity q : newEntityC.getQuestions()) {
+         * if (QuestionComponent.nbReponsesVrai(q) == 0) {
+         * throw new NbReponsesVraiInvalidException(String.format(
+         * "le miahoot [%s] du user [%s] a la question [%s] avec aucune réponse vrai",
+         * entity.getNom(), entity.getUserId(), q.getLabel()));
+         * }
+         * }
+         */
         // supprimer l'encien miahoot
-        //miahootRepository.deleteByUserIdAndNom(oldEntity.getUserId(), oldEntity.getNom());
-        //this.deleteMiahoot(oldEntity.getUserId(), oldEntity.getNom());
+        // miahootRepository.deleteByUserIdAndNom(oldEntity.getUserId(),
+        // oldEntity.getNom());
+        // this.deleteMiahoot(oldEntity.getUserId(), oldEntity.getNom());
         miahootMapper.mergeMiahootEntity(oldEntity, miahoot);
         return miahootRepository.save(oldEntity);
     }
