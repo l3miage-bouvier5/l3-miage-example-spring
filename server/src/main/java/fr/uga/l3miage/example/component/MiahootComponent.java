@@ -45,10 +45,6 @@ public class MiahootComponent {
         // userId is not present -> all good
         // userId present and nom isnt -> all good
 
-        if (chaineCaractereEstVideOuNull(entity)) {
-            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
-
-        }
 
         if (miahootRepository.findByUserIdAndNom(entity.getUserId(), entity.getNom()).isPresent()) {
             throw new MiahootAlreadyExistException("le miahoot existe déja en BD", entity.getUserId());
@@ -86,6 +82,11 @@ public class MiahootComponent {
             }
         }
 
+        if (chaineCaractereEstVideOuNull(entity)) {
+            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
+
+        }
+        
         return miahootRepository.save(entity);
     }
 
@@ -95,10 +96,6 @@ public class MiahootComponent {
         NbReponsesVraiInvalidException { // , MiahootAlreadyExistException, MiahootUserIdNotSameException
         MiahootEntity newEntityC = miahootMapper.toEntity(miahoot);
         
-        if (chaineCaractereEstVideOuNull(newEntityC)) {
-            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
-
-        }
 
         // #########
         // ancien miahoot pas trouvé
@@ -148,6 +145,10 @@ public class MiahootComponent {
             }
         }
 
+        if (chaineCaractereEstVideOuNull(newEntityC)) {
+            throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un champs Vide ou Null supposé être une chaine de caractère"));
+
+        }
         // supprimer l'encien miahoot
         // miahootRepository.deleteByUserIdAndNom(oldEntity.getUserId(),
         // oldEntity.getNom());
