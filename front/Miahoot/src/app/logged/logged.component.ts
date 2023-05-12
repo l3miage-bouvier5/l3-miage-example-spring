@@ -69,7 +69,6 @@ export class LoggedComponent implements OnDestroy,OnInit {
 
   async getMiahoot(uid : string , nom : string){
     this.bsMiahoot.next(await this.converter.getMiahoot(uid,nom))
-    console.log(this.bsMiahoot.value)
     await this.ms.projeterMiahoot(this.bsMiahoot.value)
   }
 

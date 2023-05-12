@@ -19,7 +19,7 @@ export class IdMiahootComponent implements OnInit{
               private router : Router,
               private appRef: ApplicationRef){
     this.obsState = this.ms.obsState.pipe(
-      tap(state => console.log("state : ", state))
+      tap(state =>state)
     )
   }
   async goMiahoot(){

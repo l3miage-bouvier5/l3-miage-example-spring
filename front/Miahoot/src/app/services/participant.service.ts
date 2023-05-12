@@ -118,7 +118,6 @@ export class ParticipantService {
         take(1),
         map(state => state.miahoot),
         tap(miahoot =>{
-          console.log("la je passe")
           
           updateDoc(doc(this.fs, `miahoot/${miahoot.id}`), {
             participants: arrayRemove(this.id),
