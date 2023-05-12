@@ -115,8 +115,14 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
               this.bsErrorMessage.next("Modifié !")
               this.openMessage();
             } catch (err: any) {
-              this.bsErrorMessage.next(err.error.errorMessage)
-              this.openMessage();
+              if(err){
+                this.bsErrorMessage.next(err.error.errorMessage)
+                this.openMessage();   
+              } else {
+                this.bsErrorMessage.next("Erreur sur le format JSON")
+                this.openMessage();
+              }
+              
             }
 
           }else {
@@ -126,8 +132,13 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
               this.bsErrorMessage.next("Envoyé !")
               this.openMessage();
             } catch (err: any) {
-              this.bsErrorMessage.next(err.error.errorMessage)
-              this.openMessage();
+              if(err){
+                this.bsErrorMessage.next(err.error.errorMessage)
+                this.openMessage();   
+              } else {
+                this.bsErrorMessage.next("Erreur sur le format JSON")
+                this.openMessage();
+              }
             }
           }
 
