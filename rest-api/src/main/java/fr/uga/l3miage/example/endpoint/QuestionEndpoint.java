@@ -3,7 +3,6 @@ package fr.uga.l3miage.example.endpoint;
 import fr.uga.l3miage.example.annotations.Error400Custom;
 import fr.uga.l3miage.example.error.*;
 import fr.uga.l3miage.example.response.Question;
-import fr.uga.l3miage.example.response.Test;
 import fr.uga.l3miage.example.request.CreateQuestionRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>

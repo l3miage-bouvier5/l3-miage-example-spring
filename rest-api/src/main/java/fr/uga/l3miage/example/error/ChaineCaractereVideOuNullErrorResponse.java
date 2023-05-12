@@ -39,16 +39,12 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 @Getter
 @ToString(callSuper = true, exclude = "errorCodeSwaggerDocumentation")
 @EqualsAndHashCode(callSuper = true)
-public class DuplicationLabelReponsePourUneQuestionErrorResponse extends ErrorResponse {
+public class ChaineCaractereVideOuNullErrorResponse extends ErrorResponse {
     protected static final String TYPE_NAME = "AER_QUESTION_IS_NOT_FOUND";
-
-    @Schema(name = "errorCode", description = "AER_Ce code d'erreur est aussi le discriminant pour le polymorphisme", allowableValues = TYPE_NAME, implementation = String.class, accessMode = Schema.AccessMode.READ_WRITE)
-    @JsonProperty(access = WRITE_ONLY)
-    private final String errorCodeSwaggerDocumentation = "Field used only to generate documentation, don't use it";
 
     @Builder
     @Jacksonized
-    public DuplicationLabelReponsePourUneQuestionErrorResponse(String uri, HttpStatus httpStatus, ErrorCode errorCode,
+    public ChaineCaractereVideOuNullErrorResponse(String uri, HttpStatus httpStatus, ErrorCode errorCode,
             String errorMessage) {
         super(uri, httpStatus, errorCode, errorMessage);
     }

@@ -1,7 +1,6 @@
 package fr.uga.l3miage.example.endpoint;
 
 import fr.uga.l3miage.example.annotations.Error400Custom;
-import fr.uga.l3miage.example.error.MiahootEntityNotDeletedErrorResponse;
 import fr.uga.l3miage.example.error.MiahootNotFoundErrorResponse;
 import fr.uga.l3miage.example.request.CreateMiahootRequest;
 import fr.uga.l3miage.example.response.Miahoot;
@@ -50,7 +49,8 @@ public interface MiahootEndpoint {
         @ResponseStatus(HttpStatus.ACCEPTED)
 
         @PatchMapping("{userId}/{oldName}")
-        Miahoot updateMiahootEntity(@RequestBody Miahoot miahoot, @PathVariable String userId, @PathVariable String oldName);
+        Miahoot updateMiahootEntity(@RequestBody Miahoot miahoot, @PathVariable String userId,
+                        @PathVariable String oldName);
 
         // DELETE
         @Operation(description = "Suppression d'une entité Miahoot en bd")

@@ -74,6 +74,9 @@ public class MiahootService {
             throw new NbReponsesVraiInvalidRestException(String.format(
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot (%s) contient une ou plusieurs questions qui n'ont aucune réponse vraie",
                     newMiahootEntity.getNom()));
+        } catch (ChaineCaractereVideOuNullException ex) {
+            throw new ChaineCaractereVideOuNullRestException(String.format(
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot contient un nom Vide ou Null"));
         }
     }
 
@@ -82,23 +85,25 @@ public class MiahootService {
         CreateMiahootRequest createMiahootRequest = miahootMapper.toDtoCreate(miahootMapper.toEntity(miahoot));
         try {
             return miahootMapper.toDto(miahootComponent.updateMiahoot(miahoot, userId, oldName));
-        } catch (MiahootEntityNotFoundException ex) { //#########
-            throw new MiahootEntityNotFoundRestException(String.format("Aucun Miahoot de nom [%s] n'a été trouvée dans la BD pour le update", oldName),
+        } catch (MiahootEntityNotFoundException ex) { // #########
+            throw new MiahootEntityNotFoundRestException(
+                    String.format("Aucun Miahoot de nom [%s] n'a été trouvée dans la BD pour le update", oldName),
                     ex.getMessage(), userId, ex);
-        } catch (MiahootAlreadyExistException ex){ //#########
+        } catch (MiahootAlreadyExistException ex) { // #########
             throw new MiahootAlreadyExistRestException(String.format(
                     "Une erreur lors de la modifiction de l'entité Miahoot à été détecté: le nouveau miahoot nom = [%s]  déjà existant en base de donné",
                     miahoot.getNom()), miahoot);
-        } catch (MiahootEmptyException ex) { //#########
+        } catch (MiahootEmptyException ex) { // #########
             throw new MiahootEmptyRestException(String.format(
-                "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot [%s]  ne contient pas de questions",
-                miahoot.getNom()), createMiahootRequest, ex);
-        } catch (MiahootQuestionEmptyException ex) {//#########
+                    "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot [%s]  ne contient pas de questions",
+                    miahoot.getNom()), createMiahootRequest, ex);
+        } catch (MiahootQuestionEmptyException ex) {// #########
             // throw new MiahootQuestionEmptyRestException("Une question no possède pas de
             // réponse", ex);
             throw new MiahootQuestionEmptyRestException(
                     String.format("le miahoot [%s] a une ou plusieurs question(s) vide(s) ou null",
-                            miahoot.getNom()), createMiahootRequest, ex);
+                            miahoot.getNom()),
+                    createMiahootRequest, ex);
         } catch (DuplicationLabelReponsePourUneQuestionException ex) {
             throw new DuplicationLabelReponsePourUneQuestionRestException(String.format(
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec le nom = [%s] contient une ou plusieurs questions qui ont 2 réponses identiques",
@@ -108,8 +113,7 @@ public class MiahootService {
                     "Une erreur lors de la création de l'entité Miahoot à été détecté: le miahoot avec le nom = [%s] contient une ou plusieurs questions qui n'ont aucune réponse vrai",
                     miahoot.getNom()));
         }
-        
-        
+
     }
 
     @Transactional
