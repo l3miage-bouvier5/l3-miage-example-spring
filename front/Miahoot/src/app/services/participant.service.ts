@@ -1,8 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import {
   Firestore,
+  arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   docData,
   getDoc,
@@ -108,6 +110,25 @@ export class ParticipantService {
    */
   resetVote() {
     this.bsVoted.next(false);
+  }
+
+  supprimerParticipant() {
+    try {
+      this.obsState.pipe(
+        take(1),
+        map(state => state.miahoot),
+        tap(miahoot =>{
+          console.log("la je passe")
+          
+          updateDoc(doc(this.fs, `miahoot/${miahoot.id}`), {
+            participants: arrayRemove(this.id),
+          })}
+          )
+      ).subscribe()
+      deleteDoc(doc(this.fs, `anonymes/${this.id}`))
+    } catch (error) {
+      
+    }
   }
 
   /*

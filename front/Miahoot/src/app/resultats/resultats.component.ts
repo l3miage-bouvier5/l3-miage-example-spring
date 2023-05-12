@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CurrentMiahootService } from '../services/current-miahoot.service';
 import { MiahootProjected, QCMProjected } from '../miahoot';
 import { Router } from '@angular/router';
