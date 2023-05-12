@@ -45,7 +45,7 @@ public class MiahootComponent {
         // userId is not present -> all good
         // userId present and nom isnt -> all good
 
-        if ((StringUtils.isBlank(entity.getNom()))) {
+        if (chaineCaractereEstVideOuNull(entity)) {
             throw new ChaineCaractereVideOuNullException(String.format("le miahoot a un nom Vide ou Null"));
 
         }
