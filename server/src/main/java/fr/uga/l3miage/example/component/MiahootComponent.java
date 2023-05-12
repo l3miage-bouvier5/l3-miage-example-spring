@@ -103,7 +103,7 @@ public class MiahootComponent {
 
         // #########
         // nouveau miahoot existe déja dans la base
-        if (miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent()) {
+        if (miahootRepository.findByUserIdAndNom(miahoot.getUserId(), miahoot.getNom()).isPresent() && !(oldName.equals(miahoot.getNom()))) {
             throw new MiahootAlreadyExistException("le miahoot existe déja en BD");
             // throw new MiahootAlreadyExistException( "le miahoot existe déja en BD",
             // userId);
