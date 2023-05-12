@@ -37,7 +37,9 @@ export class ParticipantComponent {
     this.ps.vote(proposition)
   }
   openMessage(answer : string) {
-    this._snackBar.open(`Vote enregistré pour ${answer}`, "OK");
+    this._snackBar.open(`Vote enregistré pour ${answer}`, "OK", {
+      duration: 3000
+    });
   }
 
 

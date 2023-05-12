@@ -35,7 +35,7 @@ import { ParticipantComponent } from './participant/participant.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultatsComponent } from './resultats/resultats.component';
 import { IdMiahootComponent } from './id-miahoot/id-miahoot.component';
-import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
