@@ -4,12 +4,15 @@ import fr.uga.l3miage.example.exception.technical.*;
 import fr.uga.l3miage.example.mapper.MiahootMapper;
 import fr.uga.l3miage.example.models.MiahootEntity;
 import fr.uga.l3miage.example.models.QuestionEntity;
+import fr.uga.l3miage.example.models.ReponseEntity;
 import fr.uga.l3miage.example.repository.MiahootRepository;
 import fr.uga.l3miage.example.response.Miahoot;
 import fr.uga.l3miage.example.response.Question;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -126,15 +129,6 @@ public class MiahootComponent {
             }
         }
 
-        /* 
-        for (QuestionEntity q : newEntityC.getQuestions()) {
-            if (QuestionComponent.nbReponsesVrai(q) == 0) {
-                throw new NbReponsesVraiInvalidException(String.format(
-                        "le miahoot [%s] du user [%s] a la question [%s] avec aucune réponse vrai",
-                        entity.getNom(), entity.getUserId(), q.getLabel()));
-            }
-        }
-        */
         // supprimer l'encien miahoot
         //miahootRepository.deleteByUserIdAndNom(oldEntity.getUserId(), oldEntity.getNom());
         //this.deleteMiahoot(oldEntity.getUserId(), oldEntity.getNom());
@@ -162,6 +156,38 @@ public class MiahootComponent {
         for (MiahootEntity m : l) {
             miahootRepository.deleteByUserIdAndNom(userId, m.getNom());
         }
+    }
+
+    public static boolean chaineCaractereEstVideOuNull(MiahootEntity entity){
+        boolean res = false;
+        // verif nom du miahoot
+        if (StringUtils.isBlank(entity.getNom())) {
+            res = true;
+        }
+        else{
+            // boucle de recherche sur les questions du miahoot
+            Iterator<QuestionEntity> iteratorQ = entity.getQuestions().iterator();
+            while (iteratorQ.hasNext() && res==false) {
+                QuestionEntity q = iteratorQ.next();
+                // verif label question q
+                if(StringUtils.isBlank(q.getLabel())){
+                    res=true;
+                }else{
+                    // boucle de recherche sur les reponses d'une question
+                    Iterator<ReponseEntity> iteratorR = q.getReponses().iterator();
+                    while (iteratorR.hasNext() && res==false){
+                        ReponseEntity r = iteratorR.next();
+                        // verif label de reponse
+                        if(StringUtils.isBlank(r.getLabel())){
+                            res = true;
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        return res;
     }
 
 }
