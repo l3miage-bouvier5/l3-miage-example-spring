@@ -37,10 +37,14 @@ export class ConverterService {
     
   }
 
-  async getMiahoots(uid: string) : Promise<Miahoot[]>{
-    const miahoots = await lastValueFrom(this.http.get<Miahoot[]>(`/api/v0/miahoot/${uid}`))
-    miahoots.forEach(m => m.questions.forEach(question => question.reponses.sort(() => Math.random() - 0.5)))
-    return miahoots
+  async getMiahoots(uid: string) : Promise<Miahoot[] | undefined>{
+    try{
+      const miahoots = await lastValueFrom(this.http.get<Miahoot[]>(`/api/v0/miahoot/${uid}`))
+      miahoots.forEach(m => m.questions.forEach(question => question.reponses.sort(() => Math.random() - 0.5)))
+      return miahoots
+    } catch(e:any) {
+      return undefined
+    }
   }
 
   async deleteMiahoot(uid: string, nom: string) {
@@ -52,7 +56,7 @@ export class ConverterService {
 
     try {
       
-      const truc = lastValueFrom(this.http.post<any>(`/api/v0/miahoot/${uid}/${nom}`,res));
+      const truc = lastValueFrom(this.http.patch<any>(`/api/v0/miahoot/${uid}/${nom}`,res));
       
       return truc;
 

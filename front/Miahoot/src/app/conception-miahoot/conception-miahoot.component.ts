@@ -109,11 +109,11 @@ export class ConceptionMiahootComponent implements OnInit, OnDestroy{
         map(async user => {
           // cas de modification ou de création
           if(this.ms.bsUpdate.value){
-            try {
-            await this.conv.putMiahoot(user!.uid, this.ms.bsMiahoot.value.nom, this.code);
-            this.bsValide.next(true)
-            this.bsErrorMessage.next("Envoyé !")
-            this.openMessage();
+            try {              
+              await this.conv.putMiahoot(user!.uid, this.ms.bsMiahoot.value.nom, this.code);
+              this.bsValide.next(true)
+              this.bsErrorMessage.next("Modifié !")
+              this.openMessage();
             } catch (err: any) {
               this.bsErrorMessage.next(err.error.errorMessage)
               this.openMessage();

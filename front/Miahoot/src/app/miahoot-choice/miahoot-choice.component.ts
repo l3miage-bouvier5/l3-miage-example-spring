@@ -44,7 +44,11 @@ export class MiahootChoiceComponent {
   }
 
   async getMiahoots(uid:string){
-    this.miahoots.next(await this.conv.getMiahoots(uid))
+    const res = await this.conv.getMiahoots(uid)
+    if(res){
+      this.miahoots.next(res)
+    }
+    
   }
 
   /*
