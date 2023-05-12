@@ -13,7 +13,7 @@
     <h1 *ngIf = "m.length !== 0  ; else noMiahoot">Choisissez votre miahoot à présenter</h1>
     <ng-template #noMiahoot><h1>Créez votre premier Miahoot !</h1>
     </ng-template>
-    <button *ngIf="this.miahoots.value.length" mat-raised-button color="primary" (click)="deleteAll(m)">Tout supprimer</button>
+    <button *ngIf="this.miahoots.value.length > 1" mat-raised-button color="primary" (click)="deleteAll(m)">Tout supprimer</button>
         <div class="container" 
             *ngFor="let miahoot of m">
             <h2>{{miahoot.nom}}</h2>
